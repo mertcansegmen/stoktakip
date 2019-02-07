@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UyeOlActivity">
+
+    <ImageView
+        android:id="@+id/img_logo"
+        android:layout_width="250dp"
+        android:layout_height="171dp"
+        android:layout_marginTop="50dp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/txt_kadi"
+
+        app:srcCompat="@drawable/logo" />
+
+
+    <Button
+        android:id="@+id/btn_uyeol"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+
+        android:layout_marginTop="8dp"
+
+        android:text="ÜYE OL"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_iptal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_sifretekrar" />
+
+    <Button
+        android:id="@+id/btn_iptal"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+
+        android:layout_marginTop="8dp"
+        android:text="İPTAL"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btn_uyeol"
+        app:layout_constraintTop_toBottomOf="@+id/txt_sifretekrar" />
+
+    <EditText
+        android:id="@+id/txt_kadi"
+        android:layout_width="325dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:ems="10"
+        android:hint="Kullanıcı Adı"
+        android:inputType="textPersonName"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/txt_sifre"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img_logo" />
+
+    <EditText
+        android:id="@+id/txt_sifre"
+        android:layout_width="325dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+
+        android:hint="Şifre"
+        android:inputType="textPassword"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_kadi"
+        app:layout_constraintBottom_toTopOf="@+id/txt_sifretekrar" />
+
+    <EditText
+        android:id="@+id/txt_sifretekrar"
+        android:layout_width="325dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="Şifre Tekrarı"
+        android:inputType="textPassword"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_sifre" />
+
+</android.support.constraint.ConstraintLayout>
