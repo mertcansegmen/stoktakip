@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".AnasayfaActivity"></activity>
+        <activity
+            android:name=".AnasayfaActivity"
+            android:label="@string/title_activity_anasayfa"
+            android:theme="@style/NoActionBar"></activity>
         <activity android:name=".GirisActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
