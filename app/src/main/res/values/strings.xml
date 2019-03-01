@@ -3,7 +3,16 @@
     <string name="title_activity_anasayfa">AnasayfaActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Isim Soyisim</string>
+    <string name="nav_header_title">İsim Soyisim</string>
+    <string name="nav_stoklistesi_title">Stok Listesi</string>
+    <string name="nav_urunsat_title">Ürün Sat</string>
+    <string name="nav_urunal_title">Ürün Al</string>
+    <string name="nav_azalanurunler_title">Azalan Ürünler</string>
+    <string name="nav_islemgecmisi_title">İşlem Geçmişi</string>
+    <string name="nav_istatistikler_title">İstatistikler</string>
+    <string name="nav_veritabani_title">Veritabanı</string>
+    <string name="nav_ayarlar_title">Ayarlar</string>
+    <string name="nav_uygulamayipuanla_title">Uygulamayı Puanla</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>

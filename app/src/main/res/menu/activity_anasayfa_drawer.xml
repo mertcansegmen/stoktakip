@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_stoklistesi"
+            android:icon="@drawable/ic_menu_stoklistesi"
+            android:title="@string/nav_stoklistesi_title" />
+        <item
+            android:id="@+id/nav_urunsat"
+            android:icon="@drawable/ic_menu_urunsat"
+            android:title="@string/nav_urunsat_title" />
+        <item
+            android:id="@+id/nav_urunal"
+            android:icon="@drawable/ic_menu_urunal"
+            android:title="@string/nav_urunal_title" />
+        <item
+            android:id="@+id/nav_azalanurunler"
+            android:icon="@drawable/ic_menu_azalanurunler"
+            android:title="@string/nav_azalanurunler_title" />
+        <item
+            android:id="@+id/nav_islemgecmisi"
+            android:icon="@drawable/ic_menu_islemgecmisi"
+            android:title="@string/nav_islemgecmisi_title" />
+        <item
+            android:id="@+id/nav_istatistikler"
+            android:icon="@drawable/ic_menu_istatistikler"
+            android:title="@string/nav_istatistikler_title" />
+        <item
+            android:id="@+id/nav_veritabani"
+            android:icon="@drawable/ic_menu_veritabani"
+            android:title="@string/nav_veritabani_title" />
+        <item
+            android:id="@+id/nav_ayarlar"
+            android:icon="@drawable/ic_menu_ayarlar"
+            android:title="@string/nav_ayarlar_title" />
+
+    </group>
+
+    <group android:checkableBehavior="none">
+        <item
+            android:id="@+id/nav_uygulamayipuanla"
+            android:icon="@drawable/ic_menu_uygulamayipuanla"
+            android:title="@string/nav_uygulamayipuanla_title" />
+    </group>
+
+
+</menu>
