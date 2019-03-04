@@ -9,7 +9,6 @@ import android.widget.Toast;
 public class UyeOlActivity extends AppCompatActivity {
 
     Button uyeOlBtn;
-    Button iptalBtn;
     EditText kadiTxt;
     EditText sifreTxt;
     EditText sifreTekrarTxt;
@@ -21,17 +20,11 @@ public class UyeOlActivity extends AppCompatActivity {
         setContentView(R.layout.activity_uye_ol);
 
         uyeOlBtn = findViewById(R.id.btn_uyeol);
-        iptalBtn = findViewById(R.id.btn_iptal);
         kadiTxt = findViewById(R.id.txt_kadi);
         sifreTxt = findViewById(R.id.txt_sifre);
         sifreTekrarTxt = findViewById(R.id.txt_sifretekrar);
 
         uyeOlBtn.setOnClickListener(e -> uyeOl());
-        iptalBtn.setOnClickListener(e -> iptal());
-    }
-
-    private void iptal() {
-        finish();
     }
 
     private void uyeOl() {

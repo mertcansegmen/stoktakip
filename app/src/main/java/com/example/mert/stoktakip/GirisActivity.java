@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class GirisActivity extends AppCompatActivity {
@@ -13,7 +14,7 @@ public class GirisActivity extends AppCompatActivity {
     EditText kadiTxt;
     EditText sifreTxt;
     Button girisYapBtn;
-    Button uyeOlBtn;
+    TextView uyeOlBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
