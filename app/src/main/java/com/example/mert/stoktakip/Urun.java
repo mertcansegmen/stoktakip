@@ -6,6 +6,7 @@ public class Urun {
     private int adet;
     private float alis;
     private float satis;
+    private String alisSatis;
 
     public Urun(String barkodNo, String ad, int adet, float alis, float satis) {
         this.barkodNo = barkodNo;
@@ -13,6 +14,7 @@ public class Urun {
         this.adet = adet;
         this.alis = alis;
         this.satis = satis;
+        this.alisSatis = alis + "/" + satis;
     }
 
     public String getBarkodNo() {
@@ -53,5 +55,13 @@ public class Urun {
 
     public void setSatis(float satis) {
         this.satis = satis;
+    }
+
+    public String getAlisSatis() {
+        return alisSatis;
+    }
+
+    public void setAlisSatis(String alisSatis) {
+        this.alisSatis = alisSatis;
     }
 }
