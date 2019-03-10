@@ -1,33 +1,73 @@
 package com.example.mert.stoktakip;
 
+import android.app.LauncherActivity;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class GirisActivity extends AppCompatActivity {
 
-    EditText kadiTxt;
-    EditText sifreTxt;
-    Button girisYapBtn;
-    TextView uyeOlBtn;
+    private EditText kadiTxt;
+    private EditText sifreTxt;
+    private Button girisYapBtn;
+    private TextView uyeOlBtn;
+    private CheckBox hatirla;
+
+    private SharedPreferences preferences;
+    private SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_giris);
 
+        preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        editor = preferences.edit();
+
         kadiTxt = findViewById(R.id.txt_kadi);
         sifreTxt = findViewById(R.id.txt_sifre);
         girisYapBtn = findViewById(R.id.btn_giris);
         uyeOlBtn = findViewById(R.id.btn_uyeol);
+        hatirla = findViewById(R.id.checkbox_hatirla);
+
+        sharedPreferencesKontrol();
 
         girisYapBtn.setOnClickListener(e -> girisYap());
         uyeOlBtn.setOnClickListener(e -> uyeOl());
+        hatirla.setOnClickListener(e -> sifreHatirla());
+    }
+
+    private void sifreHatirla() {
+        if(hatirla.isChecked()){
+            editor.putString("checkbox", "True");
+            editor.commit();
+
+            String kadi = kadiTxt.getText().toString();
+            editor.putString("kadi", kadi);
+            editor.commit();
+
+            String sifre = sifreTxt.getText().toString();
+            editor.putString("sifre", sifre);
+            editor.commit();
+        }
+        else{
+            editor.putString("checkbox", "False");
+            editor.commit();
+
+            editor.putString("kadi", "");
+            editor.commit();
+
+            editor.putString("sifre", "");
+            editor.commit();
+        }
     }
 
     private void girisYap() {
@@ -65,5 +105,19 @@ public class GirisActivity extends AppCompatActivity {
     private void alanlariBosalt(){
         sifreTxt.setText(null);
         kadiTxt.setText(null);
+    }
+
+    private void sharedPreferencesKontrol(){
+        String checkBox = preferences.getString("checkbox", "False");
+        String kadi = preferences.getString("kadi", "");
+        String sifre = preferences.getString("sifre", "");
+
+        kadiTxt.setText(kadi);
+        sifreTxt.setText(sifre);
+
+        if(checkBox.equals("True"))
+            hatirla.setChecked(true);
+        else
+            hatirla.setChecked(false);
     }
 }
