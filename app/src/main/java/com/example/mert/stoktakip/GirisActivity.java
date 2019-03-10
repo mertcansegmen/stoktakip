@@ -95,6 +95,7 @@ public class GirisActivity extends AppCompatActivity {
         Intent intent = new Intent(GirisActivity.this, AnasayfaActivity.class);
         intent.putExtra("kadi", kullanici.getKadi());
         startActivity(intent);
+        finish();
     }
 
     private void uyeOl(){

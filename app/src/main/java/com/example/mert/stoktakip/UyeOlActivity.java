@@ -1,5 +1,6 @@
 package com.example.mert.stoktakip;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
@@ -8,10 +9,10 @@ import android.widget.Toast;
 
 public class UyeOlActivity extends AppCompatActivity {
 
-    Button uyeOlBtn;
-    EditText kadiTxt;
-    EditText sifreTxt;
-    EditText sifreTekrarTxt;
+    private Button uyeOlBtn;
+    private EditText kadiTxt;
+    private EditText sifreTxt;
+    private EditText sifreTekrarTxt;
 
 
     @Override
@@ -66,6 +67,8 @@ public class UyeOlActivity extends AppCompatActivity {
         Toast.makeText(UyeOlActivity.this, "Kaydınız başarıyla tamamlandı!",
                 Toast.LENGTH_LONG).show();
         alanlariBosalt();
+        Intent intent = new Intent(this, GirisActivity.class);
+        startActivity(intent);
 
     }
 
