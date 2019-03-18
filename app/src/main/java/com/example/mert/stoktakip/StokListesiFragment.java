@@ -9,10 +9,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Toast;
@@ -87,9 +84,20 @@ public class StokListesiFragment extends Fragment {
         fab = v.findViewById(R.id.btn_ekle);
 
         //Geçici kodlar
-        UrunAdapter adapter = new UrunAdapter(getActivity(), R.layout.liste_elemani, urunler);
+        UrunAdapterStokListesi adapter = new UrunAdapterStokListesi(getActivity(), R.layout.liste_elemani_stok_listesi, urunler);
         liste.setAdapter(adapter);
 
+        search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
 
         fab.setOnClickListener(e -> yeniStokKaydiEkle());
         barkodBtn.setOnClickListener(e -> BarkodOkuyucuAc());

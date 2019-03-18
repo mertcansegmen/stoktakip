@@ -11,7 +11,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-public class UrunAdapter extends ArrayAdapter<Urun> {
+public class UrunAdapterStokListesi extends ArrayAdapter<Urun> {
 
     private Context context;
     private int resource;
@@ -24,7 +24,7 @@ public class UrunAdapter extends ArrayAdapter<Urun> {
         TextView alisSatis;
     }
 
-    public UrunAdapter(@NonNull Context context, int resource, Urun[] urun) {
+    public UrunAdapterStokListesi(@NonNull Context context, int resource, Urun[] urun) {
         super(context, resource, urun);
         this.context = context;
         this.resource = resource;
@@ -49,7 +49,7 @@ public class UrunAdapter extends ArrayAdapter<Urun> {
 
         if(convertView == null){
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = inflater.inflate(R.layout.liste_elemani, parent, false);
+            convertView = inflater.inflate(R.layout.liste_elemani_stok_listesi, parent, false);
 
             holder = new ViewHolder();
             holder.urunAdi = (TextView) convertView.findViewById(R.id.urun_adi);

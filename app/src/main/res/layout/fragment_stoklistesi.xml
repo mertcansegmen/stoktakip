@@ -42,16 +42,27 @@
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/brwhitered" />
 
+    <View
+        android:id="@+id/cizgi"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="16dp"
+        android:background="#1AFFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/liste"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/search_view" />
+
     <ListView
         android:id="@+id/liste"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search_view" />
+        app:layout_constraintTop_toBottomOf="@+id/cizgi" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/btn_ekle"

@@ -8,6 +8,13 @@ public class Urun {
     private float satis;
     private String alisSatis;
 
+    public Urun(){}
+
+    public Urun(String barkodNo, String ad){
+        this.barkodNo = barkodNo;
+        this.ad = ad;
+    }
+
     public Urun(String barkodNo, String ad, int adet, float alis, float satis) {
         this.barkodNo = barkodNo;
         this.ad = ad;
