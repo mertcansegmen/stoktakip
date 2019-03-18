@@ -78,8 +78,6 @@ public class UrunAdapterUrunAlSat extends ArrayAdapter<Urun> {
             }
         });
 
-
-
         return convertView;
     }
 }

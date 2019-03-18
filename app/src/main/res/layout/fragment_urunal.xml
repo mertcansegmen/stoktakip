@@ -77,7 +77,8 @@
         <com.github.paolorotolo.expandableheightlistview.ExpandableHeightListView
             android:id="@+id/urun_liste"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:background="#3D3D3D"/>
 
         <View
             android:id="@+id/cizgi3"
