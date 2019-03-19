@@ -7,10 +7,12 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.vision.text.Line;
 import com.reginald.editspinner.EditSpinner;
@@ -50,9 +52,8 @@ public class UrunAdapterUrunAlSat extends ArrayAdapter<Urun> {
         spinner = convertView.findViewById(R.id.spinner);
         spinner.setEditable(false);
         spinner.setText(sayilar[0]);
-        adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, sayilar);
+        adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, sayilar);
         spinner.setAdapter(adapter);
-
         spinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -65,6 +66,11 @@ public class UrunAdapterUrunAlSat extends ArrayAdapter<Urun> {
                     spinner.setEditable(false);
             }
         });
+        spinner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {}
+        });
+        View convertViewDuplicate = convertView;
         spinner.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -73,11 +79,18 @@ public class UrunAdapterUrunAlSat extends ArrayAdapter<Urun> {
                     LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) spinner.getLayoutParams();
                     lp.width = LinearLayout.LayoutParams.WRAP_CONTENT;
                     spinner.setLayoutParams(lp);
+                    klavyeyiGizle(convertViewDuplicate);
                 }
                 return false;
             }
         });
 
         return convertView;
+    }
+
+    private void klavyeyiGizle(View convertView) {
+        InputMethodManager inputManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputManager.hideSoftInputFromWindow(convertView.getWindowToken(),
+            InputMethodManager.HIDE_NOT_ALWAYS);
     }
 }
