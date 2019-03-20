@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">StokTakip</string>
+
     <string name="title_activity_anasayfa">AnasayfaActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -16,6 +17,23 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_cikis_yap">Çıkış Yap</string>
+
+    <string name="giris">Giriş Yap</string>
+    <string name="kadi">Kullanıcı Adı</string>
+    <string name="sifre">Şifre</string>
+    <string name="sifretekrar">Şifre Tekrarı</string>
+    <string name="kaydol">Hesabınız yok mu? Kayıt olun.</string>
+    <string name="hatirla">Giriş bilgilerini hatırla</string>
+    <string name="uyeol">Kayıt Ol</string>
+    <string name="sepet">Ürün Sepeti</string>
+    <string name="aciklama">Açıklama (İsteğe Bağlı)</string>
+    <string name="urunal">Ürün Al</string>
+    <string name="urunsat">Ürün Sat</string>
+
+    <string name="urunadi">Ürün Adı</string>
+    <string name="ornekbarkod">123456789012</string>
+    <string name="ornekstokadet">123</string>
+    <string name="ornekfiyat">1.25/1.75</string>
     
     <string-array name="sayilar">
         <item>1</item>

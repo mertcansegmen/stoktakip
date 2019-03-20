@@ -1,6 +1,8 @@
 package com.example.mert.stoktakip;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -23,6 +25,7 @@ public class StokListesiFragment extends Fragment {
     ImageButton barkodBtn;
     FloatingActionButton fab;
     ListView liste;
+    MediaPlayer mp;
     Urun[] urunler = new Urun[]{
             new Urun("978020137962", "Biscolata Starz", 230, 1.25f, 1.85f),
             new Urun("908328372838", "Biskrem", 12, 1.25f, 1.50f),
@@ -82,6 +85,7 @@ public class StokListesiFragment extends Fragment {
         liste = v.findViewById(R.id.liste);
         barkodBtn = v.findViewById(R.id.btn_barcode);
         fab = v.findViewById(R.id.btn_ekle);
+        mp = MediaPlayer.create(v.getContext(), R.raw.scan_sound);
 
         //Geçici kodlar
         UrunAdapterStokListesi adapter = new UrunAdapterStokListesi(getActivity(), R.layout.liste_elemani_stok_listesi, urunler);
@@ -125,6 +129,7 @@ public class StokListesiFragment extends Fragment {
                 if(data != null){
                     Barcode barcode = data.getParcelableExtra("barcode");
                     Toast.makeText(getActivity(), "Barkod No: " + barcode.displayValue, Toast.LENGTH_LONG).show();
+                    mp.start();
                 }
                 else{
                     Toast.makeText(getActivity(), "Barkod okuma başarısız oldu.", Toast.LENGTH_LONG).show();

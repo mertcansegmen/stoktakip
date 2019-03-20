@@ -20,18 +20,24 @@
                 android:id="@+id/interceptorLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+
                 android:layout_marginRight="14dp"
                 android:layout_marginEnd="14dp"
+
                 android:layout_alignParentStart="true"
                 android:layout_alignParentLeft="true"
+
                 android:focusableInTouchMode="true">
 
                 <SearchView
                     android:id="@+id/search_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+
                     android:layout_marginTop="8dp"
+
                     android:iconifiedByDefault="false"
+
                     android:queryHint="Ürün adı ya da barkod no">
 
                 </SearchView>
@@ -41,12 +47,16 @@
                 android:id="@+id/btn_barcode"
                 android:layout_width="36dp"
                 android:layout_height="48dp"
+
                 android:layout_marginRight="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginTop="8dp"
+
                 android:background="@android:color/transparent"
+
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
+
                 android:scaleType="centerInside"
                 app:srcCompat="@drawable/brwhitered" />
         </RelativeLayout>
@@ -61,18 +71,22 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+
             android:layout_marginLeft="23dp"
             android:layout_marginStart="23dp"
             android:layout_marginTop="5dp"
-            android:text="Ürün Sepeti"
+
+            android:text="@string/sepet"
             android:textSize="18sp" />
 
         <View
             android:id="@+id/cizgi2"
             android:layout_width="match_parent"
             android:layout_height="1dp"
+
             android:layout_marginTop="5dp"
-            android:background="#1AFFFFFF" />
+
+            android:background="@color/dividerArkaplan" />
 
         <com.github.paolorotolo.expandableheightlistview.ExpandableHeightListView
             android:id="@+id/urun_liste"
@@ -84,31 +98,35 @@
             android:id="@+id/cizgi3"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#1AFFFFFF" />
+            android:background="@color/dividerArkaplan" />
 
         <EditText
             android:id="@+id/editText3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+
             android:layout_marginTop="16dp"
             android:layout_marginLeft="19dp"
             android:layout_marginStart="19dp"
             android:layout_marginRight="19dp"
             android:layout_marginEnd="19dp"
-            android:ems="10"
-            android:hint="Açıklama (İsteğe Bağlı)"
+
+            android:hint="@string/aciklama"
             android:inputType="textMultiLine" />
 
         <Button
             android:id="@+id/button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+
             android:layout_marginTop="16dp"
             android:layout_marginLeft="19dp"
             android:layout_marginStart="19dp"
             android:layout_marginRight="19dp"
             android:layout_marginEnd="19dp"
-            android:text="Ürün Al" />
+
+            android:textAllCaps="false"
+            android:text="@string/urunal" />
     </LinearLayout>
 
 

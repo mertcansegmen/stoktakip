@@ -10,17 +10,18 @@
         android:id="@+id/img_logo"
         android:layout_width="0dp"
         android:layout_height="192dp"
-        android:layout_marginStart="52dp"
 
+        android:layout_marginStart="52dp"
         android:layout_marginLeft="52dp"
         android:layout_marginTop="59dp"
         android:layout_marginEnd="52dp"
-
         android:layout_marginRight="52dp"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+
         app:srcCompat="@drawable/logo2" />
 
 
@@ -31,35 +32,36 @@
 
         android:layout_marginStart="50dp"
         android:layout_marginLeft="50dp"
-
         android:layout_marginTop="8dp"
-
         android:layout_marginEnd="50dp"
         android:layout_marginRight="50dp"
-        android:text="ÜYE OL"
+
+        android:text="@string/uyeol"
+        android:textAllCaps="false"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_sifretekrar"
-        app:layout_constraintVertical_bias="0.111" />
+        app:layout_constraintVertical_bias="0.1" />
 
     <EditText
         android:id="@+id/txt_kadi"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+
         android:layout_marginStart="50dp"
         android:layout_marginLeft="50dp"
         android:layout_marginTop="26dp"
         android:layout_marginEnd="50dp"
         android:layout_marginRight="50dp"
-        android:ems="10"
-        android:hint="Kullanıcı Adı"
+
+        android:hint="@string/kadi"
         android:inputType="textPersonName"
         android:textSize="20sp"
+
         app:layout_constraintBottom_toTopOf="@+id/txt_sifre"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/img_logo" />
 
@@ -67,19 +69,19 @@
         android:id="@+id/txt_sifre"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+
         android:layout_marginStart="50dp"
         android:layout_marginLeft="50dp"
-
         android:layout_marginTop="20dp"
         android:layout_marginEnd="50dp"
         android:layout_marginRight="50dp"
-        android:ems="10"
-        android:hint="Şifre"
+
+        android:hint="@string/sifre"
         android:inputType="textPassword"
         android:textSize="20sp"
+
         app:layout_constraintBottom_toTopOf="@+id/txt_sifretekrar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_kadi" />
 
@@ -87,15 +89,17 @@
         android:id="@+id/txt_sifretekrar"
         android:layout_width="0dp"
         android:layout_height="43dp"
+
         android:layout_marginStart="50dp"
         android:layout_marginLeft="50dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="50dp"
         android:layout_marginRight="50dp"
-        android:ems="10"
-        android:hint="Şifre Tekrarı"
+
+        android:hint="@string/sifretekrar"
         android:inputType="textPassword"
         android:textSize="20sp"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_sifre" />

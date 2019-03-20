@@ -4,4 +4,6 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="floatingActionButton">#00766A</color>
+    <color name="dividerArkaplan">#1AFFFFFF</color>
+    <color name="listeArkaplan">#3D3D3D</color>
 </resources>

@@ -2,6 +2,7 @@ package com.example.mert.stoktakip;
 
 import android.content.Intent;
 import android.media.Image;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -25,6 +26,7 @@ public class UrunAlFragment extends Fragment {
     private ExpandableHeightListView liste;
     private TouchInterceptorLayout til;
     private ImageButton barkodBtn;
+    MediaPlayer mp;
 
     //Örnek ürünler, tamamlandığında veritabanından çekilecek
     Urun[] urunler = new Urun[]{ new Urun("978020137962", "Biscolata Starz"),
@@ -41,6 +43,7 @@ public class UrunAlFragment extends Fragment {
         liste = v.findViewById(R.id.urun_liste);
         barkodBtn = v.findViewById(R.id.btn_barcode);
         til = v.findViewById(R.id.interceptorLayout);
+        mp = MediaPlayer.create(v.getContext(), R.raw.scan_sound);
 
         barkodBtn.setOnClickListener(e -> BarkodOkuyucuAc());
         til.setOnClickListener(e -> urunSec());
@@ -66,6 +69,7 @@ public class UrunAlFragment extends Fragment {
                 if(data != null){
                     Barcode barcode = data.getParcelableExtra("barcode");
                     Toast.makeText(getActivity(), "Barkod No: " + barcode.displayValue, Toast.LENGTH_LONG).show();
+                    mp.start();
                 }
                 else{
                     Toast.makeText(getActivity(), "Barkod okuma başarısız oldu.", Toast.LENGTH_LONG).show();

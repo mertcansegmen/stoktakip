@@ -11,11 +11,15 @@
         android:id="@+id/search_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
+
         android:iconifiedByDefault="false"
+
         android:queryHint="Ürün adı ya da barkod no"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btn_barcode"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,27 +32,34 @@
         android:id="@+id/btn_barcode"
         android:layout_width="36dp"
         android:layout_height="48dp"
+
         android:layout_margin="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
+
         android:background="@android:color/transparent"
         android:scaleType="centerInside"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.956"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/brwhitered" />
+
+        app:srcCompat="@drawable/brwhitered"/>
 
     <View
         android:id="@+id/cizgi"
         android:layout_width="match_parent"
         android:layout_height="1dp"
+
         android:layout_alignParentTop="true"
         android:layout_marginTop="16dp"
-        android:background="#1AFFFFFF"
+
+        android:background="@color/dividerArkaplan"
+
         app:layout_constraintBottom_toTopOf="@+id/liste"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -58,17 +69,19 @@
         android:id="@+id/liste"
         android:layout_width="0dp"
         android:layout_height="0dp"
+
+        android:background="@color/listeArkaplan"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cizgi"
-        android:background="#3D3D3D" />
+        app:layout_constraintTop_toBottomOf="@+id/cizgi" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/btn_ekle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
         android:layout_marginEnd="24dp"
         android:layout_marginRight="24dp"
         android:layout_marginBottom="24dp"
@@ -78,10 +91,10 @@
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintHorizontal_bias="1.0" />
 
 
 </android.support.constraint.ConstraintLayout>
