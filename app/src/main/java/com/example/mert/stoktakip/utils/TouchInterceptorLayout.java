@@ -1,10 +1,12 @@
-package com.example.mert.stoktakip;
+package com.example.mert.stoktakip.utils;
 
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.FrameLayout;
 
+
+    // SearchView'u butona çevirmek için custom layout
 public class TouchInterceptorLayout extends FrameLayout {
     public TouchInterceptorLayout(Context context) {
         super(context);

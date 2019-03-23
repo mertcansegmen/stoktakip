@@ -1,8 +1,7 @@
-package com.example.mert.stoktakip;
+package com.example.mert.stoktakip.fragments;
 
 import android.content.Intent;
 import android.media.MediaPlayer;
-import android.media.SoundPool;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,6 +15,10 @@ import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Toast;
 
+import com.example.mert.stoktakip.R;
+import com.example.mert.stoktakip.models.Urun;
+import com.example.mert.stoktakip.adapters.UrunAdapterStokListesi;
+import com.example.mert.stoktakip.activities.BarkodOkuyucuActivity;
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
 
@@ -108,6 +111,7 @@ public class StokListesiFragment extends Fragment {
         return v;
     }
 
+    // Stok kaydı ekle butonunun click listener'ı
     private void yeniStokKaydiEkle() {
         //Activity mi fragment mı ?
 
@@ -115,13 +119,14 @@ public class StokListesiFragment extends Fragment {
         //startActivity(intent);
     }
 
+    // Barkod okuyucu aç butonunun click listener'ı
     private void BarkodOkuyucuAc() {
         Intent intent = new Intent(getActivity(), BarkodOkuyucuActivity.class);
         startActivityForResult(intent, 0);
     }
 
 
-
+    // Barkod tarayıcı kapanınca şimdilik gelen değeri ekrana bastırıyor
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode == 0){

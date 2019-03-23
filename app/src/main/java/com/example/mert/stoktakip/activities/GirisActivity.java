@@ -1,17 +1,19 @@
-package com.example.mert.stoktakip;
+package com.example.mert.stoktakip.activities;
 
-import android.app.LauncherActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.mert.stoktakip.models.Kullanici;
+import com.example.mert.stoktakip.R;
+import com.example.mert.stoktakip.models.VeritabaniYonetici;
 
 public class GirisActivity extends AppCompatActivity {
 
@@ -45,6 +47,7 @@ public class GirisActivity extends AppCompatActivity {
         hatirla.setOnClickListener(e -> sifreHatirla());
     }
 
+    // Beni hatırla checkbox'ının click listener'ı
     private void sifreHatirla() {
         if(hatirla.isChecked()){
             editor.putString("checkbox", "True");
@@ -70,6 +73,7 @@ public class GirisActivity extends AppCompatActivity {
         }
     }
 
+    // Giriş yap butonunun click listener'ı
     private void girisYap() {
         Kullanici kullanici = new Kullanici();
         kullanici.setKadi(kadiTxt.getText().toString());
@@ -77,20 +81,20 @@ public class GirisActivity extends AppCompatActivity {
 
         VeritabaniYonetici vy = new VeritabaniYonetici(GirisActivity.this);
 
-        // Alanlardan herhangi biri boşsa hata ver.
+        // Alanlardan herhangi biri boşsa hata ver
         if(kullanici.getKadi().equals("") || kullanici.getSifre().equals("")){
             Toast.makeText(GirisActivity.this, "Lütfen bütün alanları doldurun.",
                     Toast.LENGTH_LONG).show();
             return;
         }
-        // Eğer kullanıcı adı ya da şifre yanlışsa hata ver.
+        // Eğer kullanıcı adı ya da şifre yanlışsa hata ver
         if(!vy.kullaniciKontrolEt(kullanici.getKadi(), kullanici.getSifre())){
             Toast.makeText(GirisActivity.this, "Kullanıcı adı ya da şifre yanlış.",
                     Toast.LENGTH_LONG).show();
             sifreTxt.setText(null);
             return;
         }
-        // Giriş yapıldıysa anasayfaya yönlendir.
+        // Giriş yapıldıysa anasayfaya yönlendir
         alanlariBosalt();
         Intent intent = new Intent(GirisActivity.this, AnasayfaActivity.class);
         intent.putExtra("kadi", kullanici.getKadi());
@@ -98,6 +102,7 @@ public class GirisActivity extends AppCompatActivity {
         finish();
     }
 
+    // Üye ol butonunun click listener'ı
     private void uyeOl(){
         Intent intent = new Intent(GirisActivity.this, UyeOlActivity.class);
         startActivity(intent);
@@ -108,6 +113,8 @@ public class GirisActivity extends AppCompatActivity {
         kadiTxt.setText(null);
     }
 
+    // Uygulama ilk çalıştığında bu metot çalışıyor, eğer shared preferences'da kayıtlı kullanıcı adı, şifre veya
+    // checkbox durumu varsa onları kontrol edip gerekli alanlara çekiyor
     private void sharedPreferencesKontrol(){
         String checkBox = preferences.getString("checkbox", "False");
         String kadi = preferences.getString("kadi", "");

@@ -1,7 +1,6 @@
-package com.example.mert.stoktakip;
+package com.example.mert.stoktakip.fragments;
 
 import android.content.Intent;
-import android.media.Image;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,17 +10,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Toast;
 
+import com.example.mert.stoktakip.R;
+import com.example.mert.stoktakip.utils.TouchInterceptorLayout;
+import com.example.mert.stoktakip.models.Urun;
+import com.example.mert.stoktakip.adapters.UrunAdapterUrunAlSat;
+import com.example.mert.stoktakip.activities.BarkodOkuyucuActivity;
 import com.github.paolorotolo.expandableheightlistview.ExpandableHeightListView;
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
 
-public class UrunAlFragment extends Fragment {
-
+public class UrunSatFragment extends Fragment {
     private SearchView search;
     private ExpandableHeightListView liste;
     private TouchInterceptorLayout til;
@@ -30,15 +31,13 @@ public class UrunAlFragment extends Fragment {
 
     //Örnek ürünler, tamamlandığında veritabanından çekilecek
     Urun[] urunler = new Urun[]{ new Urun("978020137962", "Biscolata Starz"),
-            new Urun("978020137962", "Kekstra"),
-            new Urun("123456432564", "Biskrem"),
-            new Urun("897613576652", "Laviva"),
-            new Urun("745023898341", "Canga")};
+            new Urun("978020137962", "Eti Karam"),
+            new Urun("123456432564", "Canpare")};
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_urunal, container, false);
+        View v = inflater.inflate(R.layout.fragment_urunsat, container, false);
         search = v.findViewById(R.id.search_view);
         liste = v.findViewById(R.id.urun_liste);
         barkodBtn = v.findViewById(R.id.btn_barcode);
@@ -57,11 +56,13 @@ public class UrunAlFragment extends Fragment {
         return v;
     }
 
+    // Barkod okuyucu aç butonunun click listener'ı
     private void BarkodOkuyucuAc() {
         Intent intent = new Intent(getActivity(), BarkodOkuyucuActivity.class);
         startActivityForResult(intent, 0);
     }
 
+    // Barkod tarayıcı kapanınca şimdilik gelen değeri ekrana bastırıyor
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode == 0){
@@ -81,6 +82,7 @@ public class UrunAlFragment extends Fragment {
         }
     }
 
+    // Ürün arama butonunun click listener'ı
     private void urunSec() {
         Toast.makeText(getActivity(), "Ürünler açılıyor", Toast.LENGTH_LONG).show();
     }

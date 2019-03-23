@@ -1,4 +1,4 @@
-package com.example.mert.stoktakip;
+package com.example.mert.stoktakip.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +11,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
+
+import com.example.mert.stoktakip.fragments.AyarlarFragment;
+import com.example.mert.stoktakip.fragments.AzalanUrunlerFragment;
+import com.example.mert.stoktakip.fragments.IslemGecmisiFragment;
+import com.example.mert.stoktakip.fragments.IstatistiklerFragment;
+import com.example.mert.stoktakip.R;
+import com.example.mert.stoktakip.fragments.StokListesiFragment;
+import com.example.mert.stoktakip.fragments.UrunAlFragment;
+import com.example.mert.stoktakip.fragments.UrunSatFragment;
+import com.example.mert.stoktakip.fragments.VeritabaniFragment;
 
 public class AnasayfaActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {

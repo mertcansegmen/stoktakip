@@ -1,4 +1,4 @@
-package com.example.mert.stoktakip;
+package com.example.mert.stoktakip.activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -6,6 +6,10 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.example.mert.stoktakip.models.Kullanici;
+import com.example.mert.stoktakip.R;
+import com.example.mert.stoktakip.models.VeritabaniYonetici;
 
 public class UyeOlActivity extends AppCompatActivity {
 
@@ -28,6 +32,7 @@ public class UyeOlActivity extends AppCompatActivity {
         uyeOlBtn.setOnClickListener(e -> uyeOl());
     }
 
+    // Uye ol butonunun click listenerı
     private void uyeOl() {
         String kadi = kadiTxt.getText().toString();
         String sifre = sifreTxt.getText().toString();
@@ -39,31 +44,31 @@ public class UyeOlActivity extends AppCompatActivity {
 
         VeritabaniYonetici vy = new VeritabaniYonetici(UyeOlActivity.this);
 
-        // Alanlardan herhangi biri boşsa hata ver.
+        // Alanlardan herhangi biri boşsa hata ver
         if(kadi.equals("") || sifre.equals("") || sifreTekrar.equals("")){
             Toast.makeText(UyeOlActivity.this, "Lütfen bütün alanları doldurun.",
                             Toast.LENGTH_LONG).show();
             return;
         }
-        // Şifre ile şifre tekrarı aynı değilse hata ver.
+        // Şifre ile şifre tekrarı aynı değilse hata ver
         else if(!sifre.equals(sifreTekrar)){
             Toast.makeText(UyeOlActivity.this, "Girdiğiniz şifreler birbiriyle uyuşmuyor.",
                             Toast.LENGTH_LONG).show();
             return;
         }
-        // Kullanıcı adı daha önceden alınmışsa hata ver.
+        // Kullanıcı adı daha önceden alınmışsa hata ver
         else if(vy.kullaniciKontrolEt(kadi)){
             Toast.makeText(UyeOlActivity.this, "Böyle bir kullanıcı zaten mevcut.",
                             Toast.LENGTH_LONG).show();
             return;
         }
-        // Kullanıcıyı ekle. Bir hata oluştuysa kullanıcıya bildir.
+        // Kullanıcıyı ekle. Bir hata oluştuysa kullanıcıya bildir
         if(vy.kullaniciEkle(kullanici) == -1){
             Toast.makeText(UyeOlActivity.this, "Kayıt olurken bir hata oluştu.",
                             Toast.LENGTH_LONG).show();
             return;
         }
-        // Hiç bir hata oluşmadıysa kullanıcıya bildir ve dolu alanları sil.
+        // Hiç bir hata oluşmadıysa kullanıcıya bildir, dolu alanları sil ve anasayfaya geç
         Toast.makeText(UyeOlActivity.this, "Kaydınız başarıyla tamamlandı!",
                 Toast.LENGTH_LONG).show();
         alanlariBosalt();

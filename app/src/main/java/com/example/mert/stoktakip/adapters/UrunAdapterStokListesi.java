@@ -1,4 +1,4 @@
-package com.example.mert.stoktakip;
+package com.example.mert.stoktakip.adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -10,6 +10,9 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+
+import com.example.mert.stoktakip.R;
+import com.example.mert.stoktakip.models.Urun;
 
 public class UrunAdapterStokListesi extends ArrayAdapter<Urun> {
 
@@ -28,7 +31,6 @@ public class UrunAdapterStokListesi extends ArrayAdapter<Urun> {
         super(context, resource, urun);
         this.context = context;
         this.resource = resource;
-
     }
 
     @NonNull
@@ -40,7 +42,6 @@ public class UrunAdapterStokListesi extends ArrayAdapter<Urun> {
         int adet = getItem(position).getAdet();
         float alis = getItem(position).getAlis();
         float satis = getItem(position).getSatis();
-
         Urun urun = new Urun(barkodNo, urunAdi, adet, alis, satis);
 
         final View result;
@@ -64,8 +65,6 @@ public class UrunAdapterStokListesi extends ArrayAdapter<Urun> {
             holder = (ViewHolder)convertView.getTag();
             result = convertView;
         }
-
-
 
         Animation animation = AnimationUtils.loadAnimation(context,
                 (position > lastPosition) ? R.anim.load_down_anim : R.anim.load_up_anim);

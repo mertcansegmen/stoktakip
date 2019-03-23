@@ -1,4 +1,4 @@
-package com.example.mert.stoktakip;
+package com.example.mert.stoktakip.models;
 
 import android.content.ContentValues;
 import android.content.Context;

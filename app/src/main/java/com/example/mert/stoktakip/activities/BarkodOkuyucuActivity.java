@@ -1,9 +1,8 @@
-package com.example.mert.stoktakip;
+package com.example.mert.stoktakip.activities;
 
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +10,7 @@ import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
+import com.example.mert.stoktakip.R;
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;

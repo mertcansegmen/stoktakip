@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <com.example.mert.stoktakip.TouchInterceptorLayout
+            <com.example.mert.stoktakip.utils.TouchInterceptorLayout
                 android:id="@+id/interceptorLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -41,7 +41,7 @@
                     android:queryHint="Ürün adı ya da barkod no">
 
                 </SearchView>
-            </com.example.mert.stoktakip.TouchInterceptorLayout>
+            </com.example.mert.stoktakip.utils.TouchInterceptorLayout>
 
             <ImageButton
                 android:id="@+id/btn_barcode"

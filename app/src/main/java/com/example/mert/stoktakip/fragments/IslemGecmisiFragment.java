@@ -1,4 +1,4 @@
-package com.example.mert.stoktakip;
+package com.example.mert.stoktakip.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,11 +8,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class AyarlarFragment extends Fragment {
+import com.example.mert.stoktakip.R;
+
+public class IslemGecmisiFragment extends Fragment {
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_ayarlar, container, false);
+        return inflater.inflate(R.layout.fragment_islemgecmisi, container, false);
     }
 }

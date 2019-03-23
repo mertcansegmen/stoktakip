@@ -1,4 +1,4 @@
-package com.example.mert.stoktakip;
+package com.example.mert.stoktakip.adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -12,9 +12,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.gms.vision.text.Line;
+import com.example.mert.stoktakip.R;
+import com.example.mert.stoktakip.models.Urun;
 import com.reginald.editspinner.EditSpinner;
 
 public class UrunAdapterUrunAlSat extends ArrayAdapter<Urun> {
@@ -53,7 +53,9 @@ public class UrunAdapterUrunAlSat extends ArrayAdapter<Urun> {
         spinner.setEditable(false);
         spinner.setText(sayilar[0]);
         adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, sayilar);
-        spinner.setAdapter(adapter);
+
+        // Spinner'ın son elemanına tıkandıysa(Diğer), Spinner'ı düzenlenebilir yapıyor ve hint ekliyor
+        // Diğer elemanlardan birisi tıklandıysa düzenlenebilirliği kaldırıyor
         spinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -66,11 +68,16 @@ public class UrunAdapterUrunAlSat extends ArrayAdapter<Urun> {
                     spinner.setEditable(false);
             }
         });
+
         spinner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {}
         });
+
+        //convertView spinner'ın key listener metotunda kullanılamadığı için kopyasını oluşturup kullanılıyor
         View convertViewDuplicate = convertView;
+
+        // Eğer elle spinner'a bir değer girilip enter tuşuna basılırsa hint'i kaldırıyor ve klavyeyi gizliyor
         spinner.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {

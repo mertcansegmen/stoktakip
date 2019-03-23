@@ -1,4 +1,4 @@
-package com.example.mert.stoktakip;
+package com.example.mert.stoktakip.models;
 
 public class Kullanici {
     private int id;
