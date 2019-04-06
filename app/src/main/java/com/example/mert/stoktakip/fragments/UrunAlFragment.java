@@ -47,7 +47,7 @@ public class UrunAlFragment extends Fragment {
         til = v.findViewById(R.id.interceptorLayout);
         mp = MediaPlayer.create(v.getContext(), R.raw.scan_sound);
 
-        barkodBtn.setOnClickListener(e -> BarkodOkuyucuAc());
+        barkodBtn.setOnClickListener(e -> barkodOkuyucuAc());
         til.setOnClickListener(e -> urunSec());
 
         //Geçici kodlar
@@ -60,7 +60,7 @@ public class UrunAlFragment extends Fragment {
     }
 
     // Barkod okuyucu aç butonunun click listener'ı
-    private void BarkodOkuyucuAc() {
+    private void barkodOkuyucuAc() {
         Intent intent = new Intent(getActivity(), BarkodOkuyucuActivity.class);
         startActivityForResult(intent, 0);
     }

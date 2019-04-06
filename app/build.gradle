@@ -37,3 +37,9 @@ dependencies {
     implementation 'com.reginald:editspinner:1.0.0'
     implementation 'com.github.paolorotolo:expandableheightlistview:1.0.0'
 }
+repositories {
+    jcenter()
+    maven {
+        url "https://maven.google.com"
+    }
+}

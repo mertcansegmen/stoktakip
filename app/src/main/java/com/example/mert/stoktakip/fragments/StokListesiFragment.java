@@ -16,6 +16,7 @@ import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.example.mert.stoktakip.R;
+import com.example.mert.stoktakip.activities.UrunEkleActivity;
 import com.example.mert.stoktakip.models.Urun;
 import com.example.mert.stoktakip.adapters.UrunAdapterStokListesi;
 import com.example.mert.stoktakip.activities.BarkodOkuyucuActivity;
@@ -113,10 +114,8 @@ public class StokListesiFragment extends Fragment {
 
     // Stok kaydı ekle butonunun click listener'ı
     private void yeniStokKaydiEkle() {
-        //Activity mi fragment mı ?
-
-        //Intent intent = new Intent(getActivity(), YeniStokKaydiActivity.class);
-        //startActivity(intent);
+        Intent intent = new Intent(getActivity(), UrunEkleActivity.class);
+        startActivity(intent);
     }
 
     // Barkod okuyucu aç butonunun click listener'ı

@@ -99,7 +99,6 @@ public class VeritabaniYonetici extends SQLiteOpenHelper {
         return false;
     }
 
-
     public boolean kullaniciKontrolEt(String kadi, String sifre) {
 
         String[] sutunlar = {SUTUN_KULLANICI_ID};

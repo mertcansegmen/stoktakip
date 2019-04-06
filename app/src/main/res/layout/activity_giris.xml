@@ -22,8 +22,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
 
-        app:srcCompat="@drawable/logo2" />
-
+        app:srcCompat="@drawable/logo" />
 
     <Button
         android:id="@+id/btn_giris"
@@ -32,7 +31,6 @@
 
         android:layout_marginStart="50dp"
         android:layout_marginLeft="50dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="50dp"
         android:layout_marginRight="50dp"
 
@@ -52,7 +50,6 @@
 
         android:layout_marginStart="50dp"
         android:layout_marginLeft="50dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="50dp"
         android:layout_marginRight="50dp"
 
@@ -114,5 +111,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_sifre" />
+
+
 
 </android.support.constraint.ConstraintLayout>

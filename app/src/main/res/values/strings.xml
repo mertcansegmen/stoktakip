@@ -29,12 +29,17 @@
     <string name="aciklama">Açıklama (İsteğe Bağlı)</string>
     <string name="urunal">Ürün Al</string>
     <string name="urunsat">Ürün Sat</string>
+    <string name="urunekle">Yeni Ürün Ekle</string>
+    <string name="barkodno">Barkod No</string>
+    <string name="alisfiyati">Alış Fiyatı</string>
+    <string name="satisfiyati">Satış Fiyatı</string>
+    <string name="ekle">Ekle</string>
 
     <string name="urunadi">Ürün Adı</string>
     <string name="ornekbarkod">123456789012</string>
     <string name="ornekstokadet">123</string>
     <string name="ornekfiyat">1.25/1.75</string>
-    
+
     <string-array name="sayilar">
         <item>1</item>
         <item>2</item>

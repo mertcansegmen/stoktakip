@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mert.stoktakip.R;
 import com.example.mert.stoktakip.models.Urun;
@@ -39,7 +40,7 @@ public class UrunAdapterUrunAlSat extends ArrayAdapter<Urun> {
 
         LayoutInflater inflater = LayoutInflater.from(context);
         convertView = inflater.inflate(resource, parent, false);
-        String[] sayilar = convertView.getResources().getStringArray(R.array.sayilar);
+        String[] sayilar =  convertView.getResources().getStringArray(R.array.sayilar);
 
         TextView tvAd = convertView.findViewById(R.id.urun_adi);
         TextView tvBarkodNo = convertView.findViewById(R.id.barkod_no);
@@ -53,6 +54,7 @@ public class UrunAdapterUrunAlSat extends ArrayAdapter<Urun> {
         spinner.setEditable(false);
         spinner.setText(sayilar[0]);
         adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, sayilar);
+        spinner.setAdapter(adapter);
 
         // Spinner'ın son elemanına tıkandıysa(Diğer), Spinner'ı düzenlenebilir yapıyor ve hint ekliyor
         // Diğer elemanlardan birisi tıklandıysa düzenlenebilirliği kaldırıyor
@@ -71,7 +73,9 @@ public class UrunAdapterUrunAlSat extends ArrayAdapter<Urun> {
 
         spinner.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {}
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "tık", Toast.LENGTH_SHORT).show();
+            }
         });
 
         //convertView spinner'ın key listener metotunda kullanılamadığı için kopyasını oluşturup kullanılıyor
