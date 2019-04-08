@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import com.example.mert.stoktakip.models.Kullanici;
 import com.example.mert.stoktakip.R;
-import com.example.mert.stoktakip.models.VeritabaniYonetici;
+import com.example.mert.stoktakip.models.VeritabaniIslemleri;
 
 public class GirisActivity extends AppCompatActivity {
 
@@ -79,7 +79,7 @@ public class GirisActivity extends AppCompatActivity {
         kullanici.setKadi(kadiTxt.getText().toString());
         kullanici.setSifre(sifreTxt.getText().toString());
 
-        VeritabaniYonetici vy = new VeritabaniYonetici(GirisActivity.this);
+        VeritabaniIslemleri vy = new VeritabaniIslemleri(GirisActivity.this);
 
         // Alanlardan herhangi biri boşsa hata ver
         if(kullanici.getKadi().equals("") || kullanici.getSifre().equals("")){
@@ -88,7 +88,7 @@ public class GirisActivity extends AppCompatActivity {
             return;
         }
         // Eğer kullanıcı adı ya da şifre yanlışsa hata ver
-        if(!vy.kullaniciKontrolEt(kullanici.getKadi(), kullanici.getSifre())){
+        if(!vy.girisBilgileriniKontrolEt(kullanici.getKadi(), kullanici.getSifre())){
             Toast.makeText(GirisActivity.this, "Kullanıcı adı ya da şifre yanlış.",
                     Toast.LENGTH_LONG).show();
             sifreTxt.setText(null);

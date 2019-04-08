@@ -9,7 +9,7 @@ import android.widget.Toast;
 
 import com.example.mert.stoktakip.models.Kullanici;
 import com.example.mert.stoktakip.R;
-import com.example.mert.stoktakip.models.VeritabaniYonetici;
+import com.example.mert.stoktakip.models.VeritabaniIslemleri;
 
 public class UyeOlActivity extends AppCompatActivity {
 
@@ -42,7 +42,7 @@ public class UyeOlActivity extends AppCompatActivity {
         kullanici.setKadi(kadi);
         kullanici.setSifre(sifre);
 
-        VeritabaniYonetici vy = new VeritabaniYonetici(UyeOlActivity.this);
+        VeritabaniIslemleri vy = new VeritabaniIslemleri(UyeOlActivity.this);
 
         // Alanlardan herhangi biri boşsa hata ver
         if(kadi.equals("") || sifre.equals("") || sifreTekrar.equals("")){
@@ -57,7 +57,7 @@ public class UyeOlActivity extends AppCompatActivity {
             return;
         }
         // Kullanıcı adı daha önceden alınmışsa hata ver
-        else if(vy.kullaniciKontrolEt(kadi)){
+        else if(vy.kullaniciAdiniKontrolEt(kadi)){
             Toast.makeText(UyeOlActivity.this, "Böyle bir kullanıcı zaten mevcut.",
                             Toast.LENGTH_LONG).show();
             return;
