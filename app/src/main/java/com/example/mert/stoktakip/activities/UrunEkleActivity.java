@@ -10,6 +10,8 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.mert.stoktakip.R;
+import com.example.mert.stoktakip.models.Urun;
+import com.example.mert.stoktakip.models.VeritabaniIslemleri;
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
 
@@ -33,10 +35,50 @@ public class UrunEkleActivity extends AppCompatActivity {
         alisFiyati = findViewById(R.id.txt_alisfiyati);
         satisFiyati = findViewById(R.id.txt_satisfiyati);
         barkodBtn = findViewById(R.id.btn_barcode);
-        ekleBtn = findViewById(R.id.btn_ekle);
+        ekleBtn = findViewById(R.id.btn_urunekle);
         mp = MediaPlayer.create(this, R.raw.scan_sound);
 
         barkodBtn.setOnClickListener(e -> barkodOkuyucuAc());
+        ekleBtn.setOnClickListener(e -> urunEkle());
+    }
+
+    private void urunEkle() {
+        String barkod = barkodNo.getText().toString();
+        String ad = urunAdi.getText().toString();
+        String alis = alisFiyati.getText().toString();
+        String satis = satisFiyati.getText().toString();
+
+        // Alanlardan herhangi biri boşsa hata ver
+        if(barkod.equals("") || ad.equals("") || alis.equals("") || satis.equals("")){
+            Toast.makeText(UrunEkleActivity.this, "Lütfen bütün alanları doldurun.",
+                    Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        // EditText'ten alınan değer floata çeviriliyor
+        float alisFiyatiFloat = Float.parseFloat(alis);
+        float satisFiyatiFloat = Float.parseFloat(satis);
+        Urun urun = new Urun(barkod, ad, alisFiyatiFloat, satisFiyatiFloat);
+
+        VeritabaniIslemleri vti = new VeritabaniIslemleri(this);
+        // Ürün eklenemediyse hata ver
+        if(vti.urunEkle(urun) == -1){
+            Toast.makeText(this, "Ürün eklenemedi.",
+                    Toast.LENGTH_LONG).show();
+            return;
+        }
+        // Ürün eklendiyse giriş alanlarını sil ve ürünün eklendiğini kullanıcıya bildir
+        alanlariBosalt();
+        Toast.makeText(this, "Ürün eklendi.",
+                    Toast.LENGTH_LONG).show();
+
+    }
+
+    private void alanlariBosalt() {
+        barkodNo.setText(null);
+        urunAdi.setText(null);
+        alisFiyati.setText(null);
+        satisFiyati.setText(null);
     }
 
     // Barkod okuyucu aç butonunun click listener'ı
@@ -52,8 +94,9 @@ public class UrunEkleActivity extends AppCompatActivity {
             if(resultCode == CommonStatusCodes.SUCCESS){
                 if(data != null){
                     Barcode barcode = data.getParcelableExtra("barcode");
-                    Toast.makeText(this, "Barkod No: " + barcode.displayValue, Toast.LENGTH_LONG).show();
                     mp.start();
+                    barkodNo.setText(barcode.displayValue);
+                    barkodNo.setEnabled(false);
                 }
                 else{
                     Toast.makeText(this, "Barkod okuma başarısız oldu.", Toast.LENGTH_LONG).show();

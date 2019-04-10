@@ -5,6 +5,13 @@ public class Kullanici {
     private String kadi;
     private String sifre;
 
+    public Kullanici() {}
+
+    public Kullanici(String kadi, String sifre) {
+        this.kadi = kadi;
+        this.sifre = sifre;
+    }
+
     public int getId() {
         return id;
     }

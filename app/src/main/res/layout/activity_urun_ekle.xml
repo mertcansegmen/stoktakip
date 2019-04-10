@@ -78,6 +78,7 @@
         android:layout_marginRight="24dp"
         android:ems="10"
         android:hint="@string/urunadi"
+        android:nextFocusDown="@+id/txt_alisfiyati"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -94,7 +95,8 @@
         android:layout_marginRight="16dp"
         android:ems="10"
         android:hint="@string/alisfiyati"
-        android:inputType="number"
+        android:nextFocusDown="@+id/txt_satisfiyati"
+        android:inputType="numberDecimal"
         app:layout_constraintEnd_toStartOf="@+id/txt_satisfiyati"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_urunadi" />
@@ -110,13 +112,13 @@
         android:layout_marginRight="24dp"
         android:ems="10"
         android:hint="@string/satisfiyati"
-        android:inputType="number"
+        android:inputType="numberDecimal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/txt_alisfiyati"
         app:layout_constraintTop_toBottomOf="@+id/txt_urunadi" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btn_urunekle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="22dp"

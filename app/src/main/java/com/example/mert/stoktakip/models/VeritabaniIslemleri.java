@@ -5,11 +5,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
 
 public class VeritabaniIslemleri extends SQLiteOpenHelper {
 
     // Veritabanı versiyonu
-    private static final int VERITABANI_VERSION = 1;
+    private static final int VERITABANI_VERSION = 2;
 
     // Veritabanı ismi
     private static final String VERITABANI_ADI = "StokTakip.db";
@@ -56,7 +57,7 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
                                                             SUTUN_KULLANICI_SIFRE + " TEXT" + ")";
 
     // urun tablosunun oluşturma sorgusu
-    private static final String URUN_TABLOSU_OLUSTUR = "CREATE TABLE " + TABLO_URUN + "(" + SUTUN_URUN_ID + " TEXT, " + SUTUN_URUN_AD + " TEXT, " +
+    public static final String URUN_TABLOSU_OLUSTUR = "CREATE TABLE " + TABLO_URUN + "(" + SUTUN_URUN_ID + " TEXT, " + SUTUN_URUN_AD + " TEXT, " +
                                                        SUTUN_URUN_KALAN_ADET + " INTEGER, " + SUTUN_URUN_FIYAT_ALIS + " INTEGER, " +
                                                        SUTUN_URUN_FIYAT_SATIS + " INTEGER" + ")";
 
@@ -206,7 +207,18 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
      */
 
     public long urunEkle(Urun urun){
-        long degisenSatir = 0;
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(SUTUN_URUN_ID, urun.getBarkodNo());
+        values.put(SUTUN_URUN_AD, urun.getAd());
+        values.put(SUTUN_URUN_AD, urun.getAdet());
+        // gelen değerler float, kuruş şekline çevrilip integer'a dönüştürülmesi gerekiyor. Veritabanında o şekilde saklanacak
+        values.put(SUTUN_URUN_FIYAT_ALIS, Math.round(urun.getAlis()*100));
+        values.put(SUTUN_URUN_FIYAT_SATIS, Math.round(urun.getSatis()*100));
+
+        // degisenSatir -1 ise hata oluşmuştur
+        long degisenSatir = db.insert(TABLO_URUN, null, values);
+        db.close();
         return degisenSatir;
     }
 
@@ -227,9 +239,6 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
         return new Urun();
     }
 
-    public Urun[] urunAra(String kelime){
-        return new Urun[1];
-    }
 
     /**
      *

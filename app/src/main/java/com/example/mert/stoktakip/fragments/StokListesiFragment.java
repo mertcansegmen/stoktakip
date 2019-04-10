@@ -112,6 +112,10 @@ public class StokListesiFragment extends Fragment {
         return v;
     }
 
+    public Urun[] urunAra(String kelime){
+        return new Urun[1];
+    }
+
     // Stok kaydı ekle butonunun click listener'ı
     private void yeniStokKaydiEkle() {
         Intent intent = new Intent(getActivity(), UrunEkleActivity.class);
