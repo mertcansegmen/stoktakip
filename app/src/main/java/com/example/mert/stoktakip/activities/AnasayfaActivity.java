@@ -10,6 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mert.stoktakip.fragments.AyarlarFragment;
@@ -21,9 +23,13 @@ import com.example.mert.stoktakip.fragments.StokListesiFragment;
 import com.example.mert.stoktakip.fragments.UrunAlFragment;
 import com.example.mert.stoktakip.fragments.UrunSatFragment;
 import com.example.mert.stoktakip.fragments.VeritabaniFragment;
+import com.example.mert.stoktakip.models.VeritabaniIslemleri;
 
 public class AnasayfaActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    String kadi;
+    TextView kadiDrawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +37,6 @@ public class AnasayfaActivity extends AppCompatActivity
         setContentView(R.layout.activity_anasayfa);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -44,6 +49,13 @@ public class AnasayfaActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        // GirisActivityden gelen kullanıcı adını header layout'a çekiyor
+        Intent intent = getIntent();
+        kadi = "Hoşgeldin, ".concat(intent.getStringExtra("kadi"));
+        View headerLayout = navigationView.getHeaderView(0);
+        kadiDrawer = headerLayout.findViewById(R.id.drawer_kadi);
+        kadiDrawer.setText(kadi);
     }
 
     @Override

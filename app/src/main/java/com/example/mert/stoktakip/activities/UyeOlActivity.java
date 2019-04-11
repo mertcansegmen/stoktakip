@@ -34,7 +34,7 @@ public class UyeOlActivity extends AppCompatActivity {
 
     // Uye ol butonunun click listenerı
     private void uyeOl() {
-        String kadi = kadiTxt.getText().toString();
+        String kadi = kadiTxt.getText().toString().toLowerCase();
         String sifre = sifreTxt.getText().toString();
         String sifreTekrar = sifreTekrarTxt.getText().toString();
 

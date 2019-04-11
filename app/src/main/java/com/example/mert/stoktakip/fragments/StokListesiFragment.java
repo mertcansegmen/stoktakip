@@ -20,8 +20,13 @@ import com.example.mert.stoktakip.activities.UrunEkleActivity;
 import com.example.mert.stoktakip.models.Urun;
 import com.example.mert.stoktakip.adapters.UrunAdapterStokListesi;
 import com.example.mert.stoktakip.activities.BarkodOkuyucuActivity;
+import com.example.mert.stoktakip.models.VeritabaniIslemleri;
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class StokListesiFragment extends Fragment {
 
@@ -29,57 +34,15 @@ public class StokListesiFragment extends Fragment {
     ImageButton barkodBtn;
     FloatingActionButton fab;
     ListView liste;
+
     MediaPlayer mp;
-    Urun[] urunler = new Urun[]{
-            new Urun("978020137962", "Biscolata Starz", 230, 1.25f, 1.85f),
-            new Urun("908328372838", "Biskrem", 12, 1.25f, 1.50f),
-            new Urun("128793473412", "Laviva", 66, 0.75f, 1.25f),
-            new Urun("329842347903", "Canga", 150, 0.75f, 1.50f),
-            new Urun("128937213732", "Eti Cin", 8, 1.05f, 1.55f),
-            new Urun("120398210384", "Popkek", 440, 0.55f, 1.05f),
-            new Urun("901298374893", "Eti Karam", 84, 1.05f, 1.50f),
-            new Urun("836478348301", "Negro", 46, 1.10f, 1.75f),
-            new Urun("342378654356", "Benimo", 19, 1.15f, 1.75f),
-            new Urun("823862983444", "Albeni", 408, 0.75f, 1.25f),
-            new Urun("038349081824", "Caramio", 112, 1.15f, 1.85f),
 
-            new Urun("978020137962", "Biscolata Starz", 230, 1.25f, 1.85f),
-            new Urun("908328372838", "Biskrem", 12, 1.25f, 1.50f),
-            new Urun("128793473412", "Laviva", 66, 0.75f, 1.25f),
-            new Urun("329842347903", "Canga", 150, 0.75f, 1.50f),
-            new Urun("128937213732", "Eti Cin", 8, 1.05f, 1.55f),
-            new Urun("120398210384", "Popkek", 440, 0.55f, 1.05f),
-            new Urun("901298374893", "Eti Karam", 84, 1.05f, 1.50f),
-            new Urun("836478348301", "Negro", 46, 1.10f, 1.75f),
-            new Urun("342378654356", "Benimo", 19, 1.15f, 1.75f),
-            new Urun("823862983444", "Albeni", 408, 0.75f, 1.25f),
-            new Urun("038349081824", "Caramio", 112, 1.15f, 1.85f),
+    ArrayList<Urun> urunler;
+    UrunAdapterStokListesi adapter;
 
-            new Urun("978020137962", "Biscolata Starz", 230, 1.25f, 1.85f),
-            new Urun("908328372838", "Biskrem", 12, 1.25f, 1.50f),
-            new Urun("128793473412", "Laviva", 66, 0.75f, 1.25f),
-            new Urun("329842347903", "Canga", 150, 0.75f, 1.50f),
-            new Urun("128937213732", "Eti Cin", 8, 1.05f, 1.55f),
-            new Urun("120398210384", "Popkek", 440, 0.55f, 1.05f),
-            new Urun("901298374893", "Eti Karam", 84, 1.05f, 1.50f),
-            new Urun("836478348301", "Negro", 46, 1.10f, 1.75f),
-            new Urun("342378654356", "Benimo", 19, 1.15f, 1.75f),
-            new Urun("823862983444", "Albeni", 408, 0.75f, 1.25f),
-            new Urun("038349081824", "Caramio", 112, 1.15f, 1.85f),
+    VeritabaniIslemleri vti;
 
-            new Urun("978020137962", "Biscolata Starz", 230, 1.25f, 1.85f),
-            new Urun("908328372838", "Biskrem", 12, 1.25f, 1.50f),
-            new Urun("128793473412", "Laviva", 66, 0.75f, 1.25f),
-            new Urun("329842347903", "Canga", 150, 0.75f, 1.50f),
-            new Urun("128937213732", "Eti Cin", 8, 1.05f, 1.55f),
-            new Urun("120398210384", "Popkek", 440, 0.55f, 1.05f),
-            new Urun("901298374893", "Eti Karam", 84, 1.05f, 1.50f),
-            new Urun("836478348301", "Negro", 46, 1.10f, 1.75f),
-            new Urun("342378654356", "Benimo", 19, 1.15f, 1.75f),
-            new Urun("823862983444", "Albeni", 408, 0.75f, 1.25f),
-            new Urun("038349081824", "Caramio", 112, 1.15f, 1.85f)
-    };
-
+    boolean barkodAramasiYapildi;
 
     @Nullable
     @Override
@@ -91,8 +54,9 @@ public class StokListesiFragment extends Fragment {
         fab = v.findViewById(R.id.btn_ekle);
         mp = MediaPlayer.create(v.getContext(), R.raw.scan_sound);
 
-        //Geçici kodlar
-        UrunAdapterStokListesi adapter = new UrunAdapterStokListesi(getActivity(), R.layout.liste_elemani_stok_listesi, urunler);
+        vti = new VeritabaniIslemleri(getContext());
+        urunler = vti.butunUrunleriGetir();
+        adapter = new UrunAdapterStokListesi(getContext(), R.layout.liste_elemani_stok_listesi, urunler);
         liste.setAdapter(adapter);
 
         search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -103,17 +67,14 @@ public class StokListesiFragment extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                return false;
+                adapter.getFilter().filter(newText);
+                return true;
             }
         });
 
         fab.setOnClickListener(e -> yeniStokKaydiEkle());
         barkodBtn.setOnClickListener(e -> BarkodOkuyucuAc());
         return v;
-    }
-
-    public Urun[] urunAra(String kelime){
-        return new Urun[1];
     }
 
     // Stok kaydı ekle butonunun click listener'ı
@@ -136,7 +97,8 @@ public class StokListesiFragment extends Fragment {
             if(resultCode == CommonStatusCodes.SUCCESS){
                 if(data != null){
                     Barcode barcode = data.getParcelableExtra("barcode");
-                    Toast.makeText(getActivity(), "Barkod No: " + barcode.displayValue, Toast.LENGTH_LONG).show();
+                    adapter.getFilter().filter(barcode.displayValue);
+                    barkodAramasiYapildi = true;
                     mp.start();
                 }
                 else{
@@ -148,4 +110,5 @@ public class StokListesiFragment extends Fragment {
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
+
 }

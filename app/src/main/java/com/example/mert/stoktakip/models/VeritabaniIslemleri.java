@@ -5,7 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.widget.Toast;
+
+import java.util.ArrayList;
 
 public class VeritabaniIslemleri extends SQLiteOpenHelper {
 
@@ -58,8 +59,8 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
 
     // urun tablosunun oluşturma sorgusu
     public static final String URUN_TABLOSU_OLUSTUR = "CREATE TABLE " + TABLO_URUN + "(" + SUTUN_URUN_ID + " TEXT, " + SUTUN_URUN_AD + " TEXT, " +
-                                                       SUTUN_URUN_KALAN_ADET + " INTEGER, " + SUTUN_URUN_FIYAT_ALIS + " INTEGER, " +
-                                                       SUTUN_URUN_FIYAT_SATIS + " INTEGER" + ")";
+                                                      SUTUN_URUN_KALAN_ADET + " INTEGER, " + SUTUN_URUN_FIYAT_ALIS + " INTEGER, " +
+                                                      SUTUN_URUN_FIYAT_SATIS + " INTEGER" + ")";
 
     // urun_alis tablosunun olusturma sorgusu
     private static final String URUN_ALIS_TABLOSU_OLUSTUR = "CREATE TABLE " + TABLO_URUN_ALIS + "(" + SUTUN_URUN_ALIS_ID +
@@ -167,10 +168,7 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
         cursor.close();
         db.close();
 
-        if(cursorSayisi > 0){
-            return true;
-        }
-        return false;
+        return cursorSayisi > 0;
     }
 
     // Kullanıcı adı ve şifrenin doğruluğunu kontrol eden metot
@@ -194,10 +192,7 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
         cursor.close();
         db.close();
 
-        if (cursorSayisi > 0) {
-            return true;
-        }
-        return false;
+        return cursorSayisi > 0;
     }
 
     /**
@@ -211,7 +206,7 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(SUTUN_URUN_ID, urun.getBarkodNo());
         values.put(SUTUN_URUN_AD, urun.getAd());
-        values.put(SUTUN_URUN_AD, urun.getAdet());
+        values.put(SUTUN_URUN_KALAN_ADET, urun.getAdet());
         // gelen değerler float, kuruş şekline çevrilip integer'a dönüştürülmesi gerekiyor. Veritabanında o şekilde saklanacak
         values.put(SUTUN_URUN_FIYAT_ALIS, Math.round(urun.getAlis()*100));
         values.put(SUTUN_URUN_FIYAT_SATIS, Math.round(urun.getSatis()*100));
@@ -223,22 +218,73 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
     }
 
     public void urunSil(Urun urun){
+        SQLiteDatabase db = this.getWritableDatabase();
 
+        db.delete(TABLO_URUN, SUTUN_URUN_ID + " = ?", new String[]{String.valueOf(urun.getBarkodNo())});
+        db.close();
     }
 
     public int urunGuncelle(Urun urun){
-        int degisenSatir = 0;
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(SUTUN_URUN_AD, urun.getAd());
+        values.put(SUTUN_URUN_FIYAT_ALIS, urun.getAlis());
+        values.put(SUTUN_URUN_FIYAT_SATIS, urun.getSatis());
+
+        int degisenSatir = db.update(TABLO_URUN, values, SUTUN_URUN_ID + " = ?",
+                new String[]{String.valueOf(urun.getBarkodNo())});
+        db.close();
         return degisenSatir;
     }
 
-    public Urun[] butunUrunleriGetir(){
-        return new Urun[1];
+    public ArrayList<Urun> butunUrunleriGetir(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<Urun> urunler = new ArrayList<>();
+        String query = "SELECT * FROM " + TABLO_URUN;
+
+        Cursor c = db.rawQuery(query, null);
+        if (c.moveToFirst()) {
+            do {
+                Urun urun = new Urun();
+                urun.setBarkodNo(c.getString(c.getColumnIndex(SUTUN_URUN_ID)));
+                urun.setAd(c.getString(c.getColumnIndex(SUTUN_URUN_AD)));
+                urun.setAdet(c.getInt(c.getColumnIndex(SUTUN_URUN_KALAN_ADET)));
+                int alisFiyatiInt = c.getInt(c.getColumnIndex(SUTUN_URUN_FIYAT_ALIS));
+                int satisFiyatiInt = c.getInt(c.getColumnIndex(SUTUN_URUN_FIYAT_SATIS));
+                urun.setAlis(((float)alisFiyatiInt)/100);
+                urun.setSatis(((float)satisFiyatiInt)/100);
+
+                urunler.add(urun);
+            } while (c.moveToNext());
+        }
+        c.close();
+        db.close();
+        return urunler;
     }
 
-    public Urun barkodaGoreUrunGetir(String barkod){
-        return new Urun();
-    }
+    // Gelen barkodun veritabanında ekli olup olmadığını kontrol eden metot
+    public boolean urunTekrariKontrolEt(String barkod){
+        String[] sutunlar = {SUTUN_URUN_ID};
 
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String secim = SUTUN_URUN_ID + " = ?";
+        String[] secimOlcutleri = {barkod};
+
+        Cursor cursor = db.query(TABLO_URUN,            // işlem için kullanılacak tablo
+                sutunlar,                               // geri dönecek sütunlar
+                secim,                                  // WHERE için sütunlar
+                secimOlcutleri,                         // WHERE için değerler
+                null,
+                null,
+                null);
+        int cursorSayisi = cursor.getCount();
+        cursor.close();
+        db.close();
+
+        return cursorSayisi > 0;
+    }
 
     /**
      *

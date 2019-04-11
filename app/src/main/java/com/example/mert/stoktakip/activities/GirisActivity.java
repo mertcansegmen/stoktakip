@@ -75,7 +75,7 @@ public class GirisActivity extends AppCompatActivity {
 
     // Giriş yap butonunun click listener'ı
     private void girisYap() {
-        Kullanici kullanici = new Kullanici(kadiTxt.getText().toString(), sifreTxt.getText().toString());
+        Kullanici kullanici = new Kullanici(kadiTxt.getText().toString().toLowerCase(), sifreTxt.getText().toString());
 
         VeritabaniIslemleri vy = new VeritabaniIslemleri(GirisActivity.this);
 

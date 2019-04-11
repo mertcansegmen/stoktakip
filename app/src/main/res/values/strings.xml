@@ -4,7 +4,7 @@
     <string name="title_activity_anasayfa">AnasayfaActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">İsim Soyisim</string>
+    <string name="nav_header_title">Kullanıcı Adı</string>
     <string name="nav_stoklistesi_title">Stok Listesi</string>
     <string name="nav_urunsat_title">Ürün Sat</string>
     <string name="nav_urunal_title">Ürün Al</string>

@@ -9,16 +9,25 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import com.example.mert.stoktakip.R;
 import com.example.mert.stoktakip.models.Urun;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class UrunAdapterStokListesi extends ArrayAdapter<Urun> {
 
     private Context context;
     private int resource;
     private int lastPosition = -1;
+
+    private ArrayList<Urun> original;
+    private ArrayList<Urun> fitems;
+    private Filter filter;
 
     static class ViewHolder {
         TextView urunAdi;
@@ -27,10 +36,12 @@ public class UrunAdapterStokListesi extends ArrayAdapter<Urun> {
         TextView alisSatis;
     }
 
-    public UrunAdapterStokListesi(@NonNull Context context, int resource, Urun[] urun) {
-        super(context, resource, urun);
+    public UrunAdapterStokListesi(@NonNull Context context, int resource, ArrayList<Urun> urunler/*Urun[] urunler*/) {
+        super(context, resource, urunler);
         this.context = context;
         this.resource = resource;
+        this.original = new ArrayList<Urun>(urunler);
+        this.fitems = new ArrayList<Urun>(urunler);
     }
 
     @NonNull
@@ -79,4 +90,67 @@ public class UrunAdapterStokListesi extends ArrayAdapter<Urun> {
         return convertView;
 
     }
+    @NonNull
+    @Override
+    public Filter getFilter()
+    {
+        if (filter == null)
+            filter = new StokFilter();
+
+        return filter;
+    }
+
+    private class StokFilter extends Filter
+    {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint)
+        {
+            FilterResults results = new FilterResults();
+            String kelime = constraint.toString().toLowerCase();
+
+            if (kelime.equals("") || kelime.length() == 0)
+            {
+                ArrayList<Urun> list = new ArrayList<Urun>(original);
+                results.values = list;
+                results.count = list.size();
+            }
+            else
+            {
+                final ArrayList<Urun> list = new ArrayList<Urun>(original);
+                final ArrayList<Urun> nlist = new ArrayList<Urun>();
+                int count = list.size();
+
+                for (int i=0; i<count; i++)
+                {
+                    final Urun urun = list.get(i);
+                    final String valueAd = urun.getAd().toLowerCase();
+                    final String valueBarkod = urun.getBarkodNo().toLowerCase();
+
+                    if (valueAd.contains(kelime) || valueBarkod.contains(kelime))
+                    {
+                        nlist.add(urun);
+                    }
+                }
+                results.values = nlist;
+                results.count = nlist.size();
+            }
+            return results;
+        }
+
+        @SuppressWarnings("unchecked")
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            fitems = (ArrayList<Urun>)results.values;
+
+            clear();
+            int count = fitems.size();
+            for (int i=0; i<count; i++)
+            {
+                Urun urun = (Urun)fitems.get(i);
+                add(urun);
+            }
+        }
+
+    }
+
 }

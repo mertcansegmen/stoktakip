@@ -58,9 +58,17 @@ public class UrunEkleActivity extends AppCompatActivity {
         // EditText'ten alınan değer floata çeviriliyor
         float alisFiyatiFloat = Float.parseFloat(alis);
         float satisFiyatiFloat = Float.parseFloat(satis);
-        Urun urun = new Urun(barkod, ad, alisFiyatiFloat, satisFiyatiFloat);
+        Urun urun = new Urun(barkod, ad, 0, alisFiyatiFloat, satisFiyatiFloat);
 
         VeritabaniIslemleri vti = new VeritabaniIslemleri(this);
+
+        // Eğer ürün barkodu veritabanında bulunuyorsa hata ver
+        if(vti.urunTekrariKontrolEt(urun.getBarkodNo())){
+            Toast.makeText(this, "Ürün zaten ekli.",
+                    Toast.LENGTH_LONG).show();
+            return;
+        }
+
         // Ürün eklenemediyse hata ver
         if(vti.urunEkle(urun) == -1){
             Toast.makeText(this, "Ürün eklenemedi.",
@@ -79,6 +87,7 @@ public class UrunEkleActivity extends AppCompatActivity {
         urunAdi.setText(null);
         alisFiyati.setText(null);
         satisFiyati.setText(null);
+        barkodNo.setEnabled(true);
     }
 
     // Barkod okuyucu aç butonunun click listener'ı
