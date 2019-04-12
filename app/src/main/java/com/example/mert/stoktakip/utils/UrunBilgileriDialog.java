@@ -1,8 +1,10 @@
 package com.example.mert.stoktakip.utils;
 
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDialogFragment;
@@ -13,6 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mert.stoktakip.R;
+import com.example.mert.stoktakip.activities.UrunGuncelleActivity;
+import com.example.mert.stoktakip.fragments.StokListesiFragment;
 import com.example.mert.stoktakip.models.VeritabaniIslemleri;
 
 public class UrunBilgileriDialog extends AppCompatDialogFragment {
@@ -56,6 +60,7 @@ public class UrunBilgileriDialog extends AppCompatDialogFragment {
                                 VeritabaniIslemleri vti = new VeritabaniIslemleri(getActivity());
                                 vti.urunSil(barkod);
                                 dismiss();
+                                fragmentYenile();
                             }
                         })
                         .setNegativeButton("Hayır", null)
@@ -66,6 +71,12 @@ public class UrunBilgileriDialog extends AppCompatDialogFragment {
         guncelle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(getContext(), UrunGuncelleActivity.class);
+                intent.putExtra("barkod", barkod);
+                intent.putExtra("ad", ad);
+                intent.putExtra("alis", alisSatis.substring(0, alisSatis.indexOf("/")));
+                intent.putExtra("satis", alisSatis.substring(alisSatis.indexOf("/") + 1));
+                startActivity(intent);
             }
         });
 
@@ -78,4 +89,15 @@ public class UrunBilgileriDialog extends AppCompatDialogFragment {
 
         return builder.create();
     }
+
+    private void fragmentYenile() {
+        Fragment currentFragment = getActivity().getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+        if (currentFragment instanceof StokListesiFragment) {
+            FragmentTransaction fragTransaction =   (getActivity()).getSupportFragmentManager().beginTransaction();
+            fragTransaction.detach(currentFragment);
+            fragTransaction.attach(currentFragment);
+            fragTransaction.commit();
+        }
+    }
+
 }

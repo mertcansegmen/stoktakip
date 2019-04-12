@@ -30,6 +30,7 @@
     <string name="urunal">Ürün Al</string>
     <string name="urunsat">Ürün Sat</string>
     <string name="urunekle">Yeni Ürün Ekle</string>
+    <string name="urunguncelle">Ürün Güncelle</string>
     <string name="barkodno">Barkod No</string>
     <string name="alisfiyati">Alış Fiyatı</string>
     <string name="satisfiyati">Satış Fiyatı</string>

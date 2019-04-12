@@ -15,6 +15,14 @@ public class Urun {
         this.ad = ad;
     }
 
+    public Urun(String barkodNo, String ad, float alis, float satis) {
+        this.barkodNo = barkodNo;
+        this.ad = ad;
+        this.alis = alis;
+        this.satis = satis;
+        this.alisSatis = alis + "/" + satis;
+    }
+
     public Urun(String barkodNo, String ad, int adet, float alis, float satis) {
         this.barkodNo = barkodNo;
         this.ad = ad;

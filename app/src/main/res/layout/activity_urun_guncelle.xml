@@ -16,7 +16,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:text="@string/urunekle"
+        android:text="@string/urunguncelle"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -41,31 +41,14 @@
         android:layout_marginStart="24dp"
         android:layout_marginLeft="24dp"
         android:layout_marginTop="32dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
         android:ems="10"
         android:hint="@string/barkodno"
         android:inputType="number"
-        app:layout_constraintEnd_toStartOf="@+id/btn_barcode"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cizgi" />
-
-    <ImageButton
-        android:id="@+id/btn_barcode"
-        android:layout_width="36dp"
-        android:layout_height="48dp"
-
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginRight="24dp"
-        android:background="@android:color/transparent"
-        android:scaleType="centerInside"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cizgi"
-        app:srcCompat="@drawable/brwhitered" />
 
     <EditText
         android:id="@+id/txt_urunadi"
@@ -118,7 +101,7 @@
         app:layout_constraintTop_toBottomOf="@+id/txt_urunadi" />
 
     <Button
-        android:id="@+id/btn_urunekle"
+        android:id="@+id/btn_urunguncelle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="22dp"
@@ -126,7 +109,7 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="22dp"
         android:layout_marginRight="22dp"
-        android:text="@string/ekle"
+        android:text="@string/stokguncelle"
         android:textAllCaps="false"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"

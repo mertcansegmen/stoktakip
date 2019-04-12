@@ -2,6 +2,8 @@ package com.example.mert.stoktakip.activities;
 
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
@@ -10,6 +12,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.mert.stoktakip.R;
+import com.example.mert.stoktakip.fragments.StokListesiFragment;
 import com.example.mert.stoktakip.models.Urun;
 import com.example.mert.stoktakip.models.VeritabaniIslemleri;
 import com.google.android.gms.common.api.CommonStatusCodes;
@@ -96,7 +99,7 @@ public class UrunEkleActivity extends AppCompatActivity {
         startActivityForResult(intent, 0);
     }
 
-    // Barkod tarayıcı kapanınca şimdilik gelen değeri ekrana bastırıyor
+    // Barkod tarayıcı kapanınca gelen değeri barkodno edittext'ine geçiriyor ve düzenlemeyi kapatıyor
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode == 0){
