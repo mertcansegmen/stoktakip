@@ -6,10 +6,12 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SearchView;
@@ -21,6 +23,7 @@ import com.example.mert.stoktakip.models.Urun;
 import com.example.mert.stoktakip.adapters.UrunAdapterStokListesi;
 import com.example.mert.stoktakip.activities.BarkodOkuyucuActivity;
 import com.example.mert.stoktakip.models.VeritabaniIslemleri;
+import com.example.mert.stoktakip.utils.UrunBilgileriDialog;
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
 
@@ -69,6 +72,23 @@ public class StokListesiFragment extends Fragment {
             public boolean onQueryTextChange(String newText) {
                 adapter.getFilter().filter(newText);
                 return true;
+            }
+        });
+
+        liste.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Urun urun = urunler.get(position);
+
+                Bundle degerler = new Bundle();
+                degerler.putString("ad", urun.getAd());
+                degerler.putString("barkod", urun.getBarkodNo());
+                degerler.putInt("adet", urun.getAdet());
+                degerler.putString("alissatis", urun.getAlis() + "/" + urun.getSatis());
+
+                DialogFragment dialog = new UrunBilgileriDialog();
+                dialog.setArguments(degerler);
+                dialog.show(getActivity().getSupportFragmentManager(), "Ürün Bilgileri");
             }
         });
 

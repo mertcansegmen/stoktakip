@@ -217,10 +217,10 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
         return degisenSatir;
     }
 
-    public void urunSil(Urun urun){
+    public void urunSil(String barkod){
         SQLiteDatabase db = this.getWritableDatabase();
 
-        db.delete(TABLO_URUN, SUTUN_URUN_ID + " = ?", new String[]{String.valueOf(urun.getBarkodNo())});
+        db.delete(TABLO_URUN, SUTUN_URUN_ID + " = ?", new String[]{String.valueOf(barkod)});
         db.close();
     }
 

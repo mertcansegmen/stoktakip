@@ -40,6 +40,11 @@
     <string name="ornekstokadet">123</string>
     <string name="ornekfiyat">1.25/1.75</string>
 
+
+    <string name="stoksil">Sil</string>
+    <string name="stokguncelle">Güncelle</string>
+    <string name="iptal">İptal</string>
+
     <string-array name="sayilar">
         <item>1</item>
         <item>2</item>
