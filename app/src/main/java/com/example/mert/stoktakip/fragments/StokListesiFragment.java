@@ -27,6 +27,7 @@ import com.example.mert.stoktakip.models.VeritabaniIslemleri;
 import com.example.mert.stoktakip.utils.UrunBilgileriDialog;
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
+import com.jeevandeshmukh.glidetoastlib.GlideToast;
 
 import java.util.ArrayList;
 
@@ -121,7 +122,8 @@ public class StokListesiFragment extends Fragment {
                     mp.start();
                 }
                 else{
-                    Toast.makeText(getActivity(), "Barkod okuma başarısız oldu.", Toast.LENGTH_LONG).show();
+                    new GlideToast.makeToast(getActivity(), "Barkod eklenemedi.",
+                            GlideToast.LENGTHTOOLONG, GlideToast.INFOTOAST).show();
                 }
             }
         }

@@ -17,6 +17,7 @@ import com.example.mert.stoktakip.models.Urun;
 import com.example.mert.stoktakip.models.VeritabaniIslemleri;
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
+import com.jeevandeshmukh.glidetoastlib.GlideToast;
 
 public class UrunEkleActivity extends AppCompatActivity {
 
@@ -53,8 +54,8 @@ public class UrunEkleActivity extends AppCompatActivity {
 
         // Alanlardan herhangi biri boşsa hata ver
         if(barkod.equals("") || ad.equals("") || alis.equals("") || satis.equals("")){
-            Toast.makeText(UrunEkleActivity.this, "Lütfen bütün alanları doldurun.",
-                    Toast.LENGTH_LONG).show();
+            new GlideToast.makeToast(UrunEkleActivity.this, "Lütfen bütün alanları doldurun.",
+                    GlideToast.LENGTHTOOLONG, GlideToast.INFOTOAST).show();
             return;
         }
 
@@ -67,21 +68,21 @@ public class UrunEkleActivity extends AppCompatActivity {
 
         // Eğer ürün barkodu veritabanında bulunuyorsa hata ver
         if(vti.urunTekrariKontrolEt(urun.getBarkodNo())){
-            Toast.makeText(this, "Ürün zaten ekli.",
-                    Toast.LENGTH_LONG).show();
+            new GlideToast.makeToast(UrunEkleActivity.this, "Ürün zaten ekli.",
+                    GlideToast.LENGTHTOOLONG, GlideToast.FAILTOAST).show();
             return;
         }
 
         // Ürün eklenemediyse hata ver
         if(vti.urunEkle(urun) == -1){
-            Toast.makeText(this, "Ürün eklenemedi.",
-                    Toast.LENGTH_LONG).show();
+            new GlideToast.makeToast(UrunEkleActivity.this, "Ürün eklenemedi.",
+                    GlideToast.LENGTHTOOLONG, GlideToast.FAILTOAST).show();
             return;
         }
         // Ürün eklendiyse giriş alanlarını sil ve ürünün eklendiğini kullanıcıya bildir
         alanlariBosalt();
-        Toast.makeText(this, "Ürün eklendi.",
-                    Toast.LENGTH_LONG).show();
+        new GlideToast.makeToast(UrunEkleActivity.this, "Ürün eklendi.",
+                GlideToast.LENGTHTOOLONG, GlideToast.SUCCESSTOAST).show();
 
     }
 
@@ -111,7 +112,8 @@ public class UrunEkleActivity extends AppCompatActivity {
                     barkodNo.setEnabled(false);
                 }
                 else{
-                    Toast.makeText(this, "Barkod okuma başarısız oldu.", Toast.LENGTH_LONG).show();
+                    new GlideToast.makeToast(UrunEkleActivity.this, "Barkod eklenemedi.",
+                            GlideToast.LENGTHTOOLONG, GlideToast.INFOTOAST).show();
                 }
             }
         }

@@ -4,7 +4,7 @@ android {
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.example.mert.stoktakip"
-        minSdkVersion 14
+        minSdkVersion 15 // GlideToast'ı kullanabilmek için 14'ten 15e yükseltildi
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
@@ -36,10 +36,10 @@ dependencies {
     implementation 'com.android.support:percent:27.1.1'
     implementation 'com.reginald:editspinner:1.0.0'
     implementation 'com.github.paolorotolo:expandableheightlistview:1.0.0'
+    implementation 'com.github.imjeevandeshmukh:GlideToast:1.0'
 }
 repositories {
     jcenter()
-    maven {
-        url "https://maven.google.com"
-    }
+    maven { url "https://maven.google.com" }
+    maven { url 'https://jitpack.io' }
 }

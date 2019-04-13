@@ -21,6 +21,7 @@ import com.example.mert.stoktakip.activities.BarkodOkuyucuActivity;
 import com.github.paolorotolo.expandableheightlistview.ExpandableHeightListView;
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
+import com.jeevandeshmukh.glidetoastlib.GlideToast;
 
 public class UrunSatFragment extends Fragment {
     private SearchView search;
@@ -69,11 +70,13 @@ public class UrunSatFragment extends Fragment {
             if(resultCode == CommonStatusCodes.SUCCESS){
                 if(data != null){
                     Barcode barcode = data.getParcelableExtra("barcode");
-                    Toast.makeText(getActivity(), "Barkod No: " + barcode.displayValue, Toast.LENGTH_LONG).show();
+                    new GlideToast.makeToast(getActivity(), "Barkod No: " + barcode.displayValue, GlideToast.LENGTHTOOLONG,
+                            GlideToast.INFOTOAST).show();
                     mp.start();
                 }
                 else{
-                    Toast.makeText(getActivity(), "Barkod okuma başarısız oldu.", Toast.LENGTH_LONG).show();
+                    new GlideToast.makeToast(getActivity(), "Barkod eklenemedi.",
+                            GlideToast.LENGTHTOOLONG, GlideToast.INFOTOAST).show();
                 }
             }
         }

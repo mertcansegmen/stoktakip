@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.example.mert.stoktakip.models.Kullanici;
 import com.example.mert.stoktakip.R;
 import com.example.mert.stoktakip.models.VeritabaniIslemleri;
+import com.jeevandeshmukh.glidetoastlib.GlideToast;
 
 public class GirisActivity extends AppCompatActivity {
 
@@ -81,14 +82,14 @@ public class GirisActivity extends AppCompatActivity {
 
         // Alanlardan herhangi biri boşsa hata ver
         if(kullanici.getKadi().equals("") || kullanici.getSifre().equals("")){
-            Toast.makeText(GirisActivity.this, "Lütfen bütün alanları doldurun.",
-                    Toast.LENGTH_LONG).show();
+            new GlideToast.makeToast(GirisActivity.this, "Lütfen bütün alanları doldurun.",
+                    GlideToast.LENGTHTOOLONG, GlideToast.INFOTOAST).show();
             return;
         }
         // Eğer kullanıcı adı ya da şifre yanlışsa hata ver
         if(!vy.girisBilgileriniKontrolEt(kullanici.getKadi(), kullanici.getSifre())){
-            Toast.makeText(GirisActivity.this, "Kullanıcı adı ya da şifre yanlış.",
-                    Toast.LENGTH_LONG).show();
+            new GlideToast.makeToast(GirisActivity.this, "Kullanıcı adı ya da şifre yanlış.",
+                    GlideToast.LENGTHTOOLONG, GlideToast.FAILTOAST).show();
             sifreTxt.setText(null);
             return;
         }

@@ -102,14 +102,15 @@
 
     <Button
         android:id="@+id/btn_iptal"
-        android:layout_width="wrap_content"
+        android:layout_width="65dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="19dp"
         android:layout_marginLeft="19dp"
         android:layout_marginTop="85dp"
+        android:layout_marginBottom="15dp"
         android:text="@string/iptal"
         android:textAllCaps="false"
-        android:textSize="10sp" />
+        android:textSize="12sp" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -119,11 +120,12 @@
         android:layout_marginTop="85dp"
         android:layout_marginEnd="19dp"
         android:layout_marginRight="19dp"
+        android:layout_marginBottom="15dp"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/btn_guncelle"
-            android:layout_width="wrap_content"
+            android:layout_width="75dp"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/guncelleButon"
             android:text="@string/stokguncelle"
@@ -132,7 +134,7 @@
 
         <Button
             android:id="@+id/btn_sil"
-            android:layout_width="wrap_content"
+            android:layout_width="75dp"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/silButon"
             android:text="@string/stoksil"

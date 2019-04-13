@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".activities.UrunEkleActivity">
 
-
     <TextView
         android:id="@+id/txt_urunguncelle"
         android:layout_width="wrap_content"
@@ -34,8 +33,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_urunguncelle" />
 
-    <EditText
-        android:id="@+id/txt_barkod"
+    <com.example.mert.stoktakip.utils.TouchInterceptorLayout
+        android:id="@+id/interceptorLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -44,11 +43,18 @@
         android:layout_marginEnd="24dp"
         android:layout_marginRight="24dp"
         android:ems="10"
-        android:hint="@string/barkodno"
-        android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cizgi" />
+        app:layout_constraintTop_toBottomOf="@+id/cizgi">
+
+        <EditText
+            android:id="@+id/txt_barkod"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:ems="10"
+            android:hint="@string/barkodno"
+            android:inputType="number" />
+    </com.example.mert.stoktakip.utils.TouchInterceptorLayout>
 
     <EditText
         android:id="@+id/txt_urunadi"
@@ -65,7 +71,7 @@
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_barkod" />
+        app:layout_constraintTop_toBottomOf="@+id/interceptorLayout" />
 
     <EditText
         android:id="@+id/txt_alisfiyati"
@@ -113,7 +119,7 @@
         android:textAllCaps="false"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_alisfiyati" />
 
