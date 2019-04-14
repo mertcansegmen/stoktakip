@@ -58,7 +58,7 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
                                                             SUTUN_KULLANICI_SIFRE + " TEXT" + ")";
 
     // urun tablosunun oluşturma sorgusu
-    public static final String URUN_TABLOSU_OLUSTUR = "CREATE TABLE " + TABLO_URUN + "(" + SUTUN_URUN_ID + " TEXT, " + SUTUN_URUN_AD + " TEXT, " +
+    private static final String URUN_TABLOSU_OLUSTUR = "CREATE TABLE " + TABLO_URUN + "(" + SUTUN_URUN_ID + " TEXT, " + SUTUN_URUN_AD + " TEXT, " +
                                                       SUTUN_URUN_KALAN_ADET + " INTEGER, " + SUTUN_URUN_FIYAT_ALIS + " INTEGER, " +
                                                       SUTUN_URUN_FIYAT_SATIS + " INTEGER" + ")";
 
@@ -284,6 +284,38 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
         db.close();
 
         return cursorSayisi > 0;
+    }
+
+    // Gelen barkoda göre ürün getiren metot
+    public Urun barkodaGoreUrunGetir(String barkod){
+        String[] sutunlar = {"*"};
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String secim = SUTUN_URUN_ID + " = ?";
+        String[] secimOlcutleri = {barkod};
+
+        Urun urun = new Urun();
+
+        Cursor cursor = db.query(TABLO_URUN,            // işlem için kullanılacak tablo
+                sutunlar,                               // geri dönecek sütunlar
+                secim,                                  // WHERE için sütunlar
+                secimOlcutleri,                         // WHERE için değerler
+                null,
+                null,
+                null);
+        if (cursor.moveToFirst() && cursor.getCount() == 1) {
+            urun.setBarkodNo(cursor.getString(cursor.getColumnIndex(SUTUN_URUN_ID)));
+            urun.setAd(cursor.getString(cursor.getColumnIndex(SUTUN_URUN_AD)));
+            urun.setAdet(cursor.getInt(cursor.getColumnIndex(SUTUN_URUN_KALAN_ADET)));
+            int alisFiyatiInt = cursor.getInt(cursor.getColumnIndex(SUTUN_URUN_FIYAT_ALIS));
+            int satisFiyatiInt = cursor.getInt(cursor.getColumnIndex(SUTUN_URUN_FIYAT_SATIS));
+            urun.setAlis(((float)alisFiyatiInt)/100);
+            urun.setSatis(((float)satisFiyatiInt)/100);
+        }
+        cursor.close();
+        db.close();
+        return urun;
     }
 
     /**

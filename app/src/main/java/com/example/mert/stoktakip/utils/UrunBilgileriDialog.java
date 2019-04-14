@@ -18,6 +18,7 @@ import com.example.mert.stoktakip.R;
 import com.example.mert.stoktakip.activities.UrunGuncelleActivity;
 import com.example.mert.stoktakip.fragments.StokListesiFragment;
 import com.example.mert.stoktakip.models.VeritabaniIslemleri;
+import com.jeevandeshmukh.glidetoastlib.GlideToast;
 
 public class UrunBilgileriDialog extends AppCompatDialogFragment {
 
@@ -61,6 +62,8 @@ public class UrunBilgileriDialog extends AppCompatDialogFragment {
                                 vti.urunSil(barkod);
                                 dismiss();
                                 fragmentYenile();
+                                new GlideToast.makeToast(getActivity(), "Ürün silindi.", GlideToast.LENGTHTOOLONG,
+                                                        GlideToast.SUCCESSTOAST).show();
                             }
                         })
                         .setNegativeButton("Hayır", null)

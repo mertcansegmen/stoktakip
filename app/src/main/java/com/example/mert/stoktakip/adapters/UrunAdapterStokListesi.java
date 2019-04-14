@@ -36,7 +36,7 @@ public class UrunAdapterStokListesi extends ArrayAdapter<Urun> {
         TextView alisSatis;
     }
 
-    public UrunAdapterStokListesi(@NonNull Context context, int resource, ArrayList<Urun> urunler/*Urun[] urunler*/) {
+    public UrunAdapterStokListesi(@NonNull Context context, int resource, ArrayList<Urun> urunler) {
         super(context, resource, urunler);
         this.context = context;
         this.resource = resource;

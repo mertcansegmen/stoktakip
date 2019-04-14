@@ -18,12 +18,16 @@ import com.example.mert.stoktakip.R;
 import com.example.mert.stoktakip.models.Urun;
 import com.reginald.editspinner.EditSpinner;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public class UrunAdapterUrunAlSat extends ArrayAdapter<Urun> {
+
     private Context context;
     private int resource;
 
 
-    public UrunAdapterUrunAlSat(@NonNull Context context, int resource, Urun[] urun) {
+    public UrunAdapterUrunAlSat(@NonNull Context context, int resource, ArrayList<Urun> urun) {
         super(context, resource, urun);
         this.context = context;
         this.resource = resource;
@@ -35,8 +39,6 @@ public class UrunAdapterUrunAlSat extends ArrayAdapter<Urun> {
 
         String barkodNo = getItem(position).getBarkodNo();
         String urunAdi = getItem(position).getAd();
-
-        Urun urun = new Urun(barkodNo, urunAdi);
 
         LayoutInflater inflater = LayoutInflater.from(context);
         convertView = inflater.inflate(resource, parent, false);

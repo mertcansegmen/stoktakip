@@ -52,7 +52,7 @@ public class AnasayfaActivity extends AppCompatActivity
 
         // GirisActivityden gelen kullanıcı adını header layout'a çekiyor
         Intent intent = getIntent();
-        kadi = "Hoşgeldin, ".concat(intent.getStringExtra("kadi"));
+        kadi = intent.getStringExtra("kadi");
         View headerLayout = navigationView.getHeaderView(0);
         kadiDrawer = headerLayout.findViewById(R.id.drawer_kadi);
         kadiDrawer.setText(kadi);

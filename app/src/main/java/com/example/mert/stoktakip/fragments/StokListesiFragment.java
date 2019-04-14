@@ -110,7 +110,7 @@ public class StokListesiFragment extends Fragment {
     }
 
 
-    // Barkod tarayıcı kapanınca şimdilik gelen değeri ekrana bastırıyor
+    // Barkod tarayıcı kapanınca okunan barkoda sahip ürünü filtreliyor
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode == 0){
@@ -122,7 +122,7 @@ public class StokListesiFragment extends Fragment {
                     mp.start();
                 }
                 else{
-                    new GlideToast.makeToast(getActivity(), "Barkod eklenemedi.",
+                    new GlideToast.makeToast(getActivity(), "Barkod okunmadı.",
                             GlideToast.LENGTHTOOLONG, GlideToast.INFOTOAST).show();
                 }
             }
@@ -135,6 +135,8 @@ public class StokListesiFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        //Toast.makeText(getContext(), "onResume", Toast.LENGTH_LONG).show();
+        //adapter.notifyDataSetChanged();
         //fragmentYenile();
     }
 
