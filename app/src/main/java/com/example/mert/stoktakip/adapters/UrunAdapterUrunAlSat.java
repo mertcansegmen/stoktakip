@@ -53,6 +53,7 @@ public class UrunAdapterUrunAlSat extends ArrayAdapter<Urun> {
         EditSpinner spinner;
 
         spinner = convertView.findViewById(R.id.spinner);
+        convertView.setTag(R.string.spinner_id, spinner);
         spinner.setEditable(false);
         spinner.setText(sayilar[0]);
         adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, sayilar);

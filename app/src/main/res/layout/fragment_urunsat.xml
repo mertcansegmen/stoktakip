@@ -70,16 +70,33 @@
 
             android:background="@color/dividerArkaplan" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
-            android:layout_marginLeft="23dp"
-            android:layout_marginStart="23dp"
-            android:layout_marginTop="5dp"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
 
-            android:text="@string/sepet"
-            android:textSize="18sp" />
+                android:layout_marginStart="23dp"
+                android:layout_marginLeft="23dp"
+                android:layout_marginTop="5dp"
+
+                android:text="@string/sepet"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/btn_sepeti_bosalt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:layout_marginRight="20dp"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:text="@string/sepetbosalt"
+                android:visibility="invisible" />
+        </LinearLayout>
 
         <View
             android:id="@+id/cizgi2"
@@ -96,6 +113,15 @@
             android:layout_height="wrap_content"
 
             android:background="@color/listeArkaplan"/>
+
+        <TextView
+            android:id="@+id/sepetbos"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginTop="21dp"
+            android:layout_marginBottom="21dp"
+            android:gravity="center"
+            android:text="@string/sepetbos" />
 
         <View
             android:id="@+id/cizgi3"
@@ -119,7 +145,7 @@
             android:inputType="textMultiLine" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/btn_urunsat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 

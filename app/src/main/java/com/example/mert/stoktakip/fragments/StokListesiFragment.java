@@ -16,7 +16,6 @@ import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SearchView;
-import android.widget.Toast;
 
 import com.example.mert.stoktakip.R;
 import com.example.mert.stoktakip.activities.UrunEkleActivity;

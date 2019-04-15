@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -236,6 +237,22 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
                 new String[]{String.valueOf(urun.getBarkodNo())});
         db.close();
         return degisenSatir;
+    }
+
+    // Gelen barkoda sahip ürünün adetini günceller, artan parametresi true ise adeti arttırır, false ise azaltır
+    public boolean urunAdetiGuncelle(String barkod, int adet) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        try{
+            String query = "UPDATE " + TABLO_URUN +
+                           " SET " + SUTUN_URUN_KALAN_ADET + " = coalesce(" + SUTUN_URUN_KALAN_ADET + ", 0) + " + adet +
+                           " WHERE " + SUTUN_URUN_ID + " = '" + barkod + "'";
+            db.execSQL(query);
+        } catch (Exception e) {
+            db.close();
+            return false;
+        }
+        db.close();
+        return true;
     }
 
     public ArrayList<Urun> butunUrunleriGetir(){

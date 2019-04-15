@@ -41,10 +41,12 @@
     <string name="ornekstokadet">123</string>
     <string name="ornekfiyat">1.25/1.75</string>
 
-
     <string name="stoksil">Sil</string>
     <string name="stokguncelle">Güncelle</string>
     <string name="iptal">İptal</string>
+
+    <string name="sepetbosalt">Sepeti Boşalt</string>
+    <string name="sepetbos">Sepette hiç ürün yok.</string>
 
     <string-array name="sayilar">
         <item>1</item>
@@ -58,4 +60,6 @@
         <item>9</item>
         <item>Diğer</item>
     </string-array>
+
+    <string name="spinner_id">spinner</string>
 </resources>
