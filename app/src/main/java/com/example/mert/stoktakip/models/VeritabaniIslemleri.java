@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class VeritabaniIslemleri extends SQLiteOpenHelper {
 
     // Veritabanı versiyonu
-    private static final int VERITABANI_VERSION = 2;
+    private static final int VERITABANI_VERSION = 3;
 
     // Veritabanı ismi
     private static final String VERITABANI_ADI = "StokTakip.db";
@@ -59,21 +59,23 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
                                                             SUTUN_KULLANICI_SIFRE + " TEXT" + ")";
 
     // urun tablosunun oluşturma sorgusu
-    private static final String URUN_TABLOSU_OLUSTUR = "CREATE TABLE " + TABLO_URUN + "(" + SUTUN_URUN_ID + " TEXT, " + SUTUN_URUN_AD + " TEXT, " +
-                                                      SUTUN_URUN_KALAN_ADET + " INTEGER, " + SUTUN_URUN_FIYAT_ALIS + " INTEGER, " +
+    private static final String URUN_TABLOSU_OLUSTUR = "CREATE TABLE " + TABLO_URUN + "(" + SUTUN_URUN_ID + " TEXT PRIMARY KEY, " + SUTUN_URUN_AD + " TEXT, " +
+                                                      SUTUN_URUN_KALAN_ADET + " INTEGER DEFAULT 0, " + SUTUN_URUN_FIYAT_ALIS + " INTEGER, " +
                                                       SUTUN_URUN_FIYAT_SATIS + " INTEGER" + ")";
 
     // urun_alis tablosunun olusturma sorgusu
     private static final String URUN_ALIS_TABLOSU_OLUSTUR = "CREATE TABLE " + TABLO_URUN_ALIS + "(" + SUTUN_URUN_ALIS_ID +
                                                             " INTEGER PRIMARY KEY AUTOINCREMENT, " + SUTUN_URUN_ALIS_URUN_ID +
                                                             " TEXT, " + SUTUN_URUN_ALIS_ADET + " INTEGER, " + SUTUN_URUN_ALIS_FIYAT +
-                                                            " INTEGER, " + SUTUN_URUN_ALIS_TARIH + " TEXT, " + SUTUN_URUN_ALIS_ACIKLAMA + " TEXT" + ")";
+                                                            " INTEGER, " + SUTUN_URUN_ALIS_TARIH + " DATETIME DEFAULT CURRENT_TIMESTAMP, " +
+                                                            SUTUN_URUN_ALIS_ACIKLAMA + " TEXT" + ")";
 
     // urun_satis tablosunun olusturma sorgusu
     private static final String URUN_SATIS_TABLOSU_OLUSTUR = "CREATE TABLE " + TABLO_URUN_SATIS + "(" + SUTUN_URUN_SATIS_ID +
                                                              " INTEGER PRIMARY KEY AUTOINCREMENT, " + SUTUN_URUN_SATIS_URUN_ID +
                                                              " TEXT, " + SUTUN_URUN_SATIS_ADET + " INTEGER, " + SUTUN_URUN_SATIS_FIYAT +
-                                                             " INTEGER, " + SUTUN_URUN_SATIS_TARIH + " TEXT, " + SUTUN_URUN_SATIS_ACIKLAMA + " TEXT" + ")";
+                                                             " INTEGER, " + SUTUN_URUN_SATIS_TARIH + " DATETIME DEFAULT CURRENT_TIMESTAMP, " +
+                                                             SUTUN_URUN_SATIS_ACIKLAMA + " TEXT" + ")";
 
     // kullanici tablosunun silme sorgusu
     private static final String KULLANICI_TABLOSU_SIL = "DROP TABLE IF EXISTS " + TABLO_KULLANICI;
@@ -341,9 +343,21 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
      *
      */
 
-    public long urunAlisEkle(UrunAlis urunAlis){
-        long degisenSatir = 0;
-        return degisenSatir;
+    public long urunAlisEkle(UrunAlis urunAlis){/*
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(SUTUN_URUN_ALIS_URUN_ID, urunAlis.getBarkodNo());
+        values.put(SUTUN_URUN_ALIS_ADET, urunAlis.getAdet());
+        // gelen değer float, kuruş şekline çevrilip integer'a dönüştürülmesi gerekiyor. Veritabanında o şekilde saklanacak
+        values.put(SUTUN_URUN_ALIS_FIYAT, Math.round(urunAlis.getAlisFiyati()*100));
+        values.put(SUTUN_URUN_ALIS_TARIH, urunAlis.getAlisTarihi());
+        values.put(SUTUN_URUN_ALIS_ACIKLAMA, urunAlis.getAciklama());
+
+        // degisenSatir -1 ise hata oluşmuştur
+        long degisenSatir = db.insert(TABLO_URUN_ALIS, null, values);
+        db.close();
+        return degisenSatir;*/
+        return 0;
     }
 
     /**
@@ -353,7 +367,18 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
      */
 
     public long urunSatisEkle(UrunAlis urunSatis){
-        long degisenSatir = 0;
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(SUTUN_URUN_SATIS_URUN_ID, urunSatis.getBarkodNo());
+        values.put(SUTUN_URUN_SATIS_ADET, urunSatis.getAdet());
+        // gelen değer float, kuruş şekline çevrilip integer'a dönüştürülmesi gerekiyor. Veritabanında o şekilde saklanacak
+        values.put(SUTUN_URUN_SATIS_FIYAT, Math.round(urunSatis.getAlisFiyati()*100));
+        values.put(SUTUN_URUN_SATIS_TARIH, urunSatis.getAlisTarihi());
+        values.put(SUTUN_URUN_SATIS_ACIKLAMA, urunSatis.getAciklama());
+
+        // degisenSatir -1 ise hata oluşmuştur
+        long degisenSatir = db.insert(TABLO_URUN_SATIS, null, values);
+        db.close();
         return degisenSatir;
     }
 }

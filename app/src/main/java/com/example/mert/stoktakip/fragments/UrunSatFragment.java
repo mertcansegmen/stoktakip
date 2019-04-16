@@ -130,9 +130,9 @@ public class UrunSatFragment extends Fragment {
                 new GlideToast.makeToast(getActivity(), "Hata.", GlideToast.LENGTHTOOLONG, GlideToast.FAILTOAST).show();
                 return;
             }
-            sepetiBosalt();
-            new GlideToast.makeToast(getActivity(), "Alım yapıldı.", GlideToast.LENGTHTOOLONG, GlideToast.SUCCESSTOAST).show();
+            new GlideToast.makeToast(getActivity(), "Satış başarılı.", GlideToast.LENGTHTOOLONG, GlideToast.SUCCESSTOAST).show();
         }
+        sepetiBosalt();
     }
 
     // Barkod okuyucu aç butonunun click listener'ı

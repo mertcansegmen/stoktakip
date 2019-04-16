@@ -131,7 +131,7 @@
             android:background="@color/dividerArkaplan" />
 
         <EditText
-            android:id="@+id/editText3"
+            android:id="@+id/aciklama"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 

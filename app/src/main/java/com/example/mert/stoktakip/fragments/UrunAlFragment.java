@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SearchView;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mert.stoktakip.R;
+import com.example.mert.stoktakip.models.UrunAlis;
 import com.example.mert.stoktakip.models.VeritabaniIslemleri;
 import com.example.mert.stoktakip.utils.TouchInterceptorLayout;
 import com.example.mert.stoktakip.models.Urun;
@@ -28,7 +30,9 @@ import com.google.android.gms.vision.barcode.Barcode;
 import com.jeevandeshmukh.glidetoastlib.GlideToast;
 import com.reginald.editspinner.EditSpinner;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class UrunAlFragment extends Fragment {
     SearchView search;
@@ -38,6 +42,7 @@ public class UrunAlFragment extends Fragment {
     ImageButton barkodBtn;
     Button urunAlBtn;
     TextView sepetiBosaltBtn;
+    EditText aciklama;
     UrunAdapterUrunAlSat adapter;
     MediaPlayer mp;
     ArrayList<Urun> urunler = new ArrayList<>();
@@ -52,6 +57,7 @@ public class UrunAlFragment extends Fragment {
         barkodBtn = v.findViewById(R.id.btn_barcode);
         urunAlBtn = v.findViewById(R.id.btn_urunal);
         sepetiBosaltBtn = v.findViewById(R.id.btn_sepeti_bosalt);
+        aciklama = v.findViewById(R.id.aciklama);
         til = v.findViewById(R.id.interceptorLayout);
         mp = MediaPlayer.create(v.getContext(), R.raw.scan_sound);
 
@@ -82,12 +88,21 @@ public class UrunAlFragment extends Fragment {
             EditSpinner spinner = view.findViewById(R.id.spinner);
             int adet = Integer.parseInt(spinner.getText().toString());
             if(!vti.urunAdetiGuncelle(urunler.get(i).getBarkodNo(), adet)) {
-                new GlideToast.makeToast(getActivity(), "Hata.", GlideToast.LENGTHTOOLONG, GlideToast.FAILTOAST).show();
+                new GlideToast.makeToast(getActivity(), "Adet güncelleme hatası.", GlideToast.LENGTHTOOLONG, GlideToast.FAILTOAST).show();
                 return;
-            }
-            sepetiBosalt();
-            new GlideToast.makeToast(getActivity(), "Alım yapıldı.", GlideToast.LENGTHTOOLONG, GlideToast.SUCCESSTOAST).show();
+            }/*
+            UrunAlis urunAlis = new UrunAlis();
+            urunAlis.setBarkodNo(urunler.get(i).getBarkodNo());
+            urunAlis.setAdet(adet);
+            urunAlis.setAlisFiyati(urunler.get(i).getAlis());
+            urunAlis.setAciklama(aciklama.getText().toString());
+            if(vti.urunSatisEkle(urunAlis) == -1){
+                new GlideToast.makeToast(getActivity(), "Ürün alışı ekleme hatası.", GlideToast.LENGTHTOOLONG, GlideToast.FAILTOAST).show();
+                return;
+            }*/
+            new GlideToast.makeToast(getActivity(), "Alım başarılı.", GlideToast.LENGTHTOOLONG, GlideToast.SUCCESSTOAST).show();
         }
+        sepetiBosalt();
     }
 
     // Barkod okuyucu aç butonunun click listener'ı
