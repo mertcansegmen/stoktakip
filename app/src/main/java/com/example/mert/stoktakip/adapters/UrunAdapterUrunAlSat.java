@@ -76,9 +76,7 @@ public class UrunAdapterUrunAlSat extends ArrayAdapter<Urun> {
 
         spinner.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Toast.makeText(getContext(), "tık", Toast.LENGTH_SHORT).show();
-            }
+            public void onClick(View v) {}
         });
 
         //convertView spinner'ın key listener metotunda kullanılamadığı için kopyasını oluşturup kullanılıyor

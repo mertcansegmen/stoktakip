@@ -12,12 +12,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mert.stoktakip.R;
+import com.example.mert.stoktakip.models.UrunAlis;
+import com.example.mert.stoktakip.models.UrunSatis;
 import com.example.mert.stoktakip.models.VeritabaniIslemleri;
 import com.example.mert.stoktakip.utils.TouchInterceptorLayout;
 import com.example.mert.stoktakip.models.Urun;
@@ -39,6 +42,7 @@ public class UrunSatFragment extends Fragment {
     ImageButton barkodBtn;
     Button urunSatBtn;
     TextView sepetiBosaltBtn;
+    EditText aciklama;
     UrunAdapterUrunAlSat adapter;
     MediaPlayer mp;
     ArrayList<Urun> urunler = new ArrayList<>();
@@ -53,6 +57,7 @@ public class UrunSatFragment extends Fragment {
         barkodBtn = v.findViewById(R.id.btn_barcode);
         urunSatBtn = v.findViewById(R.id.btn_urunsat);
         sepetiBosaltBtn = v.findViewById(R.id.btn_sepeti_bosalt);
+        aciklama = v.findViewById(R.id.aciklama);
         til = v.findViewById(R.id.interceptorLayout);
         mp = MediaPlayer.create(v.getContext(), R.raw.scan_sound);
 
@@ -74,6 +79,7 @@ public class UrunSatFragment extends Fragment {
         adapter.clear();
         liste.setAdapter(adapter);
         sepetBos.setVisibility(View.VISIBLE);
+        aciklama.setText("");
     }
 
     private void urunSat() {
@@ -128,6 +134,15 @@ public class UrunSatFragment extends Fragment {
             // Ürünün stoktaki adeti satılmak istenen adetten azsa hata ver
             if(!vti.urunAdetiGuncelle(urunler.get(i).getBarkodNo(), adet*(-1))) {
                 new GlideToast.makeToast(getActivity(), "Hata.", GlideToast.LENGTHTOOLONG, GlideToast.FAILTOAST).show();
+                return;
+            }
+            UrunSatis urunSatis = new UrunSatis();
+            urunSatis.setBarkodNo(urunler.get(i).getBarkodNo());
+            urunSatis.setAdet(adet);
+            urunSatis.setSatisFiyati(urunler.get(i).getAlis());
+            urunSatis.setAciklama(aciklama.getText().toString());
+            if(vti.urunSatisEkle(urunSatis) == -1){
+                new GlideToast.makeToast(getActivity(), "Ürün alışı ekleme hatası.", GlideToast.LENGTHTOOLONG, GlideToast.FAILTOAST).show();
                 return;
             }
             new GlideToast.makeToast(getActivity(), "Satış başarılı.", GlideToast.LENGTHTOOLONG, GlideToast.SUCCESSTOAST).show();

@@ -8,6 +8,8 @@ public class UrunSatis {
     private String satisTarihi;
     private String aciklama;
 
+    public UrunSatis() {}
+
     public UrunSatis(String barkodNo, int adet, float satisFiyati, String satisTarihi, String aciklama) {
         this.barkodNo = barkodNo;
         this.adet = adet;

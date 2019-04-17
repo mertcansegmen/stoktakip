@@ -79,6 +79,7 @@ public class UrunAlFragment extends Fragment {
         adapter.clear();
         liste.setAdapter(adapter);
         sepetBos.setVisibility(View.VISIBLE);
+        aciklama.setText("");
     }
 
     private void urunAl() {
@@ -90,16 +91,16 @@ public class UrunAlFragment extends Fragment {
             if(!vti.urunAdetiGuncelle(urunler.get(i).getBarkodNo(), adet)) {
                 new GlideToast.makeToast(getActivity(), "Adet güncelleme hatası.", GlideToast.LENGTHTOOLONG, GlideToast.FAILTOAST).show();
                 return;
-            }/*
+            }
             UrunAlis urunAlis = new UrunAlis();
             urunAlis.setBarkodNo(urunler.get(i).getBarkodNo());
             urunAlis.setAdet(adet);
             urunAlis.setAlisFiyati(urunler.get(i).getAlis());
             urunAlis.setAciklama(aciklama.getText().toString());
-            if(vti.urunSatisEkle(urunAlis) == -1){
+            if(vti.urunAlisEkle(urunAlis) == -1){
                 new GlideToast.makeToast(getActivity(), "Ürün alışı ekleme hatası.", GlideToast.LENGTHTOOLONG, GlideToast.FAILTOAST).show();
                 return;
-            }*/
+            }
             new GlideToast.makeToast(getActivity(), "Alım başarılı.", GlideToast.LENGTHTOOLONG, GlideToast.SUCCESSTOAST).show();
         }
         sepetiBosalt();

@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class VeritabaniIslemleri extends SQLiteOpenHelper {
 
     // Veritabanı versiyonu
-    private static final int VERITABANI_VERSION = 3;
+    private static final int VERITABANI_VERSION = 4;
 
     // Veritabanı ismi
     private static final String VERITABANI_ADI = "StokTakip.db";
@@ -47,8 +47,8 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
     private static final String SUTUN_URUN_SATIS_ID = "id";
     private static final String SUTUN_URUN_SATIS_URUN_ID = "urun_id";
     private static final String SUTUN_URUN_SATIS_ADET = "adet";
-    private static final String SUTUN_URUN_SATIS_FIYAT = "alis_fiyati";
-    private static final String SUTUN_URUN_SATIS_TARIH = "alis_tarihi";
+    private static final String SUTUN_URUN_SATIS_FIYAT = "satis_fiyati";
+    private static final String SUTUN_URUN_SATIS_TARIH = "satis_tarihi";
     private static final String SUTUN_URUN_SATIS_ACIKLAMA = "aciklama";
 
     // Tablo oluşturma sorguları
@@ -343,21 +343,19 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
      *
      */
 
-    public long urunAlisEkle(UrunAlis urunAlis){/*
+    public long urunAlisEkle(UrunAlis urunAlis){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(SUTUN_URUN_ALIS_URUN_ID, urunAlis.getBarkodNo());
         values.put(SUTUN_URUN_ALIS_ADET, urunAlis.getAdet());
         // gelen değer float, kuruş şekline çevrilip integer'a dönüştürülmesi gerekiyor. Veritabanında o şekilde saklanacak
         values.put(SUTUN_URUN_ALIS_FIYAT, Math.round(urunAlis.getAlisFiyati()*100));
-        values.put(SUTUN_URUN_ALIS_TARIH, urunAlis.getAlisTarihi());
         values.put(SUTUN_URUN_ALIS_ACIKLAMA, urunAlis.getAciklama());
 
         // degisenSatir -1 ise hata oluşmuştur
         long degisenSatir = db.insert(TABLO_URUN_ALIS, null, values);
         db.close();
-        return degisenSatir;*/
-        return 0;
+        return degisenSatir;
     }
 
     /**
@@ -366,14 +364,13 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
      *
      */
 
-    public long urunSatisEkle(UrunAlis urunSatis){
+    public long urunSatisEkle(UrunSatis urunSatis){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(SUTUN_URUN_SATIS_URUN_ID, urunSatis.getBarkodNo());
         values.put(SUTUN_URUN_SATIS_ADET, urunSatis.getAdet());
         // gelen değer float, kuruş şekline çevrilip integer'a dönüştürülmesi gerekiyor. Veritabanında o şekilde saklanacak
-        values.put(SUTUN_URUN_SATIS_FIYAT, Math.round(urunSatis.getAlisFiyati()*100));
-        values.put(SUTUN_URUN_SATIS_TARIH, urunSatis.getAlisTarihi());
+        values.put(SUTUN_URUN_SATIS_FIYAT, Math.round(urunSatis.getSatisFiyati()*100));
         values.put(SUTUN_URUN_SATIS_ACIKLAMA, urunSatis.getAciklama());
 
         // degisenSatir -1 ise hata oluşmuştur
