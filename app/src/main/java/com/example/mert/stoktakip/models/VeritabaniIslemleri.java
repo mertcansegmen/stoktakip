@@ -337,6 +337,32 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
         return urun;
     }
 
+    // Kalan adeti azalan ürün eşiğinin altında olan ürünleri getiren metot
+    public ArrayList<Urun> azalanUrunGetir(int esik){
+        SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<Urun> urunler = new ArrayList<>();
+        String query = "SELECT * FROM " + TABLO_URUN + " WHERE " + SUTUN_URUN_KALAN_ADET + " <= " + esik;
+
+        Cursor c = db.rawQuery(query, null);
+        if (c.moveToFirst()) {
+            do {
+                Urun urun = new Urun();
+                urun.setBarkodNo(c.getString(c.getColumnIndex(SUTUN_URUN_ID)));
+                urun.setAd(c.getString(c.getColumnIndex(SUTUN_URUN_AD)));
+                urun.setAdet(c.getInt(c.getColumnIndex(SUTUN_URUN_KALAN_ADET)));
+                int alisFiyatiInt = c.getInt(c.getColumnIndex(SUTUN_URUN_FIYAT_ALIS));
+                int satisFiyatiInt = c.getInt(c.getColumnIndex(SUTUN_URUN_FIYAT_SATIS));
+                urun.setAlis(((float)alisFiyatiInt)/100);
+                urun.setSatis(((float)satisFiyatiInt)/100);
+
+                urunler.add(urun);
+            } while (c.moveToNext());
+        }
+        c.close();
+        db.close();
+        return urunler;
+    }
+
     /**
      *
      * urun_alis tablosuyla ilgili metotlar
@@ -357,6 +383,7 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
         db.close();
         return degisenSatir;
     }
+
 
     /**
      *
