@@ -48,6 +48,9 @@
     <string name="sepetbosalt">Sepeti Boşalt</string>
     <string name="sepetbos">Sepette hiç ürün yok.</string>
 
+    <string name="esik">Azalan Ürün Eşiği: </string>
+    <string name="kaydet">Kaydet</string>
+
     <string-array name="sayilar">
         <item>1</item>
         <item>2</item>
