@@ -7,6 +7,7 @@
     <color name="dividerArkaplan">#1AFFFFFF</color>
     <color name="listeArkaplan">#3D3D3D</color>
     <color name="sepetArkaplan">#292929</color>
-    <color name="silButon">#e32200</color>
+    <color name="silButon">#E32200</color>
     <color name="guncelleButon">#f69d13</color>
+    <color name="ekleButon">#008000</color>
 </resources>

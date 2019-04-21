@@ -130,5 +130,4 @@ public class AnasayfaActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
 }

@@ -7,6 +7,7 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,22 +20,23 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mert.stoktakip.R;
-import com.example.mert.stoktakip.models.UrunAlis;
 import com.example.mert.stoktakip.models.UrunSatis;
 import com.example.mert.stoktakip.models.VeritabaniIslemleri;
 import com.example.mert.stoktakip.utils.TouchInterceptorLayout;
 import com.example.mert.stoktakip.models.Urun;
 import com.example.mert.stoktakip.adapters.UrunAdapterUrunAlSat;
 import com.example.mert.stoktakip.activities.BarkodOkuyucuActivity;
+import com.example.mert.stoktakip.utils.UrunListesiDialog;
 import com.github.paolorotolo.expandableheightlistview.ExpandableHeightListView;
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.jeevandeshmukh.glidetoastlib.GlideToast;
-import com.reginald.editspinner.EditSpinner;
 
 import java.util.ArrayList;
 
-public class UrunSatFragment extends Fragment {
+import me.himanshusoni.quantityview.QuantityView;
+
+public class UrunSatFragment extends Fragment implements UrunListesiDialog.UrunListesiDialogListener {
     SearchView search;
     TextView sepetBos;
     ExpandableHeightListView liste;
@@ -96,8 +98,8 @@ public class UrunSatFragment extends Fragment {
         // Stokta yeterli miktar olmayan ürünler olup olmadığı kontrol ediliyor
         for(int i = 0; i < urunler.size(); i++){
             View view = liste.getChildAt(i);
-            EditSpinner spinner = view.findViewById(R.id.spinner);
-            int satilmakIstenenAdet = Integer.parseInt(spinner.getText().toString());
+            QuantityView quantityView = view.findViewById(R.id.quantityView);
+            int satilmakIstenenAdet = quantityView.getQuantity();
             int stoktakiAdet = vti.barkodaGoreUrunGetir(urunler.get(i).getBarkodNo()).getAdet();
             if(stoktakiAdet < satilmakIstenenAdet) {
                 yetersizStoklarAd.add(urunler.get(i).getAd());
@@ -128,9 +130,8 @@ public class UrunSatFragment extends Fragment {
         }
         for(int i = 0; i < urunler.size(); i++){
             View view = liste.getChildAt(i);
-            EditSpinner spinner = view.findViewById(R.id.spinner);
-            int adet = Integer.parseInt(spinner.getText().toString());
-            int stoktakiAdet = vti.barkodaGoreUrunGetir(urunler.get(i).getBarkodNo()).getAdet();
+            QuantityView quantityView = view.findViewById(R.id.quantityView);
+            int adet = quantityView.getQuantity();
             // Ürünün stoktaki adeti satılmak istenen adetten azsa hata ver
             if(!vti.urunAdetiGuncelle(urunler.get(i).getBarkodNo(), adet*(-1))) {
                 new GlideToast.makeToast(getActivity(), "Hata.", GlideToast.LENGTHTOOLONG, GlideToast.FAILTOAST).show();
@@ -180,7 +181,18 @@ public class UrunSatFragment extends Fragment {
 
     // Ürün arama butonunun click listener'ı
     private void urunSec() {
-        Toast.makeText(getActivity(), "Ürünler açılıyor", Toast.LENGTH_LONG).show();
+        DialogFragment dialog = new UrunListesiDialog();
+        dialog.setTargetFragment(this, 0);
+        dialog.show(getActivity().getSupportFragmentManager(), "Urun Listesi");
     }
 
+    @Override
+    public void barkodGetir(String barkod) {
+        VeritabaniIslemleri vti = new VeritabaniIslemleri(getContext());
+        Urun urun = vti.barkodaGoreUrunGetir(barkod);
+        urunler.add(urun);
+        sepetiBosaltBtn.setVisibility(View.VISIBLE);
+        sepetBos.setVisibility(View.GONE);
+        adapter.notifyDataSetChanged();
+    }
 }

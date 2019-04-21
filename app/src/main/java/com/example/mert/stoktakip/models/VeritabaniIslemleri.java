@@ -337,6 +337,38 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
         return urun;
     }
 
+    // Gelen isime göre ürün getiren metot
+    public Urun isimeGoreUrunGetir(String isim){
+        String[] sutunlar = {"*"};
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String secim = SUTUN_URUN_AD + " = ?";
+        String[] secimOlcutleri = {isim};
+
+        Urun urun = new Urun();
+
+        Cursor cursor = db.query(TABLO_URUN,            // işlem için kullanılacak tablo
+                sutunlar,                               // geri dönecek sütunlar
+                secim,                                  // WHERE için sütunlar
+                secimOlcutleri,                         // WHERE için değerler
+                null,
+                null,
+                null);
+        if (cursor.moveToFirst() && cursor.getCount() == 1) {
+            urun.setBarkodNo(cursor.getString(cursor.getColumnIndex(SUTUN_URUN_ID)));
+            urun.setAd(cursor.getString(cursor.getColumnIndex(SUTUN_URUN_AD)));
+            urun.setAdet(cursor.getInt(cursor.getColumnIndex(SUTUN_URUN_KALAN_ADET)));
+            int alisFiyatiInt = cursor.getInt(cursor.getColumnIndex(SUTUN_URUN_FIYAT_ALIS));
+            int satisFiyatiInt = cursor.getInt(cursor.getColumnIndex(SUTUN_URUN_FIYAT_SATIS));
+            urun.setAlis(((float)alisFiyatiInt)/100);
+            urun.setSatis(((float)satisFiyatiInt)/100);
+        }
+        cursor.close();
+        db.close();
+        return urun;
+    }
+
     // Kalan adeti azalan ürün eşiğinin altında olan ürünleri getiren metot
     public ArrayList<Urun> azalanUrunGetir(int esik){
         SQLiteDatabase db = this.getReadableDatabase();
