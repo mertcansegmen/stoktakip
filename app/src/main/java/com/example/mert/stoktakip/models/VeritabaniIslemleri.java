@@ -232,8 +232,8 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
         values.put(SUTUN_URUN_AD, urun.getAd());
-        values.put(SUTUN_URUN_FIYAT_ALIS, urun.getAlis());
-        values.put(SUTUN_URUN_FIYAT_SATIS, urun.getSatis());
+        values.put(SUTUN_URUN_FIYAT_ALIS, Math.round(urun.getAlis()*100));
+        values.put(SUTUN_URUN_FIYAT_SATIS, Math.round(urun.getSatis()*100));
 
         int degisenSatir = db.update(TABLO_URUN, values, SUTUN_URUN_ID + " = ?",
                 new String[]{String.valueOf(urun.getBarkodNo())});

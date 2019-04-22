@@ -2,6 +2,7 @@ package com.example.mert.stoktakip.activities;
 
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -87,7 +88,14 @@ public class UrunGuncelleActivity extends AppCompatActivity {
         alanlariBosalt();
         new GlideToast.makeToast(UrunGuncelleActivity.this, "Ürün güncellendi.",
                 GlideToast.LENGTHTOOLONG, GlideToast.SUCCESSTOAST).show();
-        finish();
+        // UrunGuncelleActivity'yi kapatmadan önce GlideToast'ın ekranda kalma süresi kadar beklenilip çıkılmazsa hata veriyor
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                finish();
+            }
+        }, GlideToast.LENGTHTOOLONG);
     }
 
     private void alanlariBosalt() {
