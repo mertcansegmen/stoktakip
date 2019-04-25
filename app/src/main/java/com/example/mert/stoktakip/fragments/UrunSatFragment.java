@@ -166,17 +166,39 @@ public class UrunSatFragment extends Fragment implements UrunListesiDialog.UrunL
                     Barcode barcode = data.getParcelableExtra("barcode");
                     VeritabaniIslemleri vti = new VeritabaniIslemleri(getContext());
                     Urun urun = vti.barkodaGoreUrunGetir(barcode.displayValue);
-                    urunler.add(urun);
-                    sepetiBosaltBtn.setVisibility(View.VISIBLE);
-                    sepetBos.setVisibility(View.GONE);
-                    adapter.notifyDataSetChanged();
-                    mp.start();
+                    // Eğer barkodu okutulan ürün veritabanında yoksa hata ver
+                    if(!vti.urunTekrariKontrolEt(urun.getBarkodNo())){
+                        new GlideToast.makeToast(getActivity(), "Ürün bulunamadı.", GlideToast.LENGTHTOOLONG, GlideToast.FAILTOAST).show();
+                    }
+                    // Eğer seçilen ürün zaten sepette varsa hata ver
+                    else if(urunSepetteEkliMi(urun)){
+                        new GlideToast.makeToast(getActivity(), "Ürün zaten sepette ekli.", GlideToast.LENGTHTOOLONG, GlideToast.FAILTOAST).show();
+                    }
+                    // Eğer ürünün barkodu çekilemediyse hata ver
+                    else if(urun.getBarkodNo() == null){
+                        new GlideToast.makeToast(getActivity(), "Hata.", GlideToast.LENGTHTOOLONG, GlideToast.FAILTOAST).show();
+                    }
+                    else {
+                        urunler.add(urun);
+                        sepetiBosaltBtn.setVisibility(View.VISIBLE);
+                        sepetBos.setVisibility(View.GONE);
+                        adapter.notifyDataSetChanged();
+                        mp.start();
+                    }
                 }
             }
         }
         else{
             super.onActivityResult(requestCode, resultCode, data);
         }
+    }
+
+    private boolean urunSepetteEkliMi(Urun urun) {
+        for(int i=0; i<urunler.size(); i++){
+            if(urunler.get(i).getBarkodNo().equals(urun.getBarkodNo()))
+                return true;
+        }
+        return false;
     }
 
     // Ürün arama butonunun click listener'ı
@@ -190,6 +212,11 @@ public class UrunSatFragment extends Fragment implements UrunListesiDialog.UrunL
     public void barkodGetir(String barkod) {
         VeritabaniIslemleri vti = new VeritabaniIslemleri(getContext());
         Urun urun = vti.barkodaGoreUrunGetir(barkod);
+        // Eğer seçilen ürün zaten sepette varsa hata veriyor
+        if(urunSepetteEkliMi(urun)){
+            new GlideToast.makeToast(getActivity(), "Ürün zaten sepette ekli.", GlideToast.LENGTHTOOLONG, GlideToast.FAILTOAST).show();
+            return;
+        }
         urunler.add(urun);
         sepetiBosaltBtn.setVisibility(View.VISIBLE);
         sepetBos.setVisibility(View.GONE);

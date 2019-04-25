@@ -110,6 +110,7 @@ public class UrunEkleActivity extends AppCompatActivity {
                     mp.start();
                     barkodNo.setText(barcode.displayValue);
                     barkodNo.setEnabled(false);
+                    urunAdi.requestFocus();
                 }
                 else{
                     new GlideToast.makeToast(UrunEkleActivity.this, "Barkod eklenemedi.",

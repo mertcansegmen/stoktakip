@@ -291,16 +291,21 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
         String secim = SUTUN_URUN_ID + " = ?";
         String[] secimOlcutleri = {barkod};
 
-        Cursor cursor = db.query(TABLO_URUN,            // işlem için kullanılacak tablo
-                sutunlar,                               // geri dönecek sütunlar
-                secim,                                  // WHERE için sütunlar
-                secimOlcutleri,                         // WHERE için değerler
-                null,
-                null,
-                null);
-        int cursorSayisi = cursor.getCount();
-        cursor.close();
-        db.close();
+        int cursorSayisi = 0;
+
+        if(barkod != null) {
+            Cursor cursor = db.query(TABLO_URUN,            // işlem için kullanılacak tablo
+                    sutunlar,                               // geri dönecek sütunlar
+                    secim,                                  // WHERE için sütunlar
+                    secimOlcutleri,                         // WHERE için değerler
+                    null,
+                    null,
+                    null);
+
+            cursorSayisi = cursor.getCount();
+            cursor.close();
+            db.close();
+        }
 
         return cursorSayisi > 0;
     }

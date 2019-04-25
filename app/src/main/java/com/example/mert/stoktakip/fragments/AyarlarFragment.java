@@ -15,9 +15,11 @@ import android.widget.EditText;
 import com.example.mert.stoktakip.R;
 import com.jeevandeshmukh.glidetoastlib.GlideToast;
 
+import me.himanshusoni.quantityview.QuantityView;
+
 public class AyarlarFragment extends Fragment {
 
-    EditText esikTV;
+    QuantityView esikQV;
     Button kaydetBtn;
 
     int varsayilanEsik = 10;
@@ -31,18 +33,18 @@ public class AyarlarFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_ayarlar, container, false);
 
-        esikTV = v.findViewById(R.id.txt_esik);
+        esikQV = v.findViewById(R.id.txt_esik);
         kaydetBtn = v.findViewById(R.id.btn_kaydet);
 
         preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
         editor = preferences.edit();
 
-        esikTV.setText(Integer.toString(preferences.getInt("esik", varsayilanEsik)));
+        esikQV.setQuantity(preferences.getInt("esik", varsayilanEsik));
 
         kaydetBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int esik = Integer.valueOf(esikTV.getText().toString());
+                int esik = esikQV.getQuantity();
                 if (esik != preferences.getInt("esik", varsayilanEsik)){
                     editor.putInt("esik", esik);
                     editor.apply();

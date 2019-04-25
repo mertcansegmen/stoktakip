@@ -116,9 +116,15 @@ public class StokListesiFragment extends Fragment {
             if(resultCode == CommonStatusCodes.SUCCESS){
                 if(data != null){
                     Barcode barcode = data.getParcelableExtra("barcode");
-                    adapter.getFilter().filter(barcode.displayValue);
-                    barkodAramasiYapildi = true;
-                    mp.start();
+                    Urun urun = vti.barkodaGoreUrunGetir(barcode.displayValue);
+                    if(!vti.urunTekrariKontrolEt(urun.getBarkodNo())){
+                        new GlideToast.makeToast(getActivity(), "Ürün bulunamadı.", GlideToast.LENGTHTOOLONG, GlideToast.FAILTOAST).show();
+                    }
+                    else {
+                        adapter.getFilter().filter(barcode.displayValue);
+                        barkodAramasiYapildi = true;
+                        mp.start();
+                    }
                 }
                 else{
                     new GlideToast.makeToast(getActivity(), "Barkod okunmadı.",
