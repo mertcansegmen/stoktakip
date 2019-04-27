@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.blackcat.currencyedittext.CurrencyEditText;
 import com.example.mert.stoktakip.R;
 import com.example.mert.stoktakip.models.Urun;
 import com.example.mert.stoktakip.models.VeritabaniIslemleri;
@@ -20,8 +21,8 @@ public class UrunGuncelleActivity extends AppCompatActivity {
 
     EditText barkodNo;
     EditText urunAdi;
-    EditText alisFiyati;
-    EditText satisFiyati;
+    CurrencyEditText alisFiyati;
+    CurrencyEditText satisFiyati;
     Button guncelleBtn;
     MediaPlayer mp;
     TouchInterceptorLayout til;
@@ -61,20 +62,18 @@ public class UrunGuncelleActivity extends AppCompatActivity {
     private void urunGuncelle() {
         String barkod = barkodNo.getText().toString();
         String ad = urunAdi.getText().toString();
-        String alis = alisFiyati.getText().toString();
-        String satis = satisFiyati.getText().toString();
+        // Alış ve satış fiyatları kuruş şeklinde long değer olarak geliyor. Floata çevrilmesi gerekiyor
+        float alis = alisFiyati.getRawValue() / (float)100;
+        float satis = satisFiyati.getRawValue() / (float)100;
 
         // Alanlardan herhangi biri boşsa hata ver
-        if(ad.equals("") || alis.equals("") || satis.equals("")){
+        if(ad.equals("")){
             new GlideToast.makeToast(UrunGuncelleActivity.this, "Lütfen bütün alanları doldurun.",
                     GlideToast.LENGTHTOOLONG, GlideToast.INFOTOAST).show();
             return;
         }
 
-        // EditText'ten alınan değer floata çeviriliyor
-        float alisFiyatiFloat = Float.parseFloat(alis);
-        float satisFiyatiFloat = Float.parseFloat(satis);
-        Urun urun = new Urun(barkod, ad, alisFiyatiFloat, satisFiyatiFloat);
+        Urun urun = new Urun(barkod, ad, alis, satis);
 
         VeritabaniIslemleri vti = new VeritabaniIslemleri(this);
 

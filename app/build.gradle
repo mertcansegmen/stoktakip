@@ -38,6 +38,7 @@ dependencies {
     implementation 'com.github.imjeevandeshmukh:GlideToast:1.0'
     implementation 'me.himanshusoni.quantityview:quantity-view:1.2.0'
     implementation 'com.github.MdFarhanRaja:SearchableSpinner:2.0'
+    implementation 'com.github.BlacKCaT27:CurrencyEditText:2.0.2'
 }
 repositories {
     jcenter()
