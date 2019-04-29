@@ -17,7 +17,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.SearchView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.mert.stoktakip.R;
 import com.example.mert.stoktakip.models.UrunSatis;
@@ -48,6 +47,7 @@ public class UrunSatFragment extends Fragment implements UrunListesiDialog.UrunL
     UrunAdapterUrunAlSat adapter;
     MediaPlayer mp;
     ArrayList<Urun> urunler = new ArrayList<>();
+    String kadi;
 
     @Nullable
     @Override
@@ -62,6 +62,9 @@ public class UrunSatFragment extends Fragment implements UrunListesiDialog.UrunL
         aciklama = v.findViewById(R.id.aciklama);
         til = v.findViewById(R.id.interceptorLayout);
         mp = MediaPlayer.create(v.getContext(), R.raw.scan_sound);
+
+        Bundle bundle = this.getArguments();
+        kadi = bundle.getString("kadi");
 
         barkodBtn.setOnClickListener(e -> barkodOkuyucuAc());
         urunSatBtn.setOnClickListener(e -> urunSat());
@@ -139,6 +142,7 @@ public class UrunSatFragment extends Fragment implements UrunListesiDialog.UrunL
             }
             UrunSatis urunSatis = new UrunSatis();
             urunSatis.setBarkodNo(urunler.get(i).getBarkodNo());
+            urunSatis.setKadi(kadi);
             urunSatis.setAdet(adet);
             urunSatis.setSatisFiyati(urunler.get(i).getAlis());
             urunSatis.setAciklama(aciklama.getText().toString());

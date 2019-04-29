@@ -3,6 +3,7 @@ package com.example.mert.stoktakip.models;
 public class UrunAlis {
     private int id;
     private String barkodNo;
+    private String kadi;
     private int adet;
     private float alisFiyati;
     private String alisTarihi;
@@ -10,8 +11,9 @@ public class UrunAlis {
 
     public UrunAlis() {}
 
-    public UrunAlis(String barkodNo, int adet, float alisFiyati, String alisTarihi, String aciklama) {
+    public UrunAlis(String barkodNo, String kadi, int adet, float alisFiyati, String alisTarihi, String aciklama) {
         this.barkodNo = barkodNo;
+        this.kadi = kadi;
         this.adet = adet;
         this.alisFiyati = alisFiyati;
         this.alisTarihi = alisTarihi;
@@ -32,6 +34,14 @@ public class UrunAlis {
 
     public void setBarkodNo(String barkodNo) {
         this.barkodNo = barkodNo;
+    }
+
+    public String getKadi() {
+        return kadi;
+    }
+
+    public void setKadi(String kadi) {
+        this.kadi = kadi;
     }
 
     public int getAdet() {

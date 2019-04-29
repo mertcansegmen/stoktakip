@@ -5,14 +5,13 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
 public class VeritabaniIslemleri extends SQLiteOpenHelper {
 
     // Veritabanı versiyonu
-    private static final int VERITABANI_VERSION = 4;
+    private static final int VERITABANI_VERSION = 5;
 
     // Veritabanı ismi
     private static final String VERITABANI_ADI = "StokTakip.db";
@@ -24,7 +23,6 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
     private static final String TABLO_URUN_SATIS = "urun_satis";
 
     // kullanici tablosu sütun isimleri
-    private static final String SUTUN_KULLANICI_ID = "id";
     private static final String SUTUN_KULLANICI_KADI = "kadi";
     private static final String SUTUN_KULLANICI_SIFRE = "sifre";
 
@@ -38,6 +36,7 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
     // urun_alis tablosu sütun isimleri
     private static final String SUTUN_URUN_ALIS_ID = "id";
     private static final String SUTUN_URUN_ALIS_URUN_ID = "urun_id";
+    private static final String SUTUN_URUN_ALIS_KULLANICI_ID = "kullanici_id";
     private static final String SUTUN_URUN_ALIS_ADET = "adet";
     private static final String SUTUN_URUN_ALIS_FIYAT = "alis_fiyati";
     private static final String SUTUN_URUN_ALIS_TARIH = "alis_tarihi";
@@ -46,6 +45,7 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
     // urun_satis tablosu sütun isimleri
     private static final String SUTUN_URUN_SATIS_ID = "id";
     private static final String SUTUN_URUN_SATIS_URUN_ID = "urun_id";
+    private static final String SUTUN_URUN_SATIS_KULLANICI_ID = "kullanici_id";
     private static final String SUTUN_URUN_SATIS_ADET = "adet";
     private static final String SUTUN_URUN_SATIS_FIYAT = "satis_fiyati";
     private static final String SUTUN_URUN_SATIS_TARIH = "satis_tarihi";
@@ -54,28 +54,41 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
     // Tablo oluşturma sorguları
 
     // kullanici tablosunun oluşturma sorgusu
-    private static final String KULLANICI_TABLOSU_OLUSTUR = "CREATE TABLE " + TABLO_KULLANICI + "(" + SUTUN_KULLANICI_ID +
-                                                            " INTEGER PRIMARY KEY AUTOINCREMENT, " + SUTUN_KULLANICI_KADI + " TEXT, " +
-                                                            SUTUN_KULLANICI_SIFRE + " TEXT" + ")";
+    private static final String KULLANICI_TABLOSU_OLUSTUR = "CREATE TABLE " + TABLO_KULLANICI + "(" +
+                                                            SUTUN_KULLANICI_KADI + " TEXT PRIMARY KEY NOT NULL, " +
+                                                            SUTUN_KULLANICI_SIFRE + " TEXT NOT NULL" + ")";
 
     // urun tablosunun oluşturma sorgusu
-    private static final String URUN_TABLOSU_OLUSTUR = "CREATE TABLE " + TABLO_URUN + "(" + SUTUN_URUN_ID + " TEXT PRIMARY KEY, " + SUTUN_URUN_AD + " TEXT, " +
-                                                      SUTUN_URUN_KALAN_ADET + " INTEGER DEFAULT 0, " + SUTUN_URUN_FIYAT_ALIS + " INTEGER, " +
-                                                      SUTUN_URUN_FIYAT_SATIS + " INTEGER" + ")";
+    private static final String URUN_TABLOSU_OLUSTUR = "CREATE TABLE " + TABLO_URUN + "(" +
+                                                       SUTUN_URUN_ID + " TEXT PRIMARY KEY NOT NULL, " +
+                                                       SUTUN_URUN_AD + " TEXT NOT NULL, " +
+                                                       SUTUN_URUN_KALAN_ADET + " INTEGER DEFAULT 0, " +
+                                                       SUTUN_URUN_FIYAT_ALIS + " INTEGER, " +
+                                                       SUTUN_URUN_FIYAT_SATIS + " INTEGER" + ")";
 
     // urun_alis tablosunun olusturma sorgusu
-    private static final String URUN_ALIS_TABLOSU_OLUSTUR = "CREATE TABLE " + TABLO_URUN_ALIS + "(" + SUTUN_URUN_ALIS_ID +
-                                                            " INTEGER PRIMARY KEY AUTOINCREMENT, " + SUTUN_URUN_ALIS_URUN_ID +
-                                                            " TEXT, " + SUTUN_URUN_ALIS_ADET + " INTEGER, " + SUTUN_URUN_ALIS_FIYAT +
-                                                            " INTEGER, " + SUTUN_URUN_ALIS_TARIH + " DATETIME DEFAULT CURRENT_TIMESTAMP, " +
-                                                            SUTUN_URUN_ALIS_ACIKLAMA + " TEXT" + ")";
+    private static final String URUN_ALIS_TABLOSU_OLUSTUR = "CREATE TABLE " + TABLO_URUN_ALIS + "(" +
+                                                            SUTUN_URUN_ALIS_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                                                            SUTUN_URUN_ALIS_URUN_ID + " TEXT, " +
+                                                            SUTUN_URUN_ALIS_KULLANICI_ID + " TEXT, " +
+                                                            SUTUN_URUN_ALIS_ADET + " INTEGER NOT NULL, " +
+                                                            SUTUN_URUN_ALIS_FIYAT + " INTEGER, " +
+                                                            SUTUN_URUN_ALIS_TARIH + " DATETIME DEFAULT CURRENT_TIMESTAMP, " +
+                                                            SUTUN_URUN_ALIS_ACIKLAMA + " TEXT, " +
+                                                            "FOREIGN KEY(" + SUTUN_URUN_ALIS_URUN_ID + ") REFERENCES " + TABLO_URUN + "(" + SUTUN_URUN_ID + "), " +
+                                                            "FOREIGN KEY(" + SUTUN_URUN_ALIS_KULLANICI_ID + ") REFERENCES " + TABLO_KULLANICI + "(" + SUTUN_KULLANICI_KADI + "))";
 
     // urun_satis tablosunun olusturma sorgusu
-    private static final String URUN_SATIS_TABLOSU_OLUSTUR = "CREATE TABLE " + TABLO_URUN_SATIS + "(" + SUTUN_URUN_SATIS_ID +
-                                                             " INTEGER PRIMARY KEY AUTOINCREMENT, " + SUTUN_URUN_SATIS_URUN_ID +
-                                                             " TEXT, " + SUTUN_URUN_SATIS_ADET + " INTEGER, " + SUTUN_URUN_SATIS_FIYAT +
-                                                             " INTEGER, " + SUTUN_URUN_SATIS_TARIH + " DATETIME DEFAULT CURRENT_TIMESTAMP, " +
-                                                             SUTUN_URUN_SATIS_ACIKLAMA + " TEXT" + ")";
+    private static final String URUN_SATIS_TABLOSU_OLUSTUR = "CREATE TABLE " + TABLO_URUN_SATIS + "(" +
+                                                             SUTUN_URUN_SATIS_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                                                             SUTUN_URUN_SATIS_URUN_ID + " TEXT, " +
+                                                             SUTUN_URUN_SATIS_KULLANICI_ID + " TEXT, " +
+                                                             SUTUN_URUN_SATIS_ADET + " INTEGER NOT NULL, " +
+                                                             SUTUN_URUN_SATIS_FIYAT + " INTEGER, " +
+                                                             SUTUN_URUN_SATIS_TARIH + " DATETIME DEFAULT CURRENT_TIMESTAMP, " +
+                                                             SUTUN_URUN_SATIS_ACIKLAMA + " TEXT, " +
+                                                             "FOREIGN KEY(" + SUTUN_URUN_SATIS_URUN_ID + ") REFERENCES " + TABLO_URUN + "(" + SUTUN_URUN_ID + "), " +
+                                                             "FOREIGN KEY(" + SUTUN_URUN_SATIS_KULLANICI_ID + ") REFERENCES " + TABLO_KULLANICI + "(" + SUTUN_KULLANICI_KADI + "))";
 
     // kullanici tablosunun silme sorgusu
     private static final String KULLANICI_TABLOSU_SIL = "DROP TABLE IF EXISTS " + TABLO_KULLANICI;
@@ -134,7 +147,7 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
     public void kullaniciSil(Kullanici kullanici){
         SQLiteDatabase db = this.getWritableDatabase();
 
-        db.delete(TABLO_KULLANICI, SUTUN_KULLANICI_ID + " = ?", new String[]{String.valueOf(kullanici.getId())});
+        db.delete(TABLO_KULLANICI, SUTUN_KULLANICI_KADI + " = ?", new String[]{kullanici.getKadi()});
         db.close();
     }
 
@@ -145,15 +158,15 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
         values.put(SUTUN_KULLANICI_KADI, kullanici.getKadi());
         values.put(SUTUN_KULLANICI_SIFRE, kullanici.getSifre());
 
-        int degisenSatir = db.update(TABLO_KULLANICI, values, SUTUN_KULLANICI_ID + " = ?",
-                           new String[]{String.valueOf(kullanici.getId())});
+        int degisenSatir = db.update(TABLO_KULLANICI, values, SUTUN_KULLANICI_KADI + " = ?",
+                           new String[]{kullanici.getKadi()});
         db.close();
         return degisenSatir;
     }
 
     // Kullanıcı adının var olup olmadığını kontrol eden metot
     public boolean kullaniciAdiniKontrolEt(String kadi){
-        String[] sutunlar = {SUTUN_KULLANICI_ID};
+        String[] sutunlar = {SUTUN_KULLANICI_KADI};
 
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -177,7 +190,7 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
     // Kullanıcı adı ve şifrenin doğruluğunu kontrol eden metot
     public boolean girisBilgileriniKontrolEt(String kadi, String sifre) {
 
-        String[] sutunlar = {SUTUN_KULLANICI_ID};
+        String[] sutunlar = {SUTUN_KULLANICI_KADI};
         SQLiteDatabase db = this.getReadableDatabase();
         String  secim = SUTUN_KULLANICI_KADI + " = ?" + " AND " + SUTUN_KULLANICI_SIFRE + " = ?";
 
@@ -410,6 +423,7 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(SUTUN_URUN_ALIS_URUN_ID, urunAlis.getBarkodNo());
+        values.put(SUTUN_URUN_ALIS_KULLANICI_ID, urunAlis.getKadi());
         values.put(SUTUN_URUN_ALIS_ADET, urunAlis.getAdet());
         // gelen değer float, kuruş şekline çevrilip integer'a dönüştürülmesi gerekiyor. Veritabanında o şekilde saklanacak
         values.put(SUTUN_URUN_ALIS_FIYAT, Math.round(urunAlis.getAlisFiyati()*100));
@@ -432,6 +446,7 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(SUTUN_URUN_SATIS_URUN_ID, urunSatis.getBarkodNo());
+        values.put(SUTUN_URUN_SATIS_KULLANICI_ID, urunSatis.getKadi());
         values.put(SUTUN_URUN_SATIS_ADET, urunSatis.getAdet());
         // gelen değer float, kuruş şekline çevrilip integer'a dönüştürülmesi gerekiyor. Veritabanında o şekilde saklanacak
         values.put(SUTUN_URUN_SATIS_FIYAT, Math.round(urunSatis.getSatisFiyati()*100));

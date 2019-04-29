@@ -25,7 +25,6 @@ import com.example.mert.stoktakip.fragments.StokListesiFragment;
 import com.example.mert.stoktakip.fragments.UrunAlFragment;
 import com.example.mert.stoktakip.fragments.UrunSatFragment;
 import com.example.mert.stoktakip.fragments.VeritabaniFragment;
-import com.example.mert.stoktakip.models.VeritabaniIslemleri;
 
 public class AnasayfaActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -109,16 +108,22 @@ public class AnasayfaActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        Bundle bundle = new Bundle();
+        bundle.putString("kadi", kadi);
 
         if (id == R.id.nav_stoklistesi) {
             getSupportActionBar().setTitle(R.string.nav_stoklistesi_title);
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new StokListesiFragment()).commit();
         } else if (id == R.id.nav_urunsat) {
             getSupportActionBar().setTitle(R.string.nav_urunsat_title);
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new UrunSatFragment()).commit();
+            UrunSatFragment fragment = new UrunSatFragment();
+            fragment.setArguments(bundle);
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
         } else if (id == R.id.nav_urunal) {
             getSupportActionBar().setTitle(R.string.nav_urunal_title);
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new UrunAlFragment()).commit();
+            UrunAlFragment fragment = new UrunAlFragment();
+            fragment.setArguments(bundle);
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
         } else if (id == R.id.nav_azalanurunler) {
             getSupportActionBar().setTitle(R.string.nav_azalanurunler_title);
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new AzalanUrunlerFragment()).commit();

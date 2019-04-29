@@ -45,6 +45,7 @@ public class UrunAlFragment extends Fragment implements UrunListesiDialog.UrunLi
     UrunAdapterUrunAlSat adapter;
     MediaPlayer mp;
     ArrayList<Urun> urunler = new ArrayList<>();
+    String kadi;
 
     @Nullable
     @Override
@@ -59,6 +60,9 @@ public class UrunAlFragment extends Fragment implements UrunListesiDialog.UrunLi
         aciklama = v.findViewById(R.id.aciklama);
         til = v.findViewById(R.id.interceptorLayout);
         mp = MediaPlayer.create(v.getContext(), R.raw.scan_sound);
+
+        Bundle bundle = this.getArguments();
+        kadi = bundle.getString("kadi");
 
         barkodBtn.setOnClickListener(e -> barkodOkuyucuAc());
         urunAlBtn.setOnClickListener(e -> urunAl());
@@ -93,6 +97,7 @@ public class UrunAlFragment extends Fragment implements UrunListesiDialog.UrunLi
             }
             UrunAlis urunAlis = new UrunAlis();
             urunAlis.setBarkodNo(urunler.get(i).getBarkodNo());
+            urunAlis.setKadi(kadi);
             urunAlis.setAdet(adet);
             urunAlis.setAlisFiyati(urunler.get(i).getAlis());
             urunAlis.setAciklama(aciklama.getText().toString());
