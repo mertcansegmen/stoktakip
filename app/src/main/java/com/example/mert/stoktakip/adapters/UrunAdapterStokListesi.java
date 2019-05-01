@@ -10,14 +10,12 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.TextView;
 
 import com.example.mert.stoktakip.R;
 import com.example.mert.stoktakip.models.Urun;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class UrunAdapterStokListesi extends ArrayAdapter<Urun> {
 
@@ -67,7 +65,7 @@ public class UrunAdapterStokListesi extends ArrayAdapter<Urun> {
             holder.urunAdi = (TextView) convertView.findViewById(R.id.urun_adi);
             holder.barkodNo = (TextView) convertView.findViewById(R.id.barkod_no);
             holder.adet = (TextView) convertView.findViewById(R.id.urun_adeti);
-            holder.alisSatis = (TextView) convertView.findViewById(R.id.alis_satis_fiyati);
+            holder.alisSatis = (TextView) convertView.findViewById(R.id.txt_alis_satis_fiyati);
 
             result = convertView;
             convertView.setTag(holder);
@@ -90,6 +88,7 @@ public class UrunAdapterStokListesi extends ArrayAdapter<Urun> {
         return convertView;
 
     }
+
     @NonNull
     @Override
     public Filter getFilter()

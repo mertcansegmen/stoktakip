@@ -32,7 +32,7 @@ public class UrunBilgileriDialog extends AppCompatDialogFragment {
         TextView adTV = view.findViewById(R.id.urun_adi);
         TextView barkodTV = view.findViewById(R.id.barkod_no);
         TextView adetTV = view.findViewById(R.id.urun_adeti);
-        TextView alisSatisTV = view.findViewById(R.id.alis_satis_fiyati);
+        TextView alisSatisTV = view.findViewById(R.id.txt_alis_satis_fiyati);
         Button sil = view.findViewById(R.id.btn_sil);
         Button guncelle = view.findViewById(R.id.btn_guncelle);
         Button iptal = view.findViewById(R.id.btn_iptal);

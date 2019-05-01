@@ -1,24 +1,16 @@
 package com.example.mert.stoktakip.models;
 
-public class UrunAlis {
+public class UrunIslemi {
     private int id;
+    private String islemTuru;
     private String barkodNo;
     private String kadi;
     private int adet;
-    private float alisFiyati;
-    private String alisTarihi;
+    private float urunFiyati;
+    private String islemTarihi;
     private String aciklama;
 
-    public UrunAlis() {}
-
-    public UrunAlis(String barkodNo, String kadi, int adet, float alisFiyati, String alisTarihi, String aciklama) {
-        this.barkodNo = barkodNo;
-        this.kadi = kadi;
-        this.adet = adet;
-        this.alisFiyati = alisFiyati;
-        this.alisTarihi = alisTarihi;
-        this.aciklama = aciklama;
-    }
+    public UrunIslemi(){}
 
     public int getId() {
         return id;
@@ -26,6 +18,14 @@ public class UrunAlis {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getIslemTuru() {
+        return islemTuru;
+    }
+
+    public void setIslemTuru(String islemTuru) {
+        this.islemTuru = islemTuru;
     }
 
     public String getBarkodNo() {
@@ -52,20 +52,20 @@ public class UrunAlis {
         this.adet = adet;
     }
 
-    public float getAlisFiyati() {
-        return alisFiyati;
+    public float getUrunFiyati() {
+        return urunFiyati;
     }
 
-    public void setAlisFiyati(float alisFiyati) {
-        this.alisFiyati = alisFiyati;
+    public void setUrunFiyati(float urunFiyati) {
+        this.urunFiyati = urunFiyati;
     }
 
-    public String getAlisTarihi() {
-        return alisTarihi;
+    public String getIslemTarihi() {
+        return islemTarihi;
     }
 
-    public void setAlisTarihi(String alisTarihi) {
-        this.alisTarihi = alisTarihi;
+    public void setIslemTarihi(String islemTarihi) {
+        this.islemTarihi = islemTarihi;
     }
 
     public String getAciklama() {

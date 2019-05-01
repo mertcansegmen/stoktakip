@@ -17,7 +17,7 @@ import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.example.mert.stoktakip.R;
-import com.example.mert.stoktakip.models.UrunAlis;
+import com.example.mert.stoktakip.models.UrunIslemi;
 import com.example.mert.stoktakip.models.VeritabaniIslemleri;
 import com.example.mert.stoktakip.utils.TouchInterceptorLayout;
 import com.example.mert.stoktakip.models.Urun;
@@ -95,14 +95,15 @@ public class UrunAlFragment extends Fragment implements UrunListesiDialog.UrunLi
                 new GlideToast.makeToast(getActivity(), "Adet güncelleme hatası.", GlideToast.LENGTHTOOLONG, GlideToast.FAILTOAST).show();
                 return;
             }
-            UrunAlis urunAlis = new UrunAlis();
-            urunAlis.setBarkodNo(urunler.get(i).getBarkodNo());
-            urunAlis.setKadi(kadi);
-            urunAlis.setAdet(adet);
-            urunAlis.setAlisFiyati(urunler.get(i).getAlis());
-            urunAlis.setAciklama(aciklama.getText().toString());
-            if(vti.urunAlisEkle(urunAlis) == -1){
-                new GlideToast.makeToast(getActivity(), "Ürün alışı ekleme hatası.", GlideToast.LENGTHTOOLONG, GlideToast.FAILTOAST).show();
+            UrunIslemi urunIslemi = new UrunIslemi();
+            urunIslemi.setIslemTuru("in");
+            urunIslemi.setBarkodNo(urunler.get(i).getBarkodNo());
+            urunIslemi.setKadi(kadi);
+            urunIslemi.setAdet(adet);
+            urunIslemi.setUrunFiyati(urunler.get(i).getAlis());
+            urunIslemi.setAciklama(aciklama.getText().toString());
+            if(vti.urunIslemiEkle(urunIslemi) == -1){
+                new GlideToast.makeToast(getActivity(), "Ürün alımı ekleme hatası.", GlideToast.LENGTHTOOLONG, GlideToast.FAILTOAST).show();
                 return;
             }
             new GlideToast.makeToast(getActivity(), "Alım başarılı.", GlideToast.LENGTHTOOLONG, GlideToast.SUCCESSTOAST).show();

@@ -6,6 +6,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:srcCompat="@drawable/ic_menu_urunal" />
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -13,9 +19,9 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
 
-        android:layout_marginStart="19dp"
-        android:layout_marginLeft="19dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="10dp"
@@ -28,7 +34,7 @@
             android:layout_height="wrap_content"
 
             android:layout_marginStart="4dp"
-            android:layout_marginLeft="0dp"
+            android:layout_marginLeft="4dp"
 
             android:text="@string/urunadi"
             android:textSize="18sp" />
@@ -58,6 +64,19 @@
                 android:textSize="10sp" />
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/txt_tarih"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginStart="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="4dp"
+
+            android:text="2019-05-18 19:38:25"
+            android:textSize="11sp"
+            android:singleLine="true"/>
+
     </LinearLayout>
 
     <LinearLayout
@@ -67,7 +86,7 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
 
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="23dp"
         android:layout_marginRight="23dp"
         android:layout_marginBottom="10dp"
@@ -85,13 +104,22 @@
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/txt_alis_satis_fiyati"
+            android:id="@+id/txt_alis_fiyati"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
             android:gravity="end"
 
-            android:text="@string/ornekfiyat"
+            android:text="1.25"
             android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/txt_kullanici"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="kullanici"
+            android:gravity="end"
+            android:textSize="12sp" />
     </LinearLayout>
+
 </RelativeLayout>
