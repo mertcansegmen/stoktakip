@@ -6,12 +6,17 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 public class VeritabaniIslemleri extends SQLiteOpenHelper {
 
     // Veritabanı versiyonu
-    private static final int VERITABANI_VERSION = 6;
+    private static final int VERITABANI_VERSION = 7;
 
     // Veritabanı ismi
     private static final String VERITABANI_ADI = "StokTakip.db";
@@ -64,7 +69,7 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
                                                               SUTUN_URUN_ISLEMI_KULLANICI_ID + " TEXT NOT NULL, " +
                                                               SUTUN_URUN_ISLEMI_ADET + " INTEGER NOT NULL, " +
                                                               SUTUN_URUN_ISLEMI_URUN_FIYATI + " INTEGER, " +
-                                                              SUTUN_URUN_ISLEMI_ISLEM_TARIHI + "DATETIME DEFAULT CURRENT_TIMESTAMP, " +
+                                                              SUTUN_URUN_ISLEMI_ISLEM_TARIHI + " DATETIME DEFAULT CURRENT_TIMESTAMP, " +
                                                               SUTUN_URUN_ISLEMI_ACIKLAMA + " TEXT, " +
                                                               "FOREIGN KEY(" + SUTUN_URUN_ISLEMI_URUN_ID + ") REFERENCES " + TABLO_URUN + "(" + SUTUN_URUN_ID + ")," +
                                                               "FOREIGN KEY(" + SUTUN_URUN_ISLEMI_KULLANICI_ID + ") REFERENCES " + TABLO_KULLANICI + "(" + SUTUN_KULLANICI_KADI + "))";
@@ -408,5 +413,31 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
         long degisenSatir = db.insert(TABLO_URUN_ISLEMI, null, values);
         db.close();
         return degisenSatir;
+    }
+
+    public ArrayList<UrunIslemi> urunIslemleriGetir() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<UrunIslemi> islemler = new ArrayList<>();
+        String query = "SELECT * FROM " + TABLO_URUN_ISLEMI;
+
+        Cursor c = db.rawQuery(query, null);
+        if(c.moveToFirst()){
+            do{
+                String tur = c.getString(c.getColumnIndex(SUTUN_URUN_ISLEMI_ISLEM_TURU));
+                String barkod = c.getString(c.getColumnIndex(SUTUN_URUN_ISLEMI_URUN_ID));
+                String urunAdi = barkodaGoreUrunGetir(barkod).getAd();
+                String tarih = c.getString(c.getColumnIndex(SUTUN_URUN_ISLEMI_ISLEM_TARIHI));
+                int adet = c.getInt(c.getColumnIndex(SUTUN_URUN_ISLEMI_ADET));
+                int fiyat = c.getInt(c.getColumnIndex(SUTUN_URUN_ISLEMI_URUN_FIYATI));
+                String kadi = c.getString(c.getColumnIndex(SUTUN_URUN_ISLEMI_KULLANICI_ID));
+
+                UrunIslemi islem = new UrunIslemi(tur, barkod, kadi, adet, ((float)fiyat)/100, tarih, urunAdi);
+                islemler.add(islem);
+
+            } while(c.moveToNext());
+        }
+        c.close();
+        db.close();
+        return islemler;
     }
 }

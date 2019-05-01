@@ -62,10 +62,10 @@ public class UrunAdapterStokListesi extends ArrayAdapter<Urun> {
             convertView = inflater.inflate(R.layout.liste_elemani_stok_listesi, parent, false);
 
             holder = new ViewHolder();
-            holder.urunAdi = (TextView) convertView.findViewById(R.id.urun_adi);
-            holder.barkodNo = (TextView) convertView.findViewById(R.id.barkod_no);
-            holder.adet = (TextView) convertView.findViewById(R.id.urun_adeti);
-            holder.alisSatis = (TextView) convertView.findViewById(R.id.txt_alis_satis_fiyati);
+            holder.urunAdi = convertView.findViewById(R.id.urun_adi);
+            holder.barkodNo = convertView.findViewById(R.id.barkod_no);
+            holder.adet = convertView.findViewById(R.id.urun_adeti);
+            holder.alisSatis = convertView.findViewById(R.id.txt_alis_satis_fiyati);
 
             result = convertView;
             convertView.setTag(holder);
@@ -86,7 +86,6 @@ public class UrunAdapterStokListesi extends ArrayAdapter<Urun> {
         holder.alisSatis.setText(urun.getAlisSatis());
 
         return convertView;
-
     }
 
     @NonNull

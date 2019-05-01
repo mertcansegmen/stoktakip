@@ -9,8 +9,19 @@ public class UrunIslemi {
     private float urunFiyati;
     private String islemTarihi;
     private String aciklama;
+    private String urunAdi;
 
     public UrunIslemi(){}
+
+    public UrunIslemi(String islemTuru, String barkodNo, String kadi, int adet, float urunFiyati, String islemTarihi, String urunAdi) {
+        this.islemTuru = islemTuru;
+        this.barkodNo = barkodNo;
+        this.kadi = kadi;
+        this.adet = adet;
+        this.urunFiyati = urunFiyati;
+        this.islemTarihi = islemTarihi;
+        this.urunAdi = urunAdi;
+    }
 
     public int getId() {
         return id;
@@ -74,5 +85,13 @@ public class UrunIslemi {
 
     public void setAciklama(String aciklama) {
         this.aciklama = aciklama;
+    }
+
+    public String getUrunAdi() {
+        return urunAdi;
+    }
+
+    public void setUrunAdi(String urunAdi) {
+        this.urunAdi = urunAdi;
     }
 }
