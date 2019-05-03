@@ -12,8 +12,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -25,12 +23,11 @@ import com.example.mert.stoktakip.models.Urun;
 import com.example.mert.stoktakip.adapters.UrunAdapterStokListesi;
 import com.example.mert.stoktakip.activities.BarkodOkuyucuActivity;
 import com.example.mert.stoktakip.models.VeritabaniIslemleri;
-import com.example.mert.stoktakip.utils.UrunBilgileriDialog;
+import com.example.mert.stoktakip.dialogs.UrunBilgileriDialog;
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.jeevandeshmukh.glidetoastlib.GlideToast;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class StokListesiFragment extends Fragment {

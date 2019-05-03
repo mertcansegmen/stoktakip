@@ -25,7 +25,7 @@ import com.example.mert.stoktakip.utils.TouchInterceptorLayout;
 import com.example.mert.stoktakip.models.Urun;
 import com.example.mert.stoktakip.adapters.UrunAdapterUrunAlSat;
 import com.example.mert.stoktakip.activities.BarkodOkuyucuActivity;
-import com.example.mert.stoktakip.utils.UrunListesiDialog;
+import com.example.mert.stoktakip.dialogs.UrunListesiDialog;
 import com.github.paolorotolo.expandableheightlistview.ExpandableHeightListView;
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
@@ -145,7 +145,7 @@ public class UrunSatFragment extends Fragment implements UrunListesiDialog.UrunL
             urunIslemi.setBarkodNo(urunler.get(i).getBarkodNo());
             urunIslemi.setKadi(kadi);
             urunIslemi.setAdet(adet);
-            urunIslemi.setUrunFiyati(urunler.get(i).getAlis());
+            urunIslemi.setUrunFiyati(urunler.get(i).getSatis());
             urunIslemi.setAciklama(aciklama.getText().toString());
             if(vti.urunIslemiEkle(urunIslemi) == -1){
                 new GlideToast.makeToast(getActivity(), "Ürün satışı ekleme hatası.", GlideToast.LENGTHTOOLONG, GlideToast.FAILTOAST).show();

@@ -23,7 +23,7 @@ import com.example.mert.stoktakip.utils.TouchInterceptorLayout;
 import com.example.mert.stoktakip.models.Urun;
 import com.example.mert.stoktakip.adapters.UrunAdapterUrunAlSat;
 import com.example.mert.stoktakip.activities.BarkodOkuyucuActivity;
-import com.example.mert.stoktakip.utils.UrunListesiDialog;
+import com.example.mert.stoktakip.dialogs.UrunListesiDialog;
 import com.github.paolorotolo.expandableheightlistview.ExpandableHeightListView;
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;

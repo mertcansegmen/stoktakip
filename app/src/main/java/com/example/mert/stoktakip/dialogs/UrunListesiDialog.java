@@ -1,4 +1,4 @@
-package com.example.mert.stoktakip.utils;
+package com.example.mert.stoktakip.dialogs;
 
 import android.app.Dialog;
 import android.content.Context;

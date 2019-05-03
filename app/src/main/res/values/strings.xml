@@ -52,4 +52,24 @@
     <string name="kaydet">Kaydet</string>
 
     <string name="spinner_id">spinner</string>
+
+    <string-array name="spinner_filtre_sureleri">
+        <item>Son 1 Gün</item>
+        <item>Son 1 Hafta</item>
+        <item>Son 1 Ay</item>
+        <item>Son 3 Ay</item>
+    </string-array>
+
+    <string name="filtreleme">Filtreleme</string>
+    <string name="tarih_araligi">Tarih Aralığı</string>
+    <string name="ornek_baslangic_tarihi">2019-05-03\u0020\u0020</string>
+    <string name="tire">-</string>
+    <string name="ornek_bitis_tarihi">2019-05-04\u0020\u0020</string>
+    <string name="islem_turu">İşlem Türü</string>
+    <string name="filtrele">Filtrele</string>
+    <string-array name="spinner_islem_turleri">
+        <item>Tümü</item>
+        <item>Alım</item>
+        <item>Satım</item>
+    </string-array>
 </resources>
