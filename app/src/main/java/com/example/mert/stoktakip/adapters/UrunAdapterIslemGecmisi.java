@@ -49,7 +49,10 @@ public class UrunAdapterIslemGecmisi extends ArrayAdapter<UrunIslemi> {
         String tur = getItem(position).getIslemTuru();
         String barkod = getItem(position).getBarkodNo();
         String kadi = getItem(position).getKadi();
-        String ad = vti.barkodaGoreUrunGetir(barkod).getAd();
+        String ad = (vti.barkodaGoreUrunGetir(barkod)).getAd();
+        if(ad == null || ad.equals("")){
+            ad = "Silinmiş ürün";
+        }
         int adet = getItem(position).getAdet();
         float fiyat = getItem(position).getUrunFiyati();
         String tarih = getItem(position).getIslemTarihi();
@@ -84,16 +87,15 @@ public class UrunAdapterIslemGecmisi extends ArrayAdapter<UrunIslemi> {
         lastPosition = position;
 
         if(islem.getIslemTuru().equals("in"))
-            holder.islemTuru.setImageResource(R.drawable.ic_menu_urunal);
+            holder.islemTuru.setImageResource(R.drawable.ic_urunal_yesil);
         else
-            holder.islemTuru.setImageResource(R.drawable.ic_menu_urunsat);
+            holder.islemTuru.setImageResource(R.drawable.ic_urunsat_kirmizi);
         holder.urunAdi.setText(islem.getUrunAdi());
         holder.barkodNo.setText(islem.getBarkodNo());
         holder.kullanici.setText(islem.getKadi());
         holder.urunAdeti.setText(String.valueOf(islem.getAdet()));
         holder.urunFiyati.setText(String.valueOf(islem.getUrunFiyati()));
         holder.islemTarihi.setText(islem.getIslemTarihi());
-
 
         return convertView;
     }

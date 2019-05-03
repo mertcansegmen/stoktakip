@@ -1,5 +1,7 @@
 package com.example.mert.stoktakip.models;
 
+import java.text.DecimalFormat;
+
 public class Urun {
     private String barkodNo;
     private String ad;
@@ -20,7 +22,7 @@ public class Urun {
         this.ad = ad;
         this.alis = alis;
         this.satis = satis;
-        this.alisSatis = alis + "/" + satis;
+        this.alisSatis = String.format("%.2f", alis)+ "/" + String.format("%.2f", satis);
     }
 
     public Urun(String barkodNo, String ad, int adet, float alis, float satis) {
@@ -29,7 +31,7 @@ public class Urun {
         this.adet = adet;
         this.alis = alis;
         this.satis = satis;
-        this.alisSatis = alis + "/" + satis;
+        this.alisSatis = String.format("%.2f", alis)+ "/" + String.format("%.2f", satis);
     }
 
 

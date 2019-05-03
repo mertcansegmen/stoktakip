@@ -100,8 +100,8 @@ public class UrunGuncelleActivity extends AppCompatActivity {
     private void alanlariBosalt() {
         barkodNo.setText(null);
         urunAdi.setText(null);
-        alisFiyati.setText(null);
-        satisFiyati.setText(null);
+        alisFiyati.setValue(0);
+        satisFiyati.setValue(0);
     }
 
 }

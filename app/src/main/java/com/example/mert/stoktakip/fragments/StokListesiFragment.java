@@ -12,6 +12,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -28,6 +30,7 @@ import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.jeevandeshmukh.glidetoastlib.GlideToast;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class StokListesiFragment extends Fragment {
@@ -83,7 +86,8 @@ public class StokListesiFragment extends Fragment {
                 degerler.putString("ad", urun.getAd());
                 degerler.putString("barkod", urun.getBarkodNo());
                 degerler.putInt("adet", urun.getAdet());
-                degerler.putString("alissatis", urun.getAlis() + "/" + urun.getSatis());
+                degerler.putString("alissatis", String.format("%.2f", urun.getAlis()) +
+                        "/" + String.format("%.2f", urun.getSatis()));
 
                 DialogFragment dialog = new UrunBilgileriDialog();
                 dialog.setArguments(degerler);

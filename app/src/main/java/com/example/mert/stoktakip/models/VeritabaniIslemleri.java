@@ -418,7 +418,7 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
     public ArrayList<UrunIslemi> urunIslemleriGetir() {
         SQLiteDatabase db = this.getReadableDatabase();
         ArrayList<UrunIslemi> islemler = new ArrayList<>();
-        String query = "SELECT * FROM " + TABLO_URUN_ISLEMI;
+        String query = "SELECT * FROM " + TABLO_URUN_ISLEMI + " ORDER BY datetime(" + SUTUN_URUN_ISLEMI_ISLEM_TARIHI + ") DESC" ;
 
         Cursor c = db.rawQuery(query, null);
         if(c.moveToFirst()){

@@ -3,6 +3,7 @@ package com.example.mert.stoktakip.utils;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDialogFragment;
 import android.view.LayoutInflater;
@@ -23,6 +24,7 @@ public class UrunListesiDialog extends AppCompatDialogFragment {
     UrunListesiDialogListener listener;
     String barkodNo;
 
+    @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
