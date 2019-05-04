@@ -46,7 +46,6 @@ public class IslemGecmisiFragment extends Fragment {
         filtreButon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 DialogFragment dialog = new IslemGecmisiFiltreleDialog();
                 dialog.show(getActivity().getSupportFragmentManager(), "İşlem Geçmişi Filtrele");
             }

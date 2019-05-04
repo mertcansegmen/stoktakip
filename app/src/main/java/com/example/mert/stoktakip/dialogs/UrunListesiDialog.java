@@ -74,7 +74,7 @@ public class UrunListesiDialog extends AppCompatDialogFragment {
         try {
             listener = (UrunListesiDialogListener) getTargetFragment();
         }catch (ClassCastException e){
-            throw new ClassCastException(context.toString() + "must implement UrunListesiDialogListener");
+            throw new ClassCastException(context.toString() + "UrunListesiDialogListener implement etmek gerekiyor");
         }
     }
 

@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mert.stoktakip.dialogs.TarihSecimiDialog;
 import com.example.mert.stoktakip.fragments.AyarlarFragment;
 import com.example.mert.stoktakip.fragments.AzalanUrunlerFragment;
 import com.example.mert.stoktakip.fragments.IslemGecmisiFragment;
@@ -27,7 +28,7 @@ import com.example.mert.stoktakip.fragments.UrunSatFragment;
 import com.example.mert.stoktakip.fragments.VeritabaniFragment;
 
 public class AnasayfaActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, TarihSecimiDialog.TarihSecimiDialogListener {
 
     String kadi;
     TextView kadiDrawer;
@@ -149,5 +150,8 @@ public class AnasayfaActivity extends AppCompatActivity
     }
 
 
+    @Override
+    public void turGetir(String tur) {
 
+    }
 }
