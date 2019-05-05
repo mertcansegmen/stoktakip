@@ -2,7 +2,9 @@ package com.example.mert.stoktakip.dialogs;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDialogFragment;
@@ -16,6 +18,7 @@ import android.widget.Spinner;
 import com.example.mert.stoktakip.R;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -26,7 +29,9 @@ public class IslemGecmisiFiltreleDialog extends AppCompatDialogFragment implemen
     Button baslangicTarihiButon;
     Button bitisTarihiButon;
     String tur;
+    IslemGecmisiFiltreleDialogListener listener;
 
+    @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
@@ -50,6 +55,17 @@ public class IslemGecmisiFiltreleDialog extends AppCompatDialogFragment implemen
         String bugunString = new SimpleDateFormat("d MMM yyyy", Locale.getDefault()).format(bugun);
         baslangicTarihiButon.setText(dunString);
         bitisTarihiButon.setText(bugunString);
+
+        filtreleButon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String baslangicTarihi = dateFormatiDegistir(baslangicTarihiButon.getText().toString());
+                String bitisTarihi = dateFormatiDegistir(bitisTarihiButon.getText().toString());
+                String islemTuru = spinner.getSelectedItem().toString();
+                listener.filtreParametreleriniGetir(baslangicTarihi, bitisTarihi, islemTuru);
+                dismiss();
+            }
+        });
 
         baslangicTarihiButon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,5 +118,38 @@ public class IslemGecmisiFiltreleDialog extends AppCompatDialogFragment implemen
     @Override
     public void turGetir(String tur) {
         this.tur = tur;
+    }
+
+    private String dateFormatiDegistir(String tarih) {
+        String inputPattern = "d MMM yyyy";
+        String outputPattern = "yyyy-MM-dd";
+        SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern, Locale.getDefault());
+        SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern, Locale.getDefault());
+
+        Date date = null;
+        String sonuc = null;
+
+        try {
+            date = inputFormat.parse(tarih);
+            sonuc = outputFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return sonuc;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        try {
+            listener = (IslemGecmisiFiltreleDialogListener) getTargetFragment();
+        }catch (ClassCastException e){
+            throw new ClassCastException(context.toString() + "TarihSecimiDialogListener implement etmek gerekiyor");
+        }
+    }
+
+    public interface IslemGecmisiFiltreleDialogListener{
+        void filtreParametreleriniGetir(String baslangicTarihi, String bitisTarihi, String islemTuru);
     }
 }

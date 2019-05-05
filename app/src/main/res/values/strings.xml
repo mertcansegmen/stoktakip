@@ -58,6 +58,7 @@
         <item>Son 1 Hafta</item>
         <item>Son 1 Ay</item>
         <item>Son 3 Ay</item>
+        <item>Bütün Kayıtlar</item>
     </string-array>
 
     <string name="filtreleme">Filtreleme</string>
