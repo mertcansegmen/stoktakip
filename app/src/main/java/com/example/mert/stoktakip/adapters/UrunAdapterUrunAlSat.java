@@ -39,7 +39,7 @@ public class UrunAdapterUrunAlSat extends ArrayAdapter<Urun> {
         LayoutInflater inflater = LayoutInflater.from(context);
         convertView = inflater.inflate(resource, parent, false);
 
-        TextView tvAd = convertView.findViewById(R.id.urun_adi);
+        TextView tvAd = convertView.findViewById(R.id.txt_urun_adi);
         TextView tvBarkodNo = convertView.findViewById(R.id.barkod_no);
         QuantityView quantityView = convertView.findViewById(R.id.quantityView);
         tvAd.setText(urunAdi);

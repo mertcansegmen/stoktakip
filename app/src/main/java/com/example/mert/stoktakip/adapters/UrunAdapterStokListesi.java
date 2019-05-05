@@ -62,7 +62,7 @@ public class UrunAdapterStokListesi extends ArrayAdapter<Urun> {
             convertView = inflater.inflate(R.layout.liste_elemani_stok_listesi, parent, false);
 
             holder = new ViewHolder();
-            holder.urunAdi = convertView.findViewById(R.id.urun_adi);
+            holder.urunAdi = convertView.findViewById(R.id.txt_urun_adi);
             holder.barkodNo = convertView.findViewById(R.id.barkod_no);
             holder.adet = convertView.findViewById(R.id.urun_adeti);
             holder.alisSatis = convertView.findViewById(R.id.txt_alis_satis_fiyati);

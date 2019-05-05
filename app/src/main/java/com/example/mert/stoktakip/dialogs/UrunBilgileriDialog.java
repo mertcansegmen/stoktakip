@@ -29,7 +29,7 @@ public class UrunBilgileriDialog extends AppCompatDialogFragment {
 
         builder.setView(view).setTitle("Ürün Bilgileri");
 
-        TextView adTV = view.findViewById(R.id.urun_adi);
+        TextView adTV = view.findViewById(R.id.txt_urun_adi);
         TextView barkodTV = view.findViewById(R.id.barkod_no);
         TextView adetTV = view.findViewById(R.id.urun_adeti);
         TextView alisSatisTV = view.findViewById(R.id.txt_alis_satis_fiyati);

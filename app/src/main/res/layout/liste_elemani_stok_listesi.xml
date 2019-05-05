@@ -23,7 +23,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/urun_adi"
+            android:id="@+id/txt_urun_adi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
