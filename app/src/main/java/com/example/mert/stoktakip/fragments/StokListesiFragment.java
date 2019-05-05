@@ -141,18 +141,11 @@ public class StokListesiFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        //Toast.makeText(getContext(), "onResume", Toast.LENGTH_LONG).show();
-        //adapter.notifyDataSetChanged();
-        //fragmentYenile();
+        urunler.clear();
+        urunler = vti.butunUrunleriGetir();
+        adapter = new UrunAdapterStokListesi(getContext(), R.layout.liste_elemani_stok_listesi, urunler);
+        liste.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
     }
 
-    private void fragmentYenile() {
-        Fragment currentFragment = getActivity().getSupportFragmentManager().findFragmentById(R.id.fragment_container);
-        if (currentFragment instanceof StokListesiFragment) {
-            FragmentTransaction fragTransaction =   (getActivity()).getSupportFragmentManager().beginTransaction();
-            fragTransaction.detach(currentFragment);
-            fragTransaction.attach(currentFragment);
-            fragTransaction.commit();
-        }
-    }
 }
