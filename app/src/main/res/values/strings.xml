@@ -13,7 +13,7 @@
     <string name="nav_istatistikler_title">İstatistikler</string>
     <string name="nav_veritabani_title">Veritabanı</string>
     <string name="nav_ayarlar_title">Ayarlar</string>
-    <string name="nav_uygulamayipuanla_title">Uygulamayı Puanla</string>
+    <string name="nav_cikis_yap_title">Çıkış Yap</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_cikis_yap">Çıkış Yap</string>
@@ -63,9 +63,9 @@
 
     <string name="filtreleme">Filtreleme</string>
     <string name="tarih_araligi">Tarih Aralığı</string>
-    <string name="ornek_baslangic_tarihi">2019-05-03\u0020\u0020</string>
+    <string name="ornek_baslangic_tarihi">2019–05–03\u0020\u0020</string>
     <string name="tire">-</string>
-    <string name="ornek_bitis_tarihi">2019-05-04\u0020\u0020</string>
+    <string name="ornek_bitis_tarihi">2019–05–04\u0020\u0020</string>
     <string name="islem_turu">İşlem Türü</string>
     <string name="filtrele">Filtrele</string>
     <string-array name="spinner_islem_turleri">
@@ -73,4 +73,11 @@
         <item>Alım</item>
         <item>Satım</item>
     </string-array>
+
+    <string name="ornek_gun">23</string>
+    <string name="ornek_ay">May</string>
+    <string name="ornek_saat">13:38</string>
+    <string name="ornek_adet">5</string>
+    <string name="adet_text">\u0020adet |\u0020</string>
+    <string name="ornek_kullanici">kullanici</string>
 </resources>

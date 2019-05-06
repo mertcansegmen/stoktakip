@@ -419,7 +419,11 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
     public ArrayList<UrunIslemi> urunIslemleriGetir() {
         SQLiteDatabase db = this.getReadableDatabase();
         ArrayList<UrunIslemi> islemler = new ArrayList<>();
-        String query = "SELECT * FROM " + TABLO_URUN_ISLEMI +
+        String query = "SELECT " + SUTUN_URUN_ISLEMI_ID + ", " + SUTUN_URUN_ISLEMI_ISLEM_TURU + ", " +
+                       SUTUN_URUN_ISLEMI_URUN_ID + ", " + SUTUN_URUN_ISLEMI_KULLANICI_ID + ", " +
+                       SUTUN_URUN_ISLEMI_ADET + ", " + SUTUN_URUN_ISLEMI_URUN_FIYATI+", datetime(" +
+                       SUTUN_URUN_ISLEMI_ISLEM_TARIHI + ", 'localtime'), " + SUTUN_URUN_ISLEMI_ACIKLAMA +
+                       " FROM " + TABLO_URUN_ISLEMI +
                        " ORDER BY datetime(" + SUTUN_URUN_ISLEMI_ISLEM_TARIHI + ") DESC" ;
 
         Cursor c = db.rawQuery(query, null);
@@ -428,7 +432,7 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
                 String tur = c.getString(c.getColumnIndex(SUTUN_URUN_ISLEMI_ISLEM_TURU));
                 String barkod = c.getString(c.getColumnIndex(SUTUN_URUN_ISLEMI_URUN_ID));
                 String urunAdi = barkodaGoreUrunGetir(barkod).getAd();
-                String tarih = c.getString(c.getColumnIndex(SUTUN_URUN_ISLEMI_ISLEM_TARIHI));
+                String tarih = c.getString(c.getColumnIndex("datetime(" + SUTUN_URUN_ISLEMI_ISLEM_TARIHI + ", 'localtime')"));
                 int adet = c.getInt(c.getColumnIndex(SUTUN_URUN_ISLEMI_ADET));
                 int fiyat = c.getInt(c.getColumnIndex(SUTUN_URUN_ISLEMI_URUN_FIYATI));
                 String kadi = c.getString(c.getColumnIndex(SUTUN_URUN_ISLEMI_KULLANICI_ID));
@@ -447,7 +451,11 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         ArrayList<UrunIslemi> islemler = new ArrayList<>();
         baslangicTarihi += " 00:00:00";
-        String query = "SELECT * FROM " + TABLO_URUN_ISLEMI +
+        String query = "SELECT " + SUTUN_URUN_ISLEMI_ID + ", " + SUTUN_URUN_ISLEMI_ISLEM_TURU + ", " +
+                       SUTUN_URUN_ISLEMI_URUN_ID + ", " + SUTUN_URUN_ISLEMI_KULLANICI_ID + ", " +
+                       SUTUN_URUN_ISLEMI_ADET + ", " + SUTUN_URUN_ISLEMI_URUN_FIYATI+", datetime(" +
+                       SUTUN_URUN_ISLEMI_ISLEM_TARIHI + ", 'localtime'), " + SUTUN_URUN_ISLEMI_ACIKLAMA +
+                       " FROM " + TABLO_URUN_ISLEMI +
                        " WHERE " + SUTUN_URUN_ISLEMI_ISLEM_TARIHI + " BETWEEN '" +
                        baslangicTarihi + "' AND datetime('now') " +
                        "ORDER BY datetime(" + SUTUN_URUN_ISLEMI_ISLEM_TARIHI + ") DESC" ;
@@ -458,7 +466,7 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
                 String tur = c.getString(c.getColumnIndex(SUTUN_URUN_ISLEMI_ISLEM_TURU));
                 String barkod = c.getString(c.getColumnIndex(SUTUN_URUN_ISLEMI_URUN_ID));
                 String urunAdi = barkodaGoreUrunGetir(barkod).getAd();
-                String tarih = c.getString(c.getColumnIndex(SUTUN_URUN_ISLEMI_ISLEM_TARIHI));
+                String tarih = c.getString(c.getColumnIndex("datetime(" + SUTUN_URUN_ISLEMI_ISLEM_TARIHI + ", 'localtime')"));
                 int adet = c.getInt(c.getColumnIndex(SUTUN_URUN_ISLEMI_ADET));
                 int fiyat = c.getInt(c.getColumnIndex(SUTUN_URUN_ISLEMI_URUN_FIYATI));
                 String kadi = c.getString(c.getColumnIndex(SUTUN_URUN_ISLEMI_KULLANICI_ID));
@@ -478,18 +486,25 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
         ArrayList<UrunIslemi> islemler = new ArrayList<>();
         baslangicTarihi += " 00:00:00";
         bitisTarihi += " 23:59:59";
-        String query = "SELECT * FROM " + TABLO_URUN_ISLEMI +
-                " WHERE " + SUTUN_URUN_ISLEMI_ISLEM_TARIHI + " BETWEEN '" +
-                baslangicTarihi + "' AND '" + bitisTarihi +
-                "' ORDER BY datetime(" + SUTUN_URUN_ISLEMI_ISLEM_TARIHI + ") DESC" ;
+
+        String query = "SELECT " + SUTUN_URUN_ISLEMI_ID + ", " + SUTUN_URUN_ISLEMI_ISLEM_TURU + ", " +
+                       SUTUN_URUN_ISLEMI_URUN_ID + ", " + SUTUN_URUN_ISLEMI_KULLANICI_ID + ", " +
+                       SUTUN_URUN_ISLEMI_ADET + ", " + SUTUN_URUN_ISLEMI_URUN_FIYATI+", datetime(" +
+                       SUTUN_URUN_ISLEMI_ISLEM_TARIHI + ", 'localtime'), " + SUTUN_URUN_ISLEMI_ACIKLAMA +
+                       " FROM " + TABLO_URUN_ISLEMI +
+                       " WHERE " + SUTUN_URUN_ISLEMI_ISLEM_TARIHI + " BETWEEN '" +
+                       baslangicTarihi + "' AND '" + bitisTarihi +
+                       "' ORDER BY datetime(" + SUTUN_URUN_ISLEMI_ISLEM_TARIHI + ") DESC" ;
+
         Log.d("mert", query);
+
         Cursor c = db.rawQuery(query, null);
         if(c.moveToFirst()){
             do{
                 String tur = c.getString(c.getColumnIndex(SUTUN_URUN_ISLEMI_ISLEM_TURU));
                 String barkod = c.getString(c.getColumnIndex(SUTUN_URUN_ISLEMI_URUN_ID));
                 String urunAdi = barkodaGoreUrunGetir(barkod).getAd();
-                String tarih = c.getString(c.getColumnIndex(SUTUN_URUN_ISLEMI_ISLEM_TARIHI));
+                String tarih = c.getString(c.getColumnIndex("datetime(" + SUTUN_URUN_ISLEMI_ISLEM_TARIHI + ", 'localtime')"));
                 int adet = c.getInt(c.getColumnIndex(SUTUN_URUN_ISLEMI_ADET));
                 int fiyat = c.getInt(c.getColumnIndex(SUTUN_URUN_ISLEMI_URUN_FIYATI));
                 String kadi = c.getString(c.getColumnIndex(SUTUN_URUN_ISLEMI_KULLANICI_ID));
@@ -509,19 +524,26 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
         ArrayList<UrunIslemi> islemler = new ArrayList<>();
         baslangicTarihi += " 00:00:00";
         bitisTarihi += " 23:59:59";
-        String query = "SELECT * FROM " + TABLO_URUN_ISLEMI +
-                " WHERE " + SUTUN_URUN_ISLEMI_ISLEM_TARIHI + " BETWEEN '" +
-                baslangicTarihi + "' AND '" + bitisTarihi + "' AND " +
-                SUTUN_URUN_ISLEMI_ISLEM_TURU + " = '" + islemTuru +
-                "' ORDER BY datetime(" + SUTUN_URUN_ISLEMI_ISLEM_TARIHI + ") DESC" ;
+
+        String query = "SELECT " + SUTUN_URUN_ISLEMI_ID + ", " + SUTUN_URUN_ISLEMI_ISLEM_TURU + ", " +
+                       SUTUN_URUN_ISLEMI_URUN_ID + ", " + SUTUN_URUN_ISLEMI_KULLANICI_ID + ", " +
+                       SUTUN_URUN_ISLEMI_ADET + ", " + SUTUN_URUN_ISLEMI_URUN_FIYATI+", datetime(" +
+                       SUTUN_URUN_ISLEMI_ISLEM_TARIHI + ", 'localtime'), " + SUTUN_URUN_ISLEMI_ACIKLAMA +
+                       " FROM " + TABLO_URUN_ISLEMI +
+                       " WHERE " + SUTUN_URUN_ISLEMI_ISLEM_TARIHI + " BETWEEN '" +
+                       baslangicTarihi + "' AND '" + bitisTarihi + "' AND " +
+                       SUTUN_URUN_ISLEMI_ISLEM_TURU + " = '" + islemTuru +
+                       "' ORDER BY datetime(" + SUTUN_URUN_ISLEMI_ISLEM_TARIHI + ") DESC" ;
+
         Log.d("mert", query);
+
         Cursor c = db.rawQuery(query, null);
         if(c.moveToFirst()){
             do{
                 String tur = c.getString(c.getColumnIndex(SUTUN_URUN_ISLEMI_ISLEM_TURU));
                 String barkod = c.getString(c.getColumnIndex(SUTUN_URUN_ISLEMI_URUN_ID));
                 String urunAdi = barkodaGoreUrunGetir(barkod).getAd();
-                String tarih = c.getString(c.getColumnIndex(SUTUN_URUN_ISLEMI_ISLEM_TARIHI));
+                String tarih = c.getString(c.getColumnIndex("datetime(" + SUTUN_URUN_ISLEMI_ISLEM_TARIHI + ", 'localtime')"));
                 int adet = c.getInt(c.getColumnIndex(SUTUN_URUN_ISLEMI_ADET));
                 int fiyat = c.getInt(c.getColumnIndex(SUTUN_URUN_ISLEMI_URUN_FIYATI));
                 String kadi = c.getString(c.getColumnIndex(SUTUN_URUN_ISLEMI_KULLANICI_ID));

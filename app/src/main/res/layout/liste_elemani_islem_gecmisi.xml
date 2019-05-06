@@ -24,7 +24,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="23"
+                android:text="@string/ornek_gun"
                 android:textSize="36sp" />
 
             <TextView
@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="-10dp"
-                android:text="MAY"
+                android:text="@string/ornek_ay"
                 android:textSize="20sp" />
 
         </LinearLayout>
@@ -44,7 +44,7 @@
 
             android:layout_marginStart="20dp"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="21dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="10dp"
@@ -62,7 +62,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginTop="3dp"
+                android:layout_marginTop="4dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -71,7 +71,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
                     android:layout_weight="2"
-                    android:text="5"
+                    android:text="@string/ornek_adet"
                     android:textSize="16sp" />
 
                 <TextView
@@ -80,7 +80,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
                     android:layout_weight="1"
-                    android:text=" adet  | "
+                    android:text="@string/adet_text"
                     android:textSize="16sp" />
 
                 <ImageView
@@ -116,7 +116,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:paddingTop="1dp"
-            android:text="13:20"
+            android:text="@string/ornek_saat"
             android:textSize="17sp" />
 
         <TextView
@@ -125,7 +125,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:gravity="end"
-            android:text="kullanici"
+            android:text="@string/ornek_kullanici"
             android:textSize="12sp" />
 
     </LinearLayout>

@@ -41,9 +41,9 @@
 
     <group android:checkableBehavior="none">
         <item
-            android:id="@+id/nav_uygulamayipuanla"
-            android:icon="@drawable/ic_menu_uygulamayipuanla"
-            android:title="@string/nav_uygulamayipuanla_title" />
+            android:id="@+id/nav_cikis_yap"
+            android:icon="@drawable/ic_menu_cikis_yap"
+            android:title="@string/nav_cikis_yap_title" />
     </group>
 
 

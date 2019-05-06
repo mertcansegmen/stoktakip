@@ -28,7 +28,7 @@ import com.example.mert.stoktakip.fragments.UrunSatFragment;
 import com.example.mert.stoktakip.fragments.VeritabaniFragment;
 
 public class AnasayfaActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, TarihSecimiDialog.TarihSecimiDialogListener {
+        implements NavigationView.OnNavigationItemSelectedListener {
 
     String kadi;
     TextView kadiDrawer;
@@ -140,8 +140,10 @@ public class AnasayfaActivity extends AppCompatActivity
         } else if (id == R.id.nav_ayarlar) {
             getSupportActionBar().setTitle(R.string.nav_ayarlar_title);
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new AyarlarFragment()).commit();
-        } else if (id == R.id.nav_uygulamayipuanla) {
-            Toast.makeText(this, "Uygulamanın Google Play sayfasına yönlendiriliyorsunuz...", Toast.LENGTH_LONG).show();
+        } else if (id == R.id.nav_cikis_yap) {
+            finish();
+            Intent intent = new Intent(this, GirisActivity.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -149,9 +151,4 @@ public class AnasayfaActivity extends AppCompatActivity
         return true;
     }
 
-
-    @Override
-    public void turGetir(String tur) {
-
-    }
 }
