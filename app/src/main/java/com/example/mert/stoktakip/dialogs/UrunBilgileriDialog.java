@@ -19,6 +19,8 @@ import com.example.mert.stoktakip.fragments.StokListesiFragment;
 import com.example.mert.stoktakip.models.VeritabaniIslemleri;
 import com.jeevandeshmukh.glidetoastlib.GlideToast;
 
+import org.w3c.dom.Text;
+
 public class UrunBilgileriDialog extends AppCompatDialogFragment {
 
     @Override
@@ -32,7 +34,8 @@ public class UrunBilgileriDialog extends AppCompatDialogFragment {
         TextView urunAdiTxt = view.findViewById(R.id.txt_urun_adi);
         TextView barkodNoTxt = view.findViewById(R.id.txt_barkod_no);
         TextView urunAdetiTxt = view.findViewById(R.id.txt_urun_adeti);
-        TextView alisSatisFiyatiTxt = view.findViewById(R.id.txt_alis_satis_fiyati);
+        TextView alisFiyatiTxt = view.findViewById(R.id.txt_alis_fiyati);
+        TextView satisFiyatiTxt = view.findViewById(R.id.txt_satis_fiyati);
         Button silBtn = view.findViewById(R.id.btn_sil);
         Button guncelleBtn = view.findViewById(R.id.btn_guncelle);
         Button iptalBtn = view.findViewById(R.id.btn_iptal);
@@ -41,12 +44,14 @@ public class UrunBilgileriDialog extends AppCompatDialogFragment {
         String urunAdi = degerler.getString("ad");
         String barkodNo = degerler.getString("barkod");
         int urunAdeti = degerler.getInt("adet");
-        String alisSatisFiyati = degerler.getString("alissatis");
+        float alisFiyati = degerler.getFloat("alis_fiyati");
+        float satisFiyati = degerler.getFloat("satis_fiyati");
 
         urunAdiTxt.setText(urunAdi);
         barkodNoTxt.setText(barkodNo);
         urunAdetiTxt.setText(String.valueOf(urunAdeti));
-        alisSatisFiyatiTxt.setText(alisSatisFiyati);
+        alisFiyatiTxt.setText(String.valueOf(alisFiyati));
+        satisFiyatiTxt.setText(String.valueOf(satisFiyati));
 
         silBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,8 +80,8 @@ public class UrunBilgileriDialog extends AppCompatDialogFragment {
                 Intent intent = new Intent(getContext(), UrunGuncelleActivity.class);
                 intent.putExtra("barkod", barkodNo);
                 intent.putExtra("ad", urunAdi);
-                intent.putExtra("alis", alisSatisFiyati.substring(0, alisSatisFiyati.indexOf("/")));
-                intent.putExtra("satis", alisSatisFiyati.substring(alisSatisFiyati.indexOf("/") + 1));
+                intent.putExtra("alis", alisFiyati);
+                intent.putExtra("satis", satisFiyati);
                 startActivity(intent);
             }
         });

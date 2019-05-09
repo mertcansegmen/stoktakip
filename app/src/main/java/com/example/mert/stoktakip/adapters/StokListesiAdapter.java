@@ -31,15 +31,16 @@ public class StokListesiAdapter extends ArrayAdapter<Urun> {
         TextView urunAdiTxt;
         TextView barkodNoTxt;
         TextView urunAdetiTxt;
-        TextView alisSatisFiyatiTxt;
+        TextView alisFiyatiTxt;
+        TextView satisFiyatiTxt;
     }
 
     public StokListesiAdapter(@NonNull Context context, int resource, ArrayList<Urun> urunler) {
         super(context, resource, urunler);
         this.context = context;
         this.resource = resource;
-        this.original = new ArrayList<Urun>(urunler);
-        this.fitems = new ArrayList<Urun>(urunler);
+        this.original = new ArrayList<>(urunler);
+        this.fitems = new ArrayList<>(urunler);
     }
 
     @NonNull
@@ -66,7 +67,8 @@ public class StokListesiAdapter extends ArrayAdapter<Urun> {
             holder.urunAdiTxt = convertView.findViewById(R.id.txt_urun_adi);
             holder.barkodNoTxt = convertView.findViewById(R.id.txt_barkod_no);
             holder.urunAdetiTxt = convertView.findViewById(R.id.txt_urun_adeti);
-            holder.alisSatisFiyatiTxt = convertView.findViewById(R.id.txt_alis_satis_fiyati);
+            holder.alisFiyatiTxt = convertView.findViewById(R.id.txt_alis_fiyati);
+            holder.satisFiyatiTxt = convertView.findViewById(R.id.txt_satis_fiyati);
 
             result = convertView;
             convertView.setTag(holder);
@@ -84,7 +86,8 @@ public class StokListesiAdapter extends ArrayAdapter<Urun> {
         holder.urunAdiTxt.setText(urun.getAd());
         holder.barkodNoTxt.setText(urun.getBarkodNo());
         holder.urunAdetiTxt.setText(String.valueOf(urun.getAdet()));
-        holder.alisSatisFiyatiTxt.setText(urun.getAlisSatis());
+        holder.alisFiyatiTxt.setText(String.valueOf(urun.getAlis()));
+        holder.satisFiyatiTxt.setText(String.valueOf(urun.getSatis()));
 
         return convertView;
     }
@@ -109,14 +112,14 @@ public class StokListesiAdapter extends ArrayAdapter<Urun> {
 
             if (kelime.equals("") || kelime.length() == 0)
             {
-                ArrayList<Urun> list = new ArrayList<Urun>(original);
+                ArrayList<Urun> list = new ArrayList<>(original);
                 results.values = list;
                 results.count = list.size();
             }
             else
             {
-                final ArrayList<Urun> list = new ArrayList<Urun>(original);
-                final ArrayList<Urun> nlist = new ArrayList<Urun>();
+                final ArrayList<Urun> list = new ArrayList<>(original);
+                final ArrayList<Urun> nlist = new ArrayList<>();
                 int count = list.size();
 
                 for (int i=0; i<count; i++)
@@ -145,7 +148,7 @@ public class StokListesiAdapter extends ArrayAdapter<Urun> {
             int count = fitems.size();
             for (int i=0; i<count; i++)
             {
-                Urun urun = (Urun)fitems.get(i);
+                Urun urun = fitems.get(i);
                 add(urun);
             }
         }

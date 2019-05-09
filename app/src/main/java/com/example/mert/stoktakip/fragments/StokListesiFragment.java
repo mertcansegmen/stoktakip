@@ -84,8 +84,8 @@ public class StokListesiFragment extends Fragment {
                 degerler.putString("ad", urun.getAd());
                 degerler.putString("barkod", urun.getBarkodNo());
                 degerler.putInt("adet", urun.getAdet());
-                degerler.putString("alissatis", String.format("%.2f", urun.getAlis()) +
-                        "/" + String.format("%.2f", urun.getSatis()));
+                degerler.putFloat("alis_fiyati", urun.getAlis());
+                degerler.putFloat("satis_fiyati", urun.getSatis());
 
                 DialogFragment dialog = new UrunBilgileriDialog();
                 dialog.setArguments(degerler);
