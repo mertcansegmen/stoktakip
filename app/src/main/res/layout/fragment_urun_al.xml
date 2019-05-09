@@ -44,7 +44,7 @@
             </com.example.mert.stoktakip.utils.TouchInterceptorLayout>
 
             <ImageButton
-                android:id="@+id/btn_barcode"
+                android:id="@+id/btn_barkod"
                 android:layout_width="36dp"
                 android:layout_height="48dp"
 
@@ -65,11 +65,8 @@
             android:id="@+id/cizgi"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-
             android:layout_marginTop="5dp"
-
-            android:background="@color/dividerArkaplan" />
-
+            android:background="#1AFFFFFF" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -92,6 +89,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
                 android:layout_marginRight="20dp"
+                android:layout_marginEnd="20dp"
                 android:layout_weight="1"
                 android:gravity="end"
                 android:text="@string/sepetbosalt"
@@ -108,14 +106,13 @@
             android:background="@color/dividerArkaplan" />
 
         <com.github.paolorotolo.expandableheightlistview.ExpandableHeightListView
-            android:id="@+id/urun_liste"
+            android:id="@+id/liste"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
-            android:background="@color/listeArkaplan"/>
+            android:background="#3D3D3D"/>
 
         <TextView
-            android:id="@+id/sepetbos"
+            android:id="@+id/txt_bos_sepet"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_marginTop="21dp"
@@ -127,11 +124,10 @@
             android:id="@+id/cizgi3"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-
             android:background="@color/dividerArkaplan" />
 
         <EditText
-            android:id="@+id/aciklama"
+            android:id="@+id/txt_aciklama"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
@@ -145,18 +141,18 @@
             android:inputType="textMultiLine" />
 
         <Button
-            android:id="@+id/btn_urunsat"
+            android:id="@+id/btn_urun_al"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
-            android:layout_marginStart="19dp"
-            android:layout_marginLeft="19dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="19dp"
+            android:layout_marginLeft="19dp"
+            android:layout_marginStart="19dp"
             android:layout_marginRight="19dp"
+            android:layout_marginEnd="19dp"
 
             android:textAllCaps="false"
-            android:text="@string/urunsat" />
+            android:text="@string/urunal" />
     </LinearLayout>
 
 

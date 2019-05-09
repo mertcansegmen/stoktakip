@@ -23,7 +23,7 @@ import com.example.mert.stoktakip.models.UrunIslemi;
 import com.example.mert.stoktakip.models.VeritabaniIslemleri;
 import com.example.mert.stoktakip.utils.TouchInterceptorLayout;
 import com.example.mert.stoktakip.models.Urun;
-import com.example.mert.stoktakip.adapters.UrunAdapterUrunAlSat;
+import com.example.mert.stoktakip.adapters.UrunAlSatAdapter;
 import com.example.mert.stoktakip.activities.BarkodOkuyucuActivity;
 import com.example.mert.stoktakip.dialogs.UrunListesiDialog;
 import com.github.paolorotolo.expandableheightlistview.ExpandableHeightListView;
@@ -37,54 +37,60 @@ import me.himanshusoni.quantityview.QuantityView;
 
 public class UrunSatFragment extends Fragment implements UrunListesiDialog.UrunListesiDialogListener {
     SearchView search;
-    TextView sepetBos;
-    ExpandableHeightListView liste;
     TouchInterceptorLayout til;
     ImageButton barkodBtn;
-    Button urunSatBtn;
     TextView sepetiBosaltBtn;
-    EditText aciklama;
-    UrunAdapterUrunAlSat adapter;
+    TextView sepetBosTxt;
+    ExpandableHeightListView liste;
+    Button urunSatBtn;
+    EditText aciklamaTxt;
+
+    UrunAlSatAdapter adapter;
     MediaPlayer mp;
+
     ArrayList<Urun> urunler = new ArrayList<>();
     String kadi;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_urunsat, container, false);
+        View v = inflater.inflate(R.layout.fragment_urun_sat, container, false);
         search = v.findViewById(R.id.search_view);
-        sepetBos = v.findViewById(R.id.sepetbos);
-        liste = v.findViewById(R.id.urun_liste);
-        barkodBtn = v.findViewById(R.id.btn_barcode);
-        urunSatBtn = v.findViewById(R.id.btn_urunsat);
+        sepetBosTxt = v.findViewById(R.id.txt_bos_sepet);
+        liste = v.findViewById(R.id.liste);
+        barkodBtn = v.findViewById(R.id.btn_barkod);
+        urunSatBtn = v.findViewById(R.id.btn_urun_sat);
         sepetiBosaltBtn = v.findViewById(R.id.btn_sepeti_bosalt);
-        aciklama = v.findViewById(R.id.aciklama);
+        aciklamaTxt = v.findViewById(R.id.txt_aciklama);
         til = v.findViewById(R.id.interceptorLayout);
         mp = MediaPlayer.create(v.getContext(), R.raw.scan_sound);
 
         Bundle bundle = this.getArguments();
         kadi = bundle.getString("kadi");
 
-        barkodBtn.setOnClickListener(e -> barkodOkuyucuAc());
-        urunSatBtn.setOnClickListener(e -> urunSat());
-        sepetiBosaltBtn.setOnClickListener( e -> sepetiBosalt());
-        til.setOnClickListener(e -> urunSec());
-
-        adapter = new UrunAdapterUrunAlSat(getActivity(), R.layout.liste_elemani_urun_alsat, urunler);
+        adapter = new UrunAlSatAdapter(getActivity(), R.layout.liste_elemani_urun_al_sat, urunler);
         liste.setAdapter(adapter);
         liste.setExpanded(true);
 
-        return v;
-    }
+        urunSatBtn.setOnClickListener(e -> urunSat());
+        sepetiBosaltBtn.setOnClickListener( e -> sepetiBosalt());
+        barkodBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), BarkodOkuyucuActivity.class);
+                startActivityForResult(intent, 0);
+            }
+        });
+        til.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogFragment dialog = new UrunListesiDialog();
+                dialog.setTargetFragment(UrunSatFragment.this, 0);
+                dialog.show(getActivity().getSupportFragmentManager(), "Urun Listesi");
+            }
+        });
 
-    private void sepetiBosalt() {
-        sepetiBosaltBtn.setVisibility(View.INVISIBLE);
-        urunler.clear();
-        adapter.clear();
-        liste.setAdapter(adapter);
-        sepetBos.setVisibility(View.VISIBLE);
-        aciklama.setText("");
+        return v;
     }
 
     private void urunSat() {
@@ -101,7 +107,7 @@ public class UrunSatFragment extends Fragment implements UrunListesiDialog.UrunL
         // Stokta yeterli miktar olmayan ürünler olup olmadığı kontrol ediliyor
         for(int i = 0; i < urunler.size(); i++){
             View view = liste.getChildAt(i);
-            QuantityView quantityView = view.findViewById(R.id.quantityView);
+            QuantityView quantityView = view.findViewById(R.id.quantity_view);
             int satilmakIstenenAdet = quantityView.getQuantity();
             int stoktakiAdet = vti.barkodaGoreUrunGetir(urunler.get(i).getBarkodNo()).getAdet();
             if(stoktakiAdet < satilmakIstenenAdet) {
@@ -133,7 +139,7 @@ public class UrunSatFragment extends Fragment implements UrunListesiDialog.UrunL
         }
         for(int i = 0; i < urunler.size(); i++){
             View view = liste.getChildAt(i);
-            QuantityView quantityView = view.findViewById(R.id.quantityView);
+            QuantityView quantityView = view.findViewById(R.id.quantity_view);
             int adet = quantityView.getQuantity();
             // Ürünün stoktaki adeti satılmak istenen adetten azsa hata ver
             if(!vti.urunAdetiGuncelle(urunler.get(i).getBarkodNo(), adet*(-1))) {
@@ -146,7 +152,7 @@ public class UrunSatFragment extends Fragment implements UrunListesiDialog.UrunL
             urunIslemi.setKadi(kadi);
             urunIslemi.setAdet(adet);
             urunIslemi.setUrunFiyati(urunler.get(i).getSatis());
-            urunIslemi.setAciklama(aciklama.getText().toString());
+            urunIslemi.setAciklama(aciklamaTxt.getText().toString());
             if(vti.urunIslemiEkle(urunIslemi) == -1){
                 new GlideToast.makeToast(getActivity(), "Ürün satışı ekleme hatası.", GlideToast.LENGTHTOOLONG, GlideToast.FAILTOAST).show();
                 return;
@@ -154,12 +160,6 @@ public class UrunSatFragment extends Fragment implements UrunListesiDialog.UrunL
             new GlideToast.makeToast(getActivity(), "Satış başarılı.", GlideToast.LENGTHTOOLONG, GlideToast.SUCCESSTOAST).show();
         }
         sepetiBosalt();
-    }
-
-    // Barkod okuyucu aç butonunun click listener'ı
-    private void barkodOkuyucuAc() {
-        Intent intent = new Intent(getActivity(), BarkodOkuyucuActivity.class);
-        startActivityForResult(intent, 0);
     }
 
     // Barkod tarayıcı kapanınca gelen barkoda sahip ürünü sepete ekliyor
@@ -186,7 +186,7 @@ public class UrunSatFragment extends Fragment implements UrunListesiDialog.UrunL
                     else {
                         urunler.add(urun);
                         sepetiBosaltBtn.setVisibility(View.VISIBLE);
-                        sepetBos.setVisibility(View.GONE);
+                        sepetBosTxt.setVisibility(View.GONE);
                         adapter.notifyDataSetChanged();
                         mp.start();
                     }
@@ -206,13 +206,6 @@ public class UrunSatFragment extends Fragment implements UrunListesiDialog.UrunL
         return false;
     }
 
-    // Ürün arama butonunun click listener'ı
-    private void urunSec() {
-        DialogFragment dialog = new UrunListesiDialog();
-        dialog.setTargetFragment(this, 0);
-        dialog.show(getActivity().getSupportFragmentManager(), "Urun Listesi");
-    }
-
     @Override
     public void barkodGetir(String barkod) {
         VeritabaniIslemleri vti = new VeritabaniIslemleri(getContext());
@@ -224,7 +217,16 @@ public class UrunSatFragment extends Fragment implements UrunListesiDialog.UrunL
         }
         urunler.add(urun);
         sepetiBosaltBtn.setVisibility(View.VISIBLE);
-        sepetBos.setVisibility(View.GONE);
+        sepetBosTxt.setVisibility(View.GONE);
         adapter.notifyDataSetChanged();
+    }
+
+    private void sepetiBosalt() {
+        sepetiBosaltBtn.setVisibility(View.INVISIBLE);
+        urunler.clear();
+        adapter.clear();
+        liste.setAdapter(adapter);
+        sepetBosTxt.setVisibility(View.VISIBLE);
+        aciklamaTxt.setText("");
     }
 }

@@ -21,7 +21,7 @@
         android:queryHint="Ürün adı ya da barkod no"
 
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btn_barcode"
+        app:layout_constraintEnd_toStartOf="@+id/btn_barkod"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0">
@@ -29,7 +29,7 @@
     </SearchView>
 
     <ImageButton
-        android:id="@+id/btn_barcode"
+        android:id="@+id/btn_barkod"
         android:layout_width="36dp"
         android:layout_height="48dp"
 
@@ -73,11 +73,12 @@
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cizgi" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/btn_ekle"
+        android:id="@+id/btn_urun_ekle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 

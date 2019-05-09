@@ -14,9 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.mert.stoktakip.dialogs.TarihSecimiDialog;
 import com.example.mert.stoktakip.fragments.AyarlarFragment;
 import com.example.mert.stoktakip.fragments.AzalanUrunlerFragment;
 import com.example.mert.stoktakip.fragments.IslemGecmisiFragment;
@@ -31,16 +29,17 @@ public class AnasayfaActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     String kadi;
-    TextView kadiDrawer;
+    TextView kadiTxt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_anasayfa);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -49,15 +48,15 @@ public class AnasayfaActivity extends AppCompatActivity
         getSupportActionBar().setTitle(R.string.nav_stoklistesi_title);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new StokListesiFragment()).commit();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         // GirisActivityden gelen kullanıcı adını header layout'a çekiyor
         Intent intent = getIntent();
         kadi = intent.getStringExtra("kadi");
         View headerLayout = navigationView.getHeaderView(0);
-        kadiDrawer = headerLayout.findViewById(R.id.drawer_kadi);
-        kadiDrawer.setText(kadi);
+        kadiTxt = headerLayout.findViewById(R.id.txt_kadi);
+        kadiTxt.setText(kadi);
     }
 
     @Override
@@ -97,7 +96,7 @@ public class AnasayfaActivity extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_cikis_yap) {
             finish();
-            Intent intent = new Intent(this, GirisActivity.class);
+            Intent intent = new Intent(this, GirisYapActivity.class);
             startActivity(intent);
         }
 
@@ -142,11 +141,11 @@ public class AnasayfaActivity extends AppCompatActivity
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new AyarlarFragment()).commit();
         } else if (id == R.id.nav_cikis_yap) {
             finish();
-            Intent intent = new Intent(this, GirisActivity.class);
+            Intent intent = new Intent(this, GirisYapActivity.class);
             startActivity(intent);
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }

@@ -2,18 +2,15 @@ package com.example.mert.stoktakip.activities;
 
 import android.content.Intent;
 import android.media.MediaPlayer;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import com.blackcat.currencyedittext.CurrencyEditText;
 import com.example.mert.stoktakip.R;
-import com.example.mert.stoktakip.fragments.StokListesiFragment;
 import com.example.mert.stoktakip.models.Urun;
 import com.example.mert.stoktakip.models.VeritabaniIslemleri;
 import com.google.android.gms.common.api.CommonStatusCodes;
@@ -22,12 +19,13 @@ import com.jeevandeshmukh.glidetoastlib.GlideToast;
 
 public class UrunEkleActivity extends AppCompatActivity {
 
-    EditText barkodNo;
-    EditText urunAdi;
-    CurrencyEditText alisFiyati;
-    CurrencyEditText satisFiyati;
-    ImageButton barkodBtn;
-    Button ekleBtn;
+    EditText barkodNoTxt;
+    EditText urunAdiTxt;
+    CurrencyEditText alisFiyatiTxt;
+    CurrencyEditText satisFiyatiTxt;
+    ImageButton barkodOkuyucuImgBtn;
+    Button urunEkleBtn;
+
     MediaPlayer mp;
 
     @Override
@@ -35,24 +33,30 @@ public class UrunEkleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_urun_ekle);
 
-        barkodNo = findViewById(R.id.txt_barkod);
-        urunAdi = findViewById(R.id.txt_urunadi);
-        alisFiyati = findViewById(R.id.txt_alisfiyati);
-        satisFiyati = findViewById(R.id.txt_satisfiyati);
-        barkodBtn = findViewById(R.id.btn_barcode);
-        ekleBtn = findViewById(R.id.btn_urunekle);
+        barkodNoTxt = findViewById(R.id.txt_barkod);
+        urunAdiTxt = findViewById(R.id.txt_urun_adi);
+        alisFiyatiTxt = findViewById(R.id.txt_alis_fiyati);
+        satisFiyatiTxt = findViewById(R.id.txt_satis_fiyati);
+        barkodOkuyucuImgBtn = findViewById(R.id.btn_barkod);
+        urunEkleBtn = findViewById(R.id.btn_urun_ekle);
         mp = MediaPlayer.create(this, R.raw.scan_sound);
 
-        barkodBtn.setOnClickListener(e -> barkodOkuyucuAc());
-        ekleBtn.setOnClickListener(e -> urunEkle());
+        urunEkleBtn.setOnClickListener(e -> urunEkle());
+        barkodOkuyucuImgBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(UrunEkleActivity.this, BarkodOkuyucuActivity.class);
+                startActivityForResult(intent, 0);
+            }
+        });
     }
 
     private void urunEkle() {
-        String barkod = barkodNo.getText().toString();
-        String ad = urunAdi.getText().toString();
+        String barkod = barkodNoTxt.getText().toString();
+        String ad = urunAdiTxt.getText().toString();
         // Alış ve satış fiyatları kuruş şeklinde long değer olarak geliyor. Floata çevrilmesi gerekiyor
-        float alis = alisFiyati.getRawValue() / (float)100;
-        float satis = satisFiyati.getRawValue() / (float)100;
+        float alis = alisFiyatiTxt.getRawValue() / (float)100;
+        float satis = satisFiyatiTxt.getRawValue() / (float)100;
 
         // Alanlardan herhangi biri boşsa hata ver
         if(barkod.equals("") || ad.equals("")){
@@ -71,7 +75,6 @@ public class UrunEkleActivity extends AppCompatActivity {
                     GlideToast.LENGTHTOOLONG, GlideToast.FAILTOAST).show();
             return;
         }
-
         // Ürün eklenemediyse hata ver
         if(vti.urunEkle(urun) == -1){
             new GlideToast.makeToast(UrunEkleActivity.this, "Ürün eklenemedi.",
@@ -82,21 +85,6 @@ public class UrunEkleActivity extends AppCompatActivity {
         alanlariBosalt();
         new GlideToast.makeToast(UrunEkleActivity.this, "Ürün eklendi.",
                 GlideToast.LENGTHTOOLONG, GlideToast.SUCCESSTOAST).show();
-
-    }
-
-    private void alanlariBosalt() {
-        barkodNo.setText(null);
-        urunAdi.setText(null);
-        alisFiyati.setValue(0);
-        satisFiyati.setValue(0);
-        barkodNo.setEnabled(true);
-    }
-
-    // Barkod okuyucu aç butonunun click listener'ı
-    private void barkodOkuyucuAc() {
-        Intent intent = new Intent(UrunEkleActivity.this, BarkodOkuyucuActivity.class);
-        startActivityForResult(intent, 0);
     }
 
     // Barkod tarayıcı kapanınca gelen değeri barkodno edittext'ine geçiriyor ve düzenlemeyi kapatıyor
@@ -107,9 +95,9 @@ public class UrunEkleActivity extends AppCompatActivity {
                 if(data != null){
                     Barcode barcode = data.getParcelableExtra("barcode");
                     mp.start();
-                    barkodNo.setText(barcode.displayValue);
-                    barkodNo.setEnabled(false);
-                    urunAdi.requestFocus();
+                    barkodNoTxt.setText(barcode.displayValue);
+                    barkodNoTxt.setEnabled(false);
+                    urunAdiTxt.requestFocus();
                 }
                 else{
                     new GlideToast.makeToast(UrunEkleActivity.this, "Barkod eklenemedi.",
@@ -120,5 +108,13 @@ public class UrunEkleActivity extends AppCompatActivity {
         else{
             super.onActivityResult(requestCode, resultCode, data);
         }
+    }
+
+    private void alanlariBosalt() {
+        barkodNoTxt.setText(null);
+        urunAdiTxt.setText(null);
+        alisFiyatiTxt.setValue(0);
+        satisFiyatiTxt.setValue(0);
+        barkodNoTxt.setEnabled(true);
     }
 }

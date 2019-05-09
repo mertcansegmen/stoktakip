@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +19,7 @@ import android.widget.SearchView;
 import com.example.mert.stoktakip.R;
 import com.example.mert.stoktakip.activities.UrunEkleActivity;
 import com.example.mert.stoktakip.models.Urun;
-import com.example.mert.stoktakip.adapters.UrunAdapterStokListesi;
+import com.example.mert.stoktakip.adapters.StokListesiAdapter;
 import com.example.mert.stoktakip.activities.BarkodOkuyucuActivity;
 import com.example.mert.stoktakip.models.VeritabaniIslemleri;
 import com.example.mert.stoktakip.dialogs.UrunBilgileriDialog;
@@ -34,33 +33,35 @@ public class StokListesiFragment extends Fragment {
 
     SearchView search;
     ImageButton barkodBtn;
-    FloatingActionButton fab;
     ListView liste;
+    FloatingActionButton urunEkleBtn;
 
     MediaPlayer mp;
-
-    ArrayList<Urun> urunler;
-    UrunAdapterStokListesi adapter;
-
+    StokListesiAdapter adapter;
     VeritabaniIslemleri vti;
 
+    ArrayList<Urun> urunler;
     boolean barkodAramasiYapildi;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_stoklistesi, container, false);
+        View v = inflater.inflate(R.layout.fragment_stok_listesi, container, false);
+
         search = v.findViewById(R.id.search_view);
         liste = v.findViewById(R.id.liste);
-        barkodBtn = v.findViewById(R.id.btn_barcode);
-        fab = v.findViewById(R.id.btn_ekle);
+        barkodBtn = v.findViewById(R.id.btn_barkod);
+        urunEkleBtn = v.findViewById(R.id.btn_urun_ekle);
         mp = MediaPlayer.create(v.getContext(), R.raw.scan_sound);
 
         vti = new VeritabaniIslemleri(getContext());
+        // Veritabanında bulunan bütün ürünleri çekip urunler listesine ekliyor.
+        // Bu 3 satır kod çalışınca bütün ürünler ekrandaki listview'e ekleniyor.
         urunler = vti.butunUrunleriGetir();
-        adapter = new UrunAdapterStokListesi(getContext(), R.layout.liste_elemani_stok_listesi, urunler);
+        adapter = new StokListesiAdapter(getContext(), R.layout.liste_elemani_stok_listesi, urunler);
         liste.setAdapter(adapter);
 
+        // SearchView'da yazılan değer her değiştiğinde liste filtreleniyor
         search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -92,23 +93,22 @@ public class StokListesiFragment extends Fragment {
             }
         });
 
-        fab.setOnClickListener(e -> yeniStokKaydiEkle());
-        barkodBtn.setOnClickListener(e -> BarkodOkuyucuAc());
+        urunEkleBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), UrunEkleActivity.class);
+                startActivity(intent);
+            }
+        });
+        barkodBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), BarkodOkuyucuActivity.class);
+                startActivityForResult(intent, 0);
+            }
+        });
         return v;
     }
-
-    // Stok kaydı ekle butonunun click listener'ı
-    private void yeniStokKaydiEkle() {
-        Intent intent = new Intent(getActivity(), UrunEkleActivity.class);
-        startActivity(intent);
-    }
-
-    // Barkod okuyucu aç butonunun click listener'ı
-    private void BarkodOkuyucuAc() {
-        Intent intent = new Intent(getActivity(), BarkodOkuyucuActivity.class);
-        startActivityForResult(intent, 0);
-    }
-
 
     // Barkod tarayıcı kapanınca okunan barkoda sahip ürünü filtreliyor
     @Override
@@ -143,7 +143,7 @@ public class StokListesiFragment extends Fragment {
         super.onResume();
         urunler.clear();
         urunler = vti.butunUrunleriGetir();
-        adapter = new UrunAdapterStokListesi(getContext(), R.layout.liste_elemani_stok_listesi, urunler);
+        adapter = new StokListesiAdapter(getContext(), R.layout.liste_elemani_stok_listesi, urunler);
         liste.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }

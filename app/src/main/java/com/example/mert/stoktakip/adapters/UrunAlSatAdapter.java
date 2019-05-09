@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
@@ -17,13 +16,13 @@ import java.util.ArrayList;
 
 import me.himanshusoni.quantityview.QuantityView;
 
-public class UrunAdapterUrunAlSat extends ArrayAdapter<Urun> {
+public class UrunAlSatAdapter extends ArrayAdapter<Urun> {
 
     private Context context;
     private int resource;
 
 
-    public UrunAdapterUrunAlSat(@NonNull Context context, int resource, ArrayList<Urun> urun) {
+    public UrunAlSatAdapter(@NonNull Context context, int resource, ArrayList<Urun> urun) {
         super(context, resource, urun);
         this.context = context;
         this.resource = resource;
@@ -32,25 +31,19 @@ public class UrunAdapterUrunAlSat extends ArrayAdapter<Urun> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+        LayoutInflater inflater = LayoutInflater.from(context);
+        convertView = inflater.inflate(resource, parent, false);
+
+        TextView urunAdiTxt = convertView.findViewById(R.id.txt_urun_adi);
+        TextView barkodNoTxt = convertView.findViewById(R.id.txt_barkod_no);
+        QuantityView quantityView = convertView.findViewById(R.id.quantity_view);
 
         String barkodNo = getItem(position).getBarkodNo();
         String urunAdi = getItem(position).getAd();
 
-        LayoutInflater inflater = LayoutInflater.from(context);
-        convertView = inflater.inflate(resource, parent, false);
-
-        TextView tvAd = convertView.findViewById(R.id.txt_urun_adi);
-        TextView tvBarkodNo = convertView.findViewById(R.id.barkod_no);
-        QuantityView quantityView = convertView.findViewById(R.id.quantityView);
-        tvAd.setText(urunAdi);
-        tvBarkodNo.setText(barkodNo);
+        urunAdiTxt.setText(urunAdi);
+        barkodNoTxt.setText(barkodNo);
 
         return convertView;
-    }
-
-    private void klavyeyiGizle(View convertView) {
-        InputMethodManager inputManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
-        inputManager.hideSoftInputFromWindow(convertView.getWindowToken(),
-            InputMethodManager.HIDE_NOT_ALWAYS);
     }
 }

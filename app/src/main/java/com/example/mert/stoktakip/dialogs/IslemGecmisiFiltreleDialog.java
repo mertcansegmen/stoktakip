@@ -24,55 +24,71 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-public class IslemGecmisiFiltreleDialog extends AppCompatDialogFragment implements DatePickerDialog.OnDateSetListener, TarihSecimiDialog.TarihSecimiDialogListener {
+public class IslemGecmisiFiltreleDialog extends AppCompatDialogFragment
+        implements DatePickerDialog.OnDateSetListener, TarihSecimiDialog.TarihSecimiDialogListener {
 
-    Button baslangicTarihiButon;
-    Button bitisTarihiButon;
-    String tur;
+    Button baslangicTarihiBtn;
+    Button bitisTarihiBtn;
+    Button filtreleBtn;
+    Spinner islemTuruSpinner;
+
     IslemGecmisiFiltreleDialogListener listener;
+
+    String tur;
+
+    public interface IslemGecmisiFiltreleDialogListener{
+        void filtreParametreleriniGetir(String baslangicTarihi, String bitisTarihi, String islemTuru);
+    }
 
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_islem_gecmisi_filtre, null);
 
-        builder.setView(view);
+        dialog.setView(view);
 
-        baslangicTarihiButon = view.findViewById(R.id.btn_baslangic);
-        bitisTarihiButon= view.findViewById(R.id.btn_bitis);
-        Spinner spinner = view.findViewById(R.id.spinner);
-        Button filtreleButon = view.findViewById(R.id.btn_filtrele);
+        baslangicTarihiBtn = view.findViewById(R.id.btn_baslangic_tarihi);
+        bitisTarihiBtn = view.findViewById(R.id.btn_bitis_tarihi);
+        islemTuruSpinner = view.findViewById(R.id.spinner_islem_turu);
+        filtreleBtn = view.findViewById(R.id.btn_filtrele);
 
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Date());
         cal.add(Calendar.DATE, -1);
+
         Date dun = cal.getTime();
         Date bugun = new Date();
+
         String dunString = new SimpleDateFormat("d MMM yyyy", Locale.getDefault()).format(dun);
         String bugunString = new SimpleDateFormat("d MMM yyyy", Locale.getDefault()).format(bugun);
-        baslangicTarihiButon.setText(dunString);
-        bitisTarihiButon.setText(bugunString);
 
-        filtreleButon.setOnClickListener(new View.OnClickListener() {
+        baslangicTarihiBtn.setText(dunString);
+        bitisTarihiBtn.setText(bugunString);
+
+        ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(getContext(),
+                R.array.spinner_islem_turleri, R.layout.spinner_elemani_islem_turleri);
+        spinnerAdapter.setDropDownViewResource(R.layout.spinner_elemani_islem_turleri);
+        islemTuruSpinner.setAdapter(spinnerAdapter);
+
+        filtreleBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String baslangicTarihi = dateFormatiDegistir(baslangicTarihiButon.getText().toString());
-                String bitisTarihi = dateFormatiDegistir(bitisTarihiButon.getText().toString());
-                String islemTuru = spinner.getSelectedItem().toString();
+                String baslangicTarihi = tarihFormatiDegistir(baslangicTarihiBtn.getText().toString());
+                String bitisTarihi = tarihFormatiDegistir(bitisTarihiBtn.getText().toString());
+                String islemTuru = islemTuruSpinner.getSelectedItem().toString();
                 listener.filtreParametreleriniGetir(baslangicTarihi, bitisTarihi, islemTuru);
                 dismiss();
             }
         });
 
-        baslangicTarihiButon.setOnClickListener(new View.OnClickListener() {
+        baslangicTarihiBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Bundle degerler = new Bundle();
                 degerler.putString("tur", "baslangicTarihi");
-                degerler.putString("tarih", baslangicTarihiButon.getText().toString());
+                degerler.putString("tarih", baslangicTarihiBtn.getText().toString());
                 DialogFragment dialog = new TarihSecimiDialog();
                 dialog.setArguments(degerler);
                 dialog.setTargetFragment(IslemGecmisiFiltreleDialog.this, 0);
@@ -80,12 +96,12 @@ public class IslemGecmisiFiltreleDialog extends AppCompatDialogFragment implemen
             }
         });
 
-        bitisTarihiButon.setOnClickListener(new View.OnClickListener() {
+        bitisTarihiBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Bundle degerler = new Bundle();
                 degerler.putString("tur", "bitisTarihi");
-                degerler.putString("tarih", bitisTarihiButon.getText().toString());
+                degerler.putString("tarih", bitisTarihiBtn.getText().toString());
                 DialogFragment dialog = new TarihSecimiDialog();
                 dialog.setArguments(degerler);
                 dialog.setTargetFragment(IslemGecmisiFiltreleDialog.this, 0);
@@ -93,12 +109,7 @@ public class IslemGecmisiFiltreleDialog extends AppCompatDialogFragment implemen
             }
         });
 
-        ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(getContext(),
-                R.array.spinner_islem_turleri, R.layout.spinner_elemani_islem_turleri);
-        spinnerAdapter.setDropDownViewResource(R.layout.spinner_elemani_islem_turleri);
-        spinner.setAdapter(spinnerAdapter);
-
-        return builder.create();
+        return dialog.create();
     }
 
     @Override
@@ -107,35 +118,32 @@ public class IslemGecmisiFiltreleDialog extends AppCompatDialogFragment implemen
         c.set(Calendar.YEAR, year);
         c.set(Calendar.MONTH, month);
         c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
         String tarih = DateFormat.getDateInstance(DateFormat.MEDIUM).format(c.getTime());
+
         if(tur.equals("baslangicTarihi")){
-            baslangicTarihiButon.setText(tarih);
+            baslangicTarihiBtn.setText(tarih);
         } else {
-            bitisTarihiButon.setText(tarih);
+            bitisTarihiBtn.setText(tarih);
         }
     }
 
-    @Override
-    public void turGetir(String tur) {
-        this.tur = tur;
-    }
-
-    private String dateFormatiDegistir(String tarih) {
+    private String tarihFormatiDegistir(String tarih) {
         String inputPattern = "d MMM yyyy";
         String outputPattern = "yyyy-MM-dd";
+
         SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern, Locale.getDefault());
         SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern, Locale.getDefault());
 
-        Date date = null;
-        String sonuc = null;
+        String formatlanmisTarih = null;
 
         try {
-            date = inputFormat.parse(tarih);
-            sonuc = outputFormat.format(date);
+            Date date = inputFormat.parse(tarih);
+            formatlanmisTarih = outputFormat.format(date);
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        return sonuc;
+        return formatlanmisTarih;
     }
 
     @Override
@@ -149,7 +157,8 @@ public class IslemGecmisiFiltreleDialog extends AppCompatDialogFragment implemen
         }
     }
 
-    public interface IslemGecmisiFiltreleDialogListener{
-        void filtreParametreleriniGetir(String baslangicTarihi, String bitisTarihi, String islemTuru);
+    @Override
+    public void turGetir(String tur) {
+        this.tur = tur;
     }
 }

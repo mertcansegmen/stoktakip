@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.blackcat.currencyedittext.CurrencyEditText;
 import com.example.mert.stoktakip.R;
@@ -19,52 +18,53 @@ import com.jeevandeshmukh.glidetoastlib.GlideToast;
 
 public class UrunGuncelleActivity extends AppCompatActivity {
 
-    EditText barkodNo;
-    EditText urunAdi;
-    CurrencyEditText alisFiyati;
-    CurrencyEditText satisFiyati;
-    Button guncelleBtn;
-    MediaPlayer mp;
+    EditText barkodNoTxt;
+    EditText urunAdiTxt;
+    CurrencyEditText alisFiyatiTxt;
+    CurrencyEditText satisFiyatiTxt;
+    Button urunGuncelleBtn;
     TouchInterceptorLayout til;
+    MediaPlayer mp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_urun_guncelle);
 
-        barkodNo = findViewById(R.id.txt_barkod);
-        urunAdi = findViewById(R.id.txt_urunadi);
-        alisFiyati = findViewById(R.id.txt_alisfiyati);
-        satisFiyati = findViewById(R.id.txt_satisfiyati);
-        guncelleBtn = findViewById(R.id.btn_urunguncelle);
+        barkodNoTxt = findViewById(R.id.txt_barkod);
+        urunAdiTxt = findViewById(R.id.txt_urun_adi);
+        alisFiyatiTxt = findViewById(R.id.txt_alis_fiyati);
+        satisFiyatiTxt = findViewById(R.id.txt_satis_fiyati);
+        urunGuncelleBtn = findViewById(R.id.btn_urun_guncelle);
         til = findViewById(R.id.interceptorLayout);
         mp = MediaPlayer.create(this, R.raw.scan_sound);
 
-        // Barkod numarası güncellenemeyeceği için TextView devre dışı bırakılıyor, tıklanırsa kullanıcıya hata veriyor
-        barkodNo.setEnabled(false);
+        // Barkod numarası güncellenemeyeceği için TextView devre dışı bırakılıyor
+        barkodNoTxt.setEnabled(false);
+
+        Intent intent = getIntent();
+        barkodNoTxt.setText(intent.getStringExtra("barkod"));
+        urunAdiTxt.setText(intent.getStringExtra("ad"));
+        alisFiyatiTxt.setText(intent.getStringExtra("alis"));
+        satisFiyatiTxt.setText(intent.getStringExtra("satis"));
+
+        urunGuncelleBtn.setOnClickListener(e -> urunGuncelle());
+        // Barkod güncellenmek için tıklanırsa kullanıcıya hata veriyor
         til.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new GlideToast.makeToast(UrunGuncelleActivity.this, "Ürünün barkod numarası değiştirilemez.",
-                                        GlideToast.LENGTHTOOLONG, GlideToast.INFOTOAST).show();
+                        GlideToast.LENGTHTOOLONG, GlideToast.INFOTOAST).show();
             }
         });
-
-        Intent intent = getIntent();
-        barkodNo.setText(intent.getStringExtra("barkod"));
-        urunAdi.setText(intent.getStringExtra("ad"));
-        alisFiyati.setText(intent.getStringExtra("alis"));
-        satisFiyati.setText(intent.getStringExtra("satis"));
-
-        guncelleBtn.setOnClickListener(e -> urunGuncelle());
     }
 
     private void urunGuncelle() {
-        String barkod = barkodNo.getText().toString();
-        String ad = urunAdi.getText().toString();
+        String barkod = barkodNoTxt.getText().toString();
+        String ad = urunAdiTxt.getText().toString();
         // Alış ve satış fiyatları kuruş şeklinde long değer olarak geliyor. Floata çevrilmesi gerekiyor
-        float alis = alisFiyati.getRawValue() / (float)100;
-        float satis = satisFiyati.getRawValue() / (float)100;
+        float alis = alisFiyatiTxt.getRawValue() / (float)100;
+        float satis = satisFiyatiTxt.getRawValue() / (float)100;
 
         // Alanlardan herhangi biri boşsa hata ver
         if(ad.equals("")){
@@ -98,10 +98,9 @@ public class UrunGuncelleActivity extends AppCompatActivity {
     }
 
     private void alanlariBosalt() {
-        barkodNo.setText(null);
-        urunAdi.setText(null);
-        alisFiyati.setValue(0);
-        satisFiyati.setValue(0);
+        barkodNoTxt.setText(null);
+        urunAdiTxt.setText(null);
+        alisFiyatiTxt.setValue(0);
+        satisFiyatiTxt.setValue(0);
     }
-
 }

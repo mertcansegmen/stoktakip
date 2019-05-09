@@ -7,7 +7,7 @@
     tools:context=".activities.UrunEkleActivity">
 
     <TextView
-        android:id="@+id/txt_urunguncelle"
+        android:id="@+id/txt_urun_guncelle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
@@ -31,7 +31,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_urunguncelle" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_urun_guncelle" />
 
     <com.example.mert.stoktakip.utils.TouchInterceptorLayout
         android:id="@+id/interceptorLayout"
@@ -57,7 +57,7 @@
     </com.example.mert.stoktakip.utils.TouchInterceptorLayout>
 
     <EditText
-        android:id="@+id/txt_urunadi"
+        android:id="@+id/txt_urun_adi"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -67,14 +67,14 @@
         android:layout_marginRight="24dp"
         android:ems="10"
         android:hint="@string/urunadi"
-        android:nextFocusDown="@+id/txt_alisfiyati"
+        android:nextFocusDown="@+id/txt_alis_fiyati"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/interceptorLayout" />
 
     <com.blackcat.currencyedittext.CurrencyEditText
-        android:id="@+id/txt_alisfiyati"
+        android:id="@+id/txt_alis_fiyati"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -84,13 +84,13 @@
         android:ems="10"
         android:hint="@string/alisfiyati"
         android:inputType="numberDecimal"
-        android:nextFocusDown="@+id/txt_satisfiyati"
-        app:layout_constraintEnd_toStartOf="@+id/txt_satisfiyati"
+        android:nextFocusDown="@+id/txt_satis_fiyati"
+        app:layout_constraintEnd_toStartOf="@+id/txt_satis_fiyati"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <com.blackcat.currencyedittext.CurrencyEditText
-        android:id="@+id/txt_satisfiyati"
+        android:id="@+id/txt_satis_fiyati"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -101,11 +101,11 @@
         android:hint="@string/satisfiyati"
         android:inputType="numberDecimal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/txt_alisfiyati"
+        app:layout_constraintStart_toEndOf="@+id/txt_alis_fiyati"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <Button
-        android:id="@+id/btn_urunguncelle"
+        android:id="@+id/btn_urun_guncelle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="22dp"
@@ -119,7 +119,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_alisfiyati" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_alis_fiyati" />
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
@@ -129,7 +129,7 @@
         android:layout_marginTop="24dp"
         android:text="@string/alisfiyati"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_urunadi" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_urun_adi" />
 
     <TextView
         android:id="@+id/textView3"
@@ -139,8 +139,8 @@
         android:layout_marginLeft="4dp"
         android:layout_marginTop="24dp"
         android:text="@string/satisfiyati"
-        app:layout_constraintStart_toStartOf="@+id/txt_satisfiyati"
-        app:layout_constraintTop_toBottomOf="@+id/txt_urunadi" />
+        app:layout_constraintStart_toStartOf="@+id/txt_satis_fiyati"
+        app:layout_constraintTop_toBottomOf="@+id/txt_urun_adi" />
 
 
 </android.support.constraint.ConstraintLayout>

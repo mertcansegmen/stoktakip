@@ -31,7 +31,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <Button
-        android:id="@+id/btn_baslangic"
+        android:id="@+id/btn_baslangic_tarihi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -58,13 +58,13 @@
         android:text="@string/tire"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_baslangic"
-        app:layout_constraintEnd_toStartOf="@+id/btn_bitis"
-        app:layout_constraintStart_toEndOf="@+id/btn_baslangic"
-        app:layout_constraintTop_toTopOf="@+id/btn_bitis" />
+        app:layout_constraintBottom_toBottomOf="@+id/btn_baslangic_tarihi"
+        app:layout_constraintEnd_toStartOf="@+id/btn_bitis_tarihi"
+        app:layout_constraintStart_toEndOf="@+id/btn_baslangic_tarihi"
+        app:layout_constraintTop_toTopOf="@+id/btn_bitis_tarihi" />
 
     <Button
-        android:id="@+id/btn_bitis"
+        android:id="@+id/btn_bitis_tarihi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -88,10 +88,10 @@
         android:text="@string/islem_turu"
         android:textSize="15sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_baslangic" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_baslangic_tarihi" />
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/spinner_islem_turu"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -117,6 +117,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner" />
+        app:layout_constraintTop_toBottomOf="@+id/spinner_islem_turu" />
 
 </android.support.constraint.ConstraintLayout>

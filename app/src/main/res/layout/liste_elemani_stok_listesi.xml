@@ -50,7 +50,7 @@
                 app:srcCompat="@drawable/brwhitered" />
 
             <TextView
-                android:id="@+id/barkod_no"
+                android:id="@+id/txt_barkod_no"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
@@ -75,7 +75,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/urun_adeti"
+            android:id="@+id/txt_urun_adeti"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 

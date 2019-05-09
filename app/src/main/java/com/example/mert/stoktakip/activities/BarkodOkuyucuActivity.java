@@ -22,9 +22,9 @@ import java.io.IOException;
 public class BarkodOkuyucuActivity extends AppCompatActivity {
 
     SurfaceView surfaceView;
-    private static final int REQUEST_CODE = 1;
-    String[] permissions = {Manifest.permission.CAMERA};
 
+    String[] permissions = {Manifest.permission.CAMERA};
+    private static final int REQUEST_CODE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

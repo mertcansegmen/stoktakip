@@ -118,9 +118,9 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
         values.put(SUTUN_KULLANICI_SIFRE, kullanici.getSifre());
 
         // degisenSatir -1 ise hata oluşmuştur.
-        long degisenSatir = db.insert(TABLO_KULLANICI, null, values);
+        long hataKontrolu = db.insert(TABLO_KULLANICI, null, values);
         db.close();
-        return degisenSatir;
+        return hataKontrolu;
 
     }
 
@@ -146,9 +146,9 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
 
     // Kullanıcı adının var olup olmadığını kontrol eden metot
     public boolean kullaniciAdiniKontrolEt(String kadi){
-        String[] sutunlar = {SUTUN_KULLANICI_KADI};
-
         SQLiteDatabase db = this.getReadableDatabase();
+
+        String[] sutunlar = {SUTUN_KULLANICI_KADI};
 
         String secim = SUTUN_KULLANICI_KADI + " = ?";
         String[] secimOlcutleri = {kadi};
@@ -169,9 +169,9 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
 
     // Kullanıcı adı ve şifrenin doğruluğunu kontrol eden metot
     public boolean girisBilgileriniKontrolEt(String kadi, String sifre) {
+        SQLiteDatabase db = this.getReadableDatabase();
 
         String[] sutunlar = {SUTUN_KULLANICI_KADI};
-        SQLiteDatabase db = this.getReadableDatabase();
         String  secim = SUTUN_KULLANICI_KADI + " = ?" + " AND " + SUTUN_KULLANICI_SIFRE + " = ?";
 
         String[] secimOlcutleri = {kadi, sifre};

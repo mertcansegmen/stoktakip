@@ -13,7 +13,7 @@ import android.widget.ListView;
 import android.widget.SearchView;
 
 import com.example.mert.stoktakip.R;
-import com.example.mert.stoktakip.adapters.UrunAdapterStokListesi;
+import com.example.mert.stoktakip.adapters.StokListesiAdapter;
 import com.example.mert.stoktakip.models.Urun;
 import com.example.mert.stoktakip.models.VeritabaniIslemleri;
 
@@ -22,7 +22,10 @@ import java.util.ArrayList;
 public class UrunListesiDialog extends AppCompatDialogFragment {
 
     UrunListesiDialogListener listener;
-    String barkodNo;
+
+    public interface UrunListesiDialogListener{
+        void barkodGetir(String barkod);
+    }
 
     @NonNull
     @Override
@@ -38,7 +41,7 @@ public class UrunListesiDialog extends AppCompatDialogFragment {
         VeritabaniIslemleri vti = new VeritabaniIslemleri(getContext());
         ArrayList<Urun> urunler = vti.butunUrunleriGetir();
 
-        UrunAdapterStokListesi adapter = new UrunAdapterStokListesi(getContext(), R.layout.liste_elemani_stok_listesi, urunler);
+        StokListesiAdapter adapter = new StokListesiAdapter(getContext(), R.layout.liste_elemani_stok_listesi, urunler);
         liste.setAdapter(adapter);
 
         search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -58,7 +61,7 @@ public class UrunListesiDialog extends AppCompatDialogFragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Urun urun = urunler.get(position);
-                barkodNo = urun.getBarkodNo();
+                String barkodNo = urun.getBarkodNo();
                 listener.barkodGetir(barkodNo);
                 dismiss();
             }
@@ -77,9 +80,4 @@ public class UrunListesiDialog extends AppCompatDialogFragment {
             throw new ClassCastException(context.toString() + "UrunListesiDialogListener implement etmek gerekiyor");
         }
     }
-
-    public interface UrunListesiDialogListener{
-        void barkodGetir(String barkod);
-    }
-
 }

@@ -23,32 +23,32 @@ public class UrunBilgileriDialog extends AppCompatDialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.dialog_urunbilgisi, null);
+        View view = inflater.inflate(R.layout.dialog_urun_bilgisi, null);
 
-        builder.setView(view).setTitle("Ürün Bilgileri");
+        dialog.setView(view).setTitle("Ürün Bilgileri");
 
-        TextView adTV = view.findViewById(R.id.txt_urun_adi);
-        TextView barkodTV = view.findViewById(R.id.barkod_no);
-        TextView adetTV = view.findViewById(R.id.urun_adeti);
-        TextView alisSatisTV = view.findViewById(R.id.txt_alis_satis_fiyati);
-        Button sil = view.findViewById(R.id.btn_sil);
-        Button guncelle = view.findViewById(R.id.btn_guncelle);
-        Button iptal = view.findViewById(R.id.btn_iptal);
+        TextView urunAdiTxt = view.findViewById(R.id.txt_urun_adi);
+        TextView barkodNoTxt = view.findViewById(R.id.txt_barkod_no);
+        TextView urunAdetiTxt = view.findViewById(R.id.txt_urun_adeti);
+        TextView alisSatisFiyatiTxt = view.findViewById(R.id.txt_alis_satis_fiyati);
+        Button silBtn = view.findViewById(R.id.btn_sil);
+        Button guncelleBtn = view.findViewById(R.id.btn_guncelle);
+        Button iptalBtn = view.findViewById(R.id.btn_iptal);
 
         Bundle degerler = getArguments();
-        String ad = degerler.getString("ad");
-        String barkod = degerler.getString("barkod");
-        int adet = degerler.getInt("adet");
-        String alisSatis = degerler.getString("alissatis");
+        String urunAdi = degerler.getString("ad");
+        String barkodNo = degerler.getString("barkod");
+        int urunAdeti = degerler.getInt("adet");
+        String alisSatisFiyati = degerler.getString("alissatis");
 
-        adTV.setText(ad);
-        barkodTV.setText(barkod);
-        adetTV.setText(String.valueOf(adet));
-        alisSatisTV.setText(alisSatis);
+        urunAdiTxt.setText(urunAdi);
+        barkodNoTxt.setText(barkodNo);
+        urunAdetiTxt.setText(String.valueOf(urunAdeti));
+        alisSatisFiyatiTxt.setText(alisSatisFiyati);
 
-        sil.setOnClickListener(new View.OnClickListener() {
+        silBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new AlertDialog.Builder(getActivity())
@@ -58,7 +58,7 @@ public class UrunBilgileriDialog extends AppCompatDialogFragment {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 VeritabaniIslemleri vti = new VeritabaniIslemleri(getActivity());
-                                vti.urunSil(barkod);
+                                vti.urunSil(barkodNo);
                                 dismiss();
                                 fragmentYenile();
                                 new GlideToast.makeToast(getActivity(), "Ürün silindi.", GlideToast.LENGTHTOOLONG,
@@ -69,27 +69,25 @@ public class UrunBilgileriDialog extends AppCompatDialogFragment {
                         .show();
             }
         });
-
-        guncelle.setOnClickListener(new View.OnClickListener() {
+        guncelleBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), UrunGuncelleActivity.class);
-                intent.putExtra("barkod", barkod);
-                intent.putExtra("ad", ad);
-                intent.putExtra("alis", alisSatis.substring(0, alisSatis.indexOf("/")));
-                intent.putExtra("satis", alisSatis.substring(alisSatis.indexOf("/") + 1));
+                intent.putExtra("barkod", barkodNo);
+                intent.putExtra("ad", urunAdi);
+                intent.putExtra("alis", alisSatisFiyati.substring(0, alisSatisFiyati.indexOf("/")));
+                intent.putExtra("satis", alisSatisFiyati.substring(alisSatisFiyati.indexOf("/") + 1));
                 startActivity(intent);
             }
         });
-
-        iptal.setOnClickListener(new View.OnClickListener() {
+        iptalBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dismiss();
             }
         });
 
-        return builder.create();
+        return dialog.create();
     }
 
     private void fragmentYenile() {

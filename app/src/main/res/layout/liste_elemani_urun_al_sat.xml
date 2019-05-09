@@ -49,7 +49,7 @@
                 app:srcCompat="@drawable/brwhitered" />
 
             <TextView
-                android:id="@+id/barkod_no"
+                android:id="@+id/txt_barkod_no"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
@@ -75,7 +75,7 @@
 
 
         <me.himanshusoni.quantityview.QuantityView xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/quantityView"
+            android:id="@+id/quantity_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:qv_addButtonBackground="@color/ekleButon"

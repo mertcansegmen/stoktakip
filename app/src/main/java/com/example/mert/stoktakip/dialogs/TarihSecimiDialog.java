@@ -16,26 +16,38 @@ import java.util.Locale;
 public class TarihSecimiDialog extends DialogFragment {
 
     TarihSecimiDialogListener listener;
-    String tur;
+
+    public interface TarihSecimiDialogListener{
+        void turGetir(String tur);
+    }
 
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Bundle bundle = getArguments();
-        tur = bundle.getString("tur");
+
+        String tur = bundle.getString("tur");
         String tarih = bundle.getString("tarih");
-        Date tarihDate = new Date();
+
+        Date date = new Date();
+
         try {
-            tarihDate = new SimpleDateFormat("d MMM yyyy", Locale.getDefault()).parse(tarih);
-        } catch (ParseException e) {}
+            date = new SimpleDateFormat("d MMM yyyy", Locale.getDefault()).parse(tarih);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
         Calendar c = Calendar.getInstance();
-        c.setTime(tarihDate);
+
+        c.setTime(date);
         int yil = c.get(Calendar.YEAR);
         int ay = c.get(Calendar.MONTH);
         int gun = c.get(Calendar.DAY_OF_MONTH);
 
         listener.turGetir(tur);
-        DatePickerDialog dialog = new DatePickerDialog(getTargetFragment().getContext(), (DatePickerDialog.OnDateSetListener) getTargetFragment(), yil, ay, gun);
+
+        DatePickerDialog dialog = new DatePickerDialog(getTargetFragment().getContext(),
+                (DatePickerDialog.OnDateSetListener) getTargetFragment(), yil, ay, gun);
         dialog.getDatePicker().setMaxDate((new Date()).getTime());
         return dialog;
     }
@@ -49,9 +61,5 @@ public class TarihSecimiDialog extends DialogFragment {
         }catch (ClassCastException e){
             throw new ClassCastException(context.toString() + "TarihSecimiDialogListener implement etmek gerekiyor");
         }
-    }
-
-    public interface TarihSecimiDialogListener{
-        void turGetir(String tur);
     }
 }

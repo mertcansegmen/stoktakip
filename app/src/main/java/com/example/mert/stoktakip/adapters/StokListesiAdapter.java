@@ -17,7 +17,7 @@ import com.example.mert.stoktakip.models.Urun;
 
 import java.util.ArrayList;
 
-public class UrunAdapterStokListesi extends ArrayAdapter<Urun> {
+public class StokListesiAdapter extends ArrayAdapter<Urun> {
 
     private Context context;
     private int resource;
@@ -28,13 +28,13 @@ public class UrunAdapterStokListesi extends ArrayAdapter<Urun> {
     private Filter filter;
 
     static class ViewHolder {
-        TextView urunAdi;
-        TextView barkodNo;
-        TextView adet;
-        TextView alisSatis;
+        TextView urunAdiTxt;
+        TextView barkodNoTxt;
+        TextView urunAdetiTxt;
+        TextView alisSatisFiyatiTxt;
     }
 
-    public UrunAdapterStokListesi(@NonNull Context context, int resource, ArrayList<Urun> urunler) {
+    public StokListesiAdapter(@NonNull Context context, int resource, ArrayList<Urun> urunler) {
         super(context, resource, urunler);
         this.context = context;
         this.resource = resource;
@@ -48,13 +48,13 @@ public class UrunAdapterStokListesi extends ArrayAdapter<Urun> {
 
         String barkodNo = getItem(position).getBarkodNo();
         String urunAdi = getItem(position).getAd();
-        int adet = getItem(position).getAdet();
-        float alis = getItem(position).getAlis();
-        float satis = getItem(position).getSatis();
-        Urun urun = new Urun(barkodNo, urunAdi, adet, alis, satis);
+        int urunAdeti = getItem(position).getAdet();
+        float alisFiyati = getItem(position).getAlis();
+        float satisFiyati = getItem(position).getSatis();
+
+        Urun urun = new Urun(barkodNo, urunAdi, urunAdeti, alisFiyati, satisFiyati);
 
         final View result;
-
         ViewHolder holder;
 
         if(convertView == null){
@@ -62,10 +62,11 @@ public class UrunAdapterStokListesi extends ArrayAdapter<Urun> {
             convertView = inflater.inflate(R.layout.liste_elemani_stok_listesi, parent, false);
 
             holder = new ViewHolder();
-            holder.urunAdi = convertView.findViewById(R.id.txt_urun_adi);
-            holder.barkodNo = convertView.findViewById(R.id.barkod_no);
-            holder.adet = convertView.findViewById(R.id.urun_adeti);
-            holder.alisSatis = convertView.findViewById(R.id.txt_alis_satis_fiyati);
+
+            holder.urunAdiTxt = convertView.findViewById(R.id.txt_urun_adi);
+            holder.barkodNoTxt = convertView.findViewById(R.id.txt_barkod_no);
+            holder.urunAdetiTxt = convertView.findViewById(R.id.txt_urun_adeti);
+            holder.alisSatisFiyatiTxt = convertView.findViewById(R.id.txt_alis_satis_fiyati);
 
             result = convertView;
             convertView.setTag(holder);
@@ -80,10 +81,10 @@ public class UrunAdapterStokListesi extends ArrayAdapter<Urun> {
         result.startAnimation(animation);
         lastPosition = position;
 
-        holder.urunAdi.setText(urun.getAd());
-        holder.barkodNo.setText(urun.getBarkodNo());
-        holder.adet.setText(String.valueOf(urun.getAdet()));
-        holder.alisSatis.setText(urun.getAlisSatis());
+        holder.urunAdiTxt.setText(urun.getAd());
+        holder.barkodNoTxt.setText(urun.getBarkodNo());
+        holder.urunAdetiTxt.setText(String.valueOf(urun.getAdet()));
+        holder.alisSatisFiyatiTxt.setText(urun.getAlisSatis());
 
         return convertView;
     }
@@ -148,7 +149,5 @@ public class UrunAdapterStokListesi extends ArrayAdapter<Urun> {
                 add(urun);
             }
         }
-
     }
-
 }
