@@ -17,6 +17,7 @@ import android.widget.Spinner;
 import com.example.mert.stoktakip.R;
 import com.example.mert.stoktakip.adapters.IslemGecmisiAdapter;
 import com.example.mert.stoktakip.dialogs.IslemGecmisiFiltreleDialog;
+import com.example.mert.stoktakip.dialogs.UrunIslemiBilgileriDialog;
 import com.example.mert.stoktakip.models.UrunIslemi;
 import com.example.mert.stoktakip.models.VeritabaniIslemleri;
 
@@ -94,6 +95,18 @@ public class IslemGecmisiFragment extends Fragment implements IslemGecmisiFiltre
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
+            }
+        });
+        liste.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                int urunIslemiId = islemler.get(position).getId();
+                Bundle degerler = new Bundle();
+                degerler.putInt("urun_islemi_id", urunIslemiId);
+
+                DialogFragment dialog = new UrunIslemiBilgileriDialog();
+                dialog.setArguments(degerler);
+                dialog.show(getActivity().getSupportFragmentManager(), "Ürün İşlemi Bilgileri");
             }
         });
         return v;

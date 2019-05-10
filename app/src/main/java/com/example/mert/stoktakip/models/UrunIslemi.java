@@ -13,7 +13,8 @@ public class UrunIslemi {
 
     public UrunIslemi(){}
 
-    public UrunIslemi(String islemTuru, String barkodNo, String kadi, int adet, float urunFiyati, String islemTarihi, String urunAdi) {
+    public UrunIslemi(int id, String islemTuru, String barkodNo, String kadi, int adet, float urunFiyati, String islemTarihi, String urunAdi) {
+        this.id = id;
         this.islemTuru = islemTuru;
         this.barkodNo = barkodNo;
         this.kadi = kadi;
