@@ -84,7 +84,7 @@ public class IslemGecmisiFragment extends Fragment implements IslemGecmisiFiltre
                         break;
                     case 4:
                         islemler.clear();
-                        islemler = vti.urunIslemleriGetir();
+                        islemler = vti.urunIslemiGecmisiFiltrele();
                         adapter = new IslemGecmisiAdapter(getContext(), R.layout.liste_elemani_islem_gecmisi, islemler);
                         liste.setAdapter(adapter);
                         adapter.notifyDataSetChanged();
@@ -115,7 +115,7 @@ public class IslemGecmisiFragment extends Fragment implements IslemGecmisiFiltre
     private void islemGecmisiGetir(int gunFiltre, Calendar cal){
         cal.add(Calendar.DATE, (-1)*gunFiltre);
         islemler.clear();
-        islemler = vti.urunIslemleriGetir(new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(cal.getTime()));
+        islemler = vti.urunIslemiGecmisiFiltrele(new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(cal.getTime()));
         adapter = new IslemGecmisiAdapter(getContext(), R.layout.liste_elemani_islem_gecmisi, islemler);
         liste.setAdapter(adapter);
         adapter.notifyDataSetChanged();
@@ -125,11 +125,11 @@ public class IslemGecmisiFragment extends Fragment implements IslemGecmisiFiltre
     public void filtreParametreleriniGetir(String baslangicTarihi, String bitisTarihi, String islemTuru) {
         islemler.clear();
         if(islemTuru.equals("Tümü"))
-            islemler = vti.urunIslemleriGetir(baslangicTarihi, bitisTarihi);
+            islemler = vti.urunIslemiGecmisiFiltrele(baslangicTarihi, bitisTarihi);
         else if(islemTuru.equals("Alım"))
-            islemler = vti.urunIslemleriGetir(baslangicTarihi, bitisTarihi, "in");
+            islemler = vti.urunIslemiGecmisiFiltrele(baslangicTarihi, bitisTarihi, "in");
         else
-            islemler = vti.urunIslemleriGetir(baslangicTarihi, bitisTarihi, "out");
+            islemler = vti.urunIslemiGecmisiFiltrele(baslangicTarihi, bitisTarihi, "out");
         adapter = new IslemGecmisiAdapter(getContext(), R.layout.liste_elemani_islem_gecmisi, islemler);
         liste.setAdapter(adapter);
         adapter.notifyDataSetChanged();

@@ -49,7 +49,10 @@ public class UrunIslemiBilgileriDialog extends AppCompatDialogFragment {
 
         UrunIslemi urunIslemi = vti.urunIslemiGetir(urunIslemiId);
 
-        urunAdiTxt.setText((vti.barkodaGoreUrunGetir(urunIslemi.getBarkodNo())).getAd());
+        String urunAdi = (vti.barkodaGoreUrunGetir(urunIslemi.getBarkodNo())).getAd();
+        if(urunAdi == null || urunAdi.equals(""))
+            urunAdi = "Silinmiş Ürün";
+        urunAdiTxt.setText(urunAdi);
         barkodNoTxt.setText(urunIslemi.getBarkodNo());
         if(urunIslemi.getIslemTuru().equals("in"))
             islemTuruTxt.setText("Alım");
