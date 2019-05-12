@@ -59,7 +59,7 @@ public class UrunIslemiBilgileriDialog extends AppCompatDialogFragment {
         else
             islemTuruTxt.setText("Satım");
         urunAdetiTxt.setText(String.valueOf(urunIslemi.getAdet()));
-        urunFiyatiTxt.setText(String.valueOf(urunIslemi.getUrunFiyati()));
+        urunFiyatiTxt.setText(String.format(Locale.getDefault(), "%.2f", urunIslemi.getUrunFiyati()));
         kullaniciTxt.setText(urunIslemi.getKadi());
         if(!urunIslemi.getAciklama().equals(""))
             aciklamaTxt.setText(urunIslemi.getAciklama());

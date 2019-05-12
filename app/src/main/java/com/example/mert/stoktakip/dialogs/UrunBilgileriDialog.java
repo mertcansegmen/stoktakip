@@ -21,6 +21,8 @@ import com.jeevandeshmukh.glidetoastlib.GlideToast;
 
 import org.w3c.dom.Text;
 
+import java.util.Locale;
+
 public class UrunBilgileriDialog extends AppCompatDialogFragment {
 
     @Override
@@ -41,7 +43,7 @@ public class UrunBilgileriDialog extends AppCompatDialogFragment {
         Button iptalBtn = view.findViewById(R.id.btn_iptal);
 
         Bundle degerler = getArguments();
-        String urunAdi = degerler.getString("ad");
+        String urunAdi = degerler.getString("urun_adi");
         String barkodNo = degerler.getString("barkod");
         int urunAdeti = degerler.getInt("adet");
         float alisFiyati = degerler.getFloat("alis_fiyati");
@@ -50,8 +52,8 @@ public class UrunBilgileriDialog extends AppCompatDialogFragment {
         urunAdiTxt.setText(urunAdi);
         barkodNoTxt.setText(barkodNo);
         urunAdetiTxt.setText(String.valueOf(urunAdeti));
-        alisFiyatiTxt.setText(String.valueOf(alisFiyati));
-        satisFiyatiTxt.setText(String.valueOf(satisFiyati));
+        alisFiyatiTxt.setText(String.format(Locale.getDefault(), "%.2f", alisFiyati));
+        satisFiyatiTxt.setText(String.format(Locale.getDefault(), "%.2f", satisFiyati));
 
         silBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,9 +81,9 @@ public class UrunBilgileriDialog extends AppCompatDialogFragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), UrunGuncelleActivity.class);
                 intent.putExtra("barkod", barkodNo);
-                intent.putExtra("ad", urunAdi);
-                intent.putExtra("alis", alisFiyati);
-                intent.putExtra("satis", satisFiyati);
+                intent.putExtra("urun_adi", urunAdi);
+                intent.putExtra("alis_fiyati", String.format(Locale.getDefault(), "%.2f", alisFiyati));
+                intent.putExtra("satis_fiyati", String.format(Locale.getDefault(), "%.2f", satisFiyati));
                 startActivity(intent);
             }
         });

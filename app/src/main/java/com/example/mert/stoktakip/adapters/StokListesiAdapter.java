@@ -16,6 +16,7 @@ import com.example.mert.stoktakip.R;
 import com.example.mert.stoktakip.models.Urun;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class StokListesiAdapter extends ArrayAdapter<Urun> {
 
@@ -86,8 +87,8 @@ public class StokListesiAdapter extends ArrayAdapter<Urun> {
         holder.urunAdiTxt.setText(urun.getAd());
         holder.barkodNoTxt.setText(urun.getBarkodNo());
         holder.urunAdetiTxt.setText(String.valueOf(urun.getAdet()));
-        holder.alisFiyatiTxt.setText(String.valueOf(urun.getAlis()));
-        holder.satisFiyatiTxt.setText(String.valueOf(urun.getSatis()));
+        holder.alisFiyatiTxt.setText(String.format(Locale.getDefault(), "%.2f", urun.getAlis()));
+        holder.satisFiyatiTxt.setText(String.format(Locale.getDefault(), "%.2f", urun.getSatis()));
 
         return convertView;
     }

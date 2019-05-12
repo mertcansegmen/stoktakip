@@ -39,14 +39,16 @@ public class UrunGuncelleActivity extends AppCompatActivity {
         til = findViewById(R.id.interceptorLayout);
         mp = MediaPlayer.create(this, R.raw.scan_sound);
 
+        //alisFiyatiTxt.setText("");
+
         // Barkod numarası güncellenemeyeceği için TextView devre dışı bırakılıyor
         barkodNoTxt.setEnabled(false);
 
         Intent intent = getIntent();
         barkodNoTxt.setText(intent.getStringExtra("barkod"));
-        urunAdiTxt.setText(intent.getStringExtra("ad"));
-        alisFiyatiTxt.setText(intent.getStringExtra("alis"));
-        satisFiyatiTxt.setText(intent.getStringExtra("satis"));
+        urunAdiTxt.setText(intent.getStringExtra("urun_adi"));
+        alisFiyatiTxt.setText(intent.getStringExtra("alis_fiyati"));
+        satisFiyatiTxt.setText(intent.getStringExtra("satis_fiyati"));
 
         urunGuncelleBtn.setOnClickListener(e -> urunGuncelle());
         // Barkod güncellenmek için tıklanırsa kullanıcıya hata veriyor

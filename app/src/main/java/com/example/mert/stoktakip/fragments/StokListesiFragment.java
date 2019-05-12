@@ -81,7 +81,7 @@ public class StokListesiFragment extends Fragment {
                 Urun urun = urunler.get(position);
 
                 Bundle degerler = new Bundle();
-                degerler.putString("ad", urun.getAd());
+                degerler.putString("urun_adi", urun.getAd());
                 degerler.putString("barkod", urun.getBarkodNo());
                 degerler.putInt("adet", urun.getAdet());
                 degerler.putFloat("alis_fiyati", urun.getAlis());
