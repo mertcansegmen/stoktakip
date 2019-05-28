@@ -13,6 +13,7 @@ import com.example.mert.stoktakip.R;
 import com.example.mert.stoktakip.models.Urun;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import me.himanshusoni.quantityview.QuantityView;
 
@@ -37,6 +38,20 @@ public class UrunAlSatAdapter extends ArrayAdapter<Urun> {
         TextView urunAdiTxt = convertView.findViewById(R.id.txt_urun_adi);
         TextView barkodNoTxt = convertView.findViewById(R.id.txt_barkod_no);
         QuantityView quantityView = convertView.findViewById(R.id.quantity_view);
+        /*
+        quantityView.setOnQuantityChangeListener(new QuantityView.OnQuantityChangeListener() {
+            @Override
+            public void onQuantityChanged(int oldQuantity, int newQuantity, boolean programmatically) {
+                Random rnd = new Random();
+                quantityView.setQuantity(oldQuantity+rnd.nextInt(30) + 20);
+            }
+
+            @Override
+            public void onLimitReached() {
+
+            }
+        });
+        */
 
         String barkodNo = getItem(position).getBarkodNo();
         String urunAdi = getItem(position).getAd();

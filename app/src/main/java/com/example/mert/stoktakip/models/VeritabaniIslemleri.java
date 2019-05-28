@@ -530,9 +530,7 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
                        "GROUP BY date(" + SUTUN_URUN_ISLEMI_ISLEM_TARIHI + ", 'localtime')";
 
         Cursor c = db.rawQuery(query, null);
-
         ArrayList<KarCiroBilgisi> karCiroBilgileri = new ArrayList<>();
-
         if(c.moveToFirst()){
             do{
                 int ciro = c.getInt(c.getColumnIndex("SUM(" + SUTUN_URUN_ISLEMI_ADET + " * " +
@@ -544,10 +542,35 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
                 KarCiroBilgisi karCiroBilgisi = new KarCiroBilgisi((float)ciro/100, (float)kar/100, tarihFormatiDegistir(zaman));
                 karCiroBilgileri.add(karCiroBilgisi);
             }while (c.moveToNext());
-            c.close();
-            db.close();
         }
+        c.close();
+        db.close();
         return karCiroBilgileri;
+    }
+
+    public ArrayList<UrunGetirisi> urunGetirileriniGetir(){
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = "SELECT (SELECT " + SUTUN_URUN_AD + " FROM " + TABLO_URUN +
+                       " WHERE " + SUTUN_URUN_ID + " = " + SUTUN_URUN_ISLEMI_URUN_ID + ") AS urun_adi, " +
+                       " SUM(" + SUTUN_URUN_ISLEMI_ADET + " * (" + SUTUN_URUN_ISLEMI_SATIS_FIYATI + " - " +
+                       SUTUN_URUN_ISLEMI_ALIS_FIYATI + ")) AS getiri FROM " + TABLO_URUN_ISLEMI +
+                       " WHERE " + SUTUN_URUN_ISLEMI_ISLEM_TURU + " = 'out' " +
+                       "GROUP BY " + SUTUN_URUN_ISLEMI_URUN_ID +
+                       " ORDER BY getiri DESC";
+        Cursor c = db.rawQuery(query, null);
+        ArrayList<UrunGetirisi> urunGetirileri = new ArrayList<>();
+        if(c.moveToFirst()){
+            do{
+                String ad = c.getString(c.getColumnIndex("urun_adi"));
+                int getiri = c.getInt(c.getColumnIndex("getiri"));
+                UrunGetirisi urunGetirisi = new UrunGetirisi(ad, (float) getiri / 100);
+                urunGetirileri.add(urunGetirisi);
+            }while (c.moveToNext());
+        }
+        c.close();
+        db.close();
+        return urunGetirileri;
     }
 
     private String tarihFormatiDegistir(String tarih) {

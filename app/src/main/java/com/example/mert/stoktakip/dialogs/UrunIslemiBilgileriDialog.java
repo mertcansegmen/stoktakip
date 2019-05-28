@@ -64,7 +64,7 @@ public class UrunIslemiBilgileriDialog extends AppCompatDialogFragment {
         }
         urunAdetiTxt.setText(String.valueOf(urunIslemi.getAdet()));
         kullaniciTxt.setText(urunIslemi.getKadi());
-        if(!urunIslemi.getAciklama().equals(""))
+        if(urunIslemi.getAciklama() != null && !urunIslemi.getAciklama().equals(""))
             aciklamaTxt.setText(urunIslemi.getAciklama());
         gunTxt.setText(tarihFormatiDegistir(urunIslemi.getIslemTarihi())[1]);
         ayTxt.setText(tarihFormatiDegistir(urunIslemi.getIslemTarihi())[0]);
