@@ -7,7 +7,11 @@
     <color name="dividerArkaplan">#1AFFFFFF</color>
     <color name="listeArkaplan">#3D3D3D</color>
     <color name="sepetArkaplan">#292929</color>
+    <color name="grafikArkaplan">#4D4D4D</color>
     <color name="silButon">#FF5F56</color>
     <color name="guncelleButon">#FFBD2E</color>
     <color name="ekleButon">#008000</color>
+    <color name="ciroRenk">#008FFB</color>
+    <color name="karRenk">#00E396</color>
+    <color name="urunGetirisi">#FB4B38</color>
 </resources>

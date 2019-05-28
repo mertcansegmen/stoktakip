@@ -7,9 +7,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 public class VeritabaniIslemleri extends SQLiteOpenHelper {
@@ -515,5 +517,55 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return urunIslemi;
+    }
+
+    public ArrayList<KarCiroBilgisi> gunlukKarCiroBilgileriniGetir(){
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = "SELECT date(" + SUTUN_URUN_ISLEMI_ISLEM_TARIHI + ", 'localtime'), " +
+                       "SUM(" + SUTUN_URUN_ISLEMI_ADET + " * " + SUTUN_URUN_ISLEMI_SATIS_FIYATI + "), " +
+                       "SUM(" + SUTUN_URUN_ISLEMI_ADET + " * (" +
+                       SUTUN_URUN_ISLEMI_SATIS_FIYATI + " - " + SUTUN_URUN_ISLEMI_ALIS_FIYATI + ")) FROM " +
+                       TABLO_URUN_ISLEMI + " WHERE " + SUTUN_URUN_ISLEMI_ISLEM_TURU + " = 'out' " +
+                       "GROUP BY date(" + SUTUN_URUN_ISLEMI_ISLEM_TARIHI + ", 'localtime')";
+
+        Cursor c = db.rawQuery(query, null);
+
+        ArrayList<KarCiroBilgisi> karCiroBilgileri = new ArrayList<>();
+
+        if(c.moveToFirst()){
+            do{
+                int ciro = c.getInt(c.getColumnIndex("SUM(" + SUTUN_URUN_ISLEMI_ADET + " * " +
+                        SUTUN_URUN_ISLEMI_SATIS_FIYATI + ")"));
+                int kar = c.getInt(c.getColumnIndex("SUM(" + SUTUN_URUN_ISLEMI_ADET + " * (" +
+                        SUTUN_URUN_ISLEMI_SATIS_FIYATI + " - " + SUTUN_URUN_ISLEMI_ALIS_FIYATI + "))"));
+                String zaman = c.getString(c.getColumnIndex("date(" +
+                        SUTUN_URUN_ISLEMI_ISLEM_TARIHI + ", 'localtime')"));
+                KarCiroBilgisi karCiroBilgisi = new KarCiroBilgisi((float)ciro/100, (float)kar/100, tarihFormatiDegistir(zaman));
+                karCiroBilgileri.add(karCiroBilgisi);
+            }while (c.moveToNext());
+            c.close();
+            db.close();
+        }
+        return karCiroBilgileri;
+    }
+
+    private String tarihFormatiDegistir(String tarih) {
+        String inputPattern = "yyyy-MM-dd";
+
+        String outputPattern = "dd MMM";
+
+        String formatliTarih = "";
+
+        SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern, Locale.getDefault());
+        SimpleDateFormat outputFormatAy = new SimpleDateFormat(outputPattern, Locale.getDefault());
+
+        try {
+            Date date = inputFormat.parse(tarih);
+            formatliTarih = outputFormatAy.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return formatliTarih;
     }
 }
