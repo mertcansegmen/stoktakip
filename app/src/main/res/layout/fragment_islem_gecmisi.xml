@@ -25,17 +25,18 @@
             android:layout_height="wrap_content"
             android:layout_weight="5"
             android:spinnerMode="dialog"
-            android:textSize="50sp" />
+            android:textSize="50sp"/>
 
         <ImageButton
             android:id="@+id/btn_filtre"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
             android:layout_marginRight="15dp"
             android:layout_weight="1"
             android:background="@null"
-            app:srcCompat="@drawable/ic_filtre" />
+            app:srcCompat="@drawable/ic_filtre"
+            tools:ignore="VectorDrawableCompat" />
     </LinearLayout>
 
     <View

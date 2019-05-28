@@ -107,7 +107,8 @@ public class UrunAlFragment extends Fragment implements UrunListesiDialog.UrunLi
             urunIslemi.setBarkodNo(urunler.get(i).getBarkodNo());
             urunIslemi.setKadi(kadi);
             urunIslemi.setAdet(adet);
-            urunIslemi.setUrunFiyati(urunler.get(i).getAlis());
+            urunIslemi.setAlisFiyati(urunler.get(i).getAlis());
+            urunIslemi.setSatisFiyati(urunler.get(i).getSatis());
             urunIslemi.setAciklama(aciklamaTxt.getText().toString());
             if(vti.urunIslemiEkle(urunIslemi) == -1){
                 new GlideToast.makeToast(getActivity(), "Ürün alımı ekleme hatası.", GlideToast.LENGTHTOOLONG, GlideToast.FAILTOAST).show();

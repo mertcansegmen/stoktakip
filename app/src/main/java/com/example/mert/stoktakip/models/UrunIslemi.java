@@ -6,20 +6,23 @@ public class UrunIslemi {
     private String barkodNo;
     private String kadi;
     private int adet;
-    private float urunFiyati;
+    private float alisFiyati;
+
+    private float satisFiyati;
     private String islemTarihi;
     private String aciklama;
     private String urunAdi;
 
     public UrunIslemi(){}
 
-    public UrunIslemi(int id, String islemTuru, String barkodNo, String kadi, int adet, float urunFiyati, String islemTarihi, String urunAdi) {
+    public UrunIslemi(int id, String islemTuru, String barkodNo, String kadi, int adet, float alisFiyati, float satisFiyati, String islemTarihi, String urunAdi) {
         this.id = id;
         this.islemTuru = islemTuru;
         this.barkodNo = barkodNo;
         this.kadi = kadi;
         this.adet = adet;
-        this.urunFiyati = urunFiyati;
+        this.alisFiyati = alisFiyati;
+        this.satisFiyati = satisFiyati;
         this.islemTarihi = islemTarihi;
         this.urunAdi = urunAdi;
     }
@@ -64,12 +67,20 @@ public class UrunIslemi {
         this.adet = adet;
     }
 
-    public float getUrunFiyati() {
-        return urunFiyati;
+    public float getAlisFiyati() {
+        return alisFiyati;
     }
 
-    public void setUrunFiyati(float urunFiyati) {
-        this.urunFiyati = urunFiyati;
+    public float getSatisFiyati() {
+        return satisFiyati;
+    }
+
+    public void setSatisFiyati(float satisFiyati) {
+        this.satisFiyati = satisFiyati;
+    }
+
+    public void setAlisFiyati(float alisFiyati) {
+        this.alisFiyati = alisFiyati;
     }
 
     public String getIslemTarihi() {

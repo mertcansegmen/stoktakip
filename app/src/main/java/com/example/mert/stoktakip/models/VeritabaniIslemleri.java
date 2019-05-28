@@ -7,18 +7,15 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
 
 public class VeritabaniIslemleri extends SQLiteOpenHelper {
 
     // Veritabanı versiyonu
-    private static final int VERITABANI_VERSION = 7;
+    private static final int VERITABANI_VERSION = 8;
 
     // Veritabanı ismi
     private static final String VERITABANI_ADI = "StokTakip.db";
@@ -45,7 +42,8 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
     private static final String SUTUN_URUN_ISLEMI_URUN_ID = "urun_id";
     private static final String SUTUN_URUN_ISLEMI_KULLANICI_ID = "kullanici_id";
     private static final String SUTUN_URUN_ISLEMI_ADET = "adet";
-    private static final String SUTUN_URUN_ISLEMI_URUN_FIYATI = "urun_fiyati";
+    private static final String SUTUN_URUN_ISLEMI_ALIS_FIYATI = "alis_fiyati";
+    private static final String SUTUN_URUN_ISLEMI_SATIS_FIYATI = "satis_fiyati";
     private static final String SUTUN_URUN_ISLEMI_ISLEM_TARIHI = "islem_tarihi";
     private static final String SUTUN_URUN_ISLEMI_ACIKLAMA = "aciklama";
 
@@ -70,7 +68,8 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
                                                               SUTUN_URUN_ISLEMI_URUN_ID + " TEXT NOT NULL, " +
                                                               SUTUN_URUN_ISLEMI_KULLANICI_ID + " TEXT NOT NULL, " +
                                                               SUTUN_URUN_ISLEMI_ADET + " INTEGER NOT NULL, " +
-                                                              SUTUN_URUN_ISLEMI_URUN_FIYATI + " INTEGER, " +
+                                                              SUTUN_URUN_ISLEMI_ALIS_FIYATI + " INTEGER, " +
+                                                              SUTUN_URUN_ISLEMI_SATIS_FIYATI + " INTEGER, " +
                                                               SUTUN_URUN_ISLEMI_ISLEM_TARIHI + " DATETIME DEFAULT CURRENT_TIMESTAMP, " +
                                                               SUTUN_URUN_ISLEMI_ACIKLAMA + " TEXT, " +
                                                               "FOREIGN KEY(" + SUTUN_URUN_ISLEMI_URUN_ID + ") REFERENCES " + TABLO_URUN + "(" + SUTUN_URUN_ID + ")," +
@@ -407,7 +406,8 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
         values.put(SUTUN_URUN_ISLEMI_KULLANICI_ID, urunIslemi.getKadi());
         values.put(SUTUN_URUN_ISLEMI_ADET, urunIslemi.getAdet());
         // gelen değer float, kuruş şekline çevrilip integer'a dönüştürülmesi gerekiyor. Veritabanında o şekilde saklanacak
-        values.put(SUTUN_URUN_ISLEMI_URUN_FIYATI, Math.round(urunIslemi.getUrunFiyati()*100));
+        values.put(SUTUN_URUN_ISLEMI_ALIS_FIYATI, Math.round(urunIslemi.getAlisFiyati()*100));
+        values.put(SUTUN_URUN_ISLEMI_SATIS_FIYATI, Math.round(urunIslemi.getSatisFiyati()*100));
         values.put(SUTUN_URUN_ISLEMI_ACIKLAMA, urunIslemi.getAciklama());
 
         // degisenSatir -1 ise hata oluşmuştur
@@ -445,7 +445,8 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
 
         String query = "SELECT " + SUTUN_URUN_ISLEMI_ID + ", " + SUTUN_URUN_ISLEMI_ISLEM_TURU + ", " +
                         SUTUN_URUN_ISLEMI_URUN_ID + ", " + SUTUN_URUN_ISLEMI_KULLANICI_ID + ", " +
-                        SUTUN_URUN_ISLEMI_ADET + ", " + SUTUN_URUN_ISLEMI_URUN_FIYATI+", datetime(" +
+                        SUTUN_URUN_ISLEMI_ADET + ", " + SUTUN_URUN_ISLEMI_ALIS_FIYATI + "," +
+                        SUTUN_URUN_ISLEMI_SATIS_FIYATI + ", datetime(" +
                         SUTUN_URUN_ISLEMI_ISLEM_TARIHI + ", 'localtime'), " + SUTUN_URUN_ISLEMI_ACIKLAMA +
                         " FROM " + TABLO_URUN_ISLEMI +
                         " WHERE " + SUTUN_URUN_ISLEMI_ISLEM_TARIHI + " BETWEEN '" +
@@ -464,10 +465,11 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
                 String urunAdi = barkodaGoreUrunGetir(barkod).getAd();
                 String tarih = c.getString(c.getColumnIndex("datetime(" + SUTUN_URUN_ISLEMI_ISLEM_TARIHI + ", 'localtime')"));
                 int adet = c.getInt(c.getColumnIndex(SUTUN_URUN_ISLEMI_ADET));
-                int fiyat = c.getInt(c.getColumnIndex(SUTUN_URUN_ISLEMI_URUN_FIYATI));
+                int alis = c.getInt(c.getColumnIndex(SUTUN_URUN_ISLEMI_ALIS_FIYATI));
+                int satis = c.getInt(c.getColumnIndex(SUTUN_URUN_ISLEMI_SATIS_FIYATI));
                 String kadi = c.getString(c.getColumnIndex(SUTUN_URUN_ISLEMI_KULLANICI_ID));
 
-                UrunIslemi islem = new UrunIslemi(urunIslemiId, tur, barkod, kadi, adet, ((float)fiyat)/100, tarih, urunAdi);
+                UrunIslemi islem = new UrunIslemi(urunIslemiId, tur, barkod, kadi, adet, ((float)alis)/100, ((float)satis)/100, tarih, urunAdi);
                 islemler.add(islem);
 
             } while(c.moveToNext());
@@ -482,7 +484,8 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
 
         String[] sutunlar = {SUTUN_URUN_ISLEMI_ID, SUTUN_URUN_ISLEMI_ISLEM_TURU,
                              SUTUN_URUN_ISLEMI_URUN_ID, SUTUN_URUN_ISLEMI_KULLANICI_ID,
-                             SUTUN_URUN_ISLEMI_ADET, SUTUN_URUN_ISLEMI_URUN_FIYATI, "datetime(" +
+                             SUTUN_URUN_ISLEMI_ADET, SUTUN_URUN_ISLEMI_ALIS_FIYATI,
+                             SUTUN_URUN_ISLEMI_SATIS_FIYATI, "datetime(" +
                              SUTUN_URUN_ISLEMI_ISLEM_TARIHI + ", 'localtime')",SUTUN_URUN_ISLEMI_ACIKLAMA};
         String secim = SUTUN_URUN_ISLEMI_ID + " = ?";
         String[] secimOlcutleri = {String.valueOf(id)};
@@ -503,7 +506,8 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
             urunIslemi.setBarkodNo(cursor.getString(cursor.getColumnIndex(SUTUN_URUN_ISLEMI_URUN_ID)));
             urunIslemi.setKadi(cursor.getString(cursor.getColumnIndex(SUTUN_URUN_ISLEMI_KULLANICI_ID)));
             urunIslemi.setAdet(cursor.getInt(cursor.getColumnIndex(SUTUN_URUN_ISLEMI_ADET)));
-            urunIslemi.setUrunFiyati((float)(cursor.getInt(cursor.getColumnIndex(SUTUN_URUN_ISLEMI_URUN_FIYATI))) / 100);
+            urunIslemi.setAlisFiyati((float)(cursor.getInt(cursor.getColumnIndex(SUTUN_URUN_ISLEMI_ALIS_FIYATI))) / 100);
+            urunIslemi.setSatisFiyati((float)(cursor.getInt(cursor.getColumnIndex(SUTUN_URUN_ISLEMI_SATIS_FIYATI))) / 100);
             urunIslemi.setIslemTarihi(cursor.getString(cursor.getColumnIndex("datetime(" +
                     SUTUN_URUN_ISLEMI_ISLEM_TARIHI + ", 'localtime')")));
             urunIslemi.setAciklama(cursor.getString(cursor.getColumnIndex(SUTUN_URUN_ISLEMI_ACIKLAMA)));

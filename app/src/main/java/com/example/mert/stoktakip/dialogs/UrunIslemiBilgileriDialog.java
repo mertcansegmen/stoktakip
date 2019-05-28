@@ -27,7 +27,7 @@ public class UrunIslemiBilgileriDialog extends AppCompatDialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_urun_islemi_bilgisi, null);
 
-        dialog.setView(view).setTitle("Ürün İşlemi Bilgileri");
+        dialog.setView(view).setTitle("İşlem Detayı");
 
         TextView urunAdiTxt = view.findViewById(R.id.txt_urun_adi);
         TextView barkodNoTxt = view.findViewById(R.id.txt_barkod_no);
@@ -54,12 +54,15 @@ public class UrunIslemiBilgileriDialog extends AppCompatDialogFragment {
             urunAdi = "Silinmiş Ürün";
         urunAdiTxt.setText(urunAdi);
         barkodNoTxt.setText(urunIslemi.getBarkodNo());
-        if(urunIslemi.getIslemTuru().equals("in"))
+        if(urunIslemi.getIslemTuru().equals("in")) {
             islemTuruTxt.setText("Alım");
-        else
+            urunFiyatiTxt.setText(String.format(Locale.getDefault(), "%.2f", urunIslemi.getAlisFiyati()));
+        }
+        else {
             islemTuruTxt.setText("Satım");
+            urunFiyatiTxt.setText(String.format(Locale.getDefault(), "%.2f", urunIslemi.getSatisFiyati()));
+        }
         urunAdetiTxt.setText(String.valueOf(urunIslemi.getAdet()));
-        urunFiyatiTxt.setText(String.format(Locale.getDefault(), "%.2f", urunIslemi.getUrunFiyati()));
         kullaniciTxt.setText(urunIslemi.getKadi());
         if(!urunIslemi.getAciklama().equals(""))
             aciklamaTxt.setText(urunIslemi.getAciklama());

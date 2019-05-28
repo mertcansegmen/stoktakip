@@ -15,6 +15,7 @@ public class IstatistiklerFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_istatistikler, container, false);
+        View v = inflater.inflate(R.layout.fragment_istatistikler, container, false);
+        return v;
     }
 }
