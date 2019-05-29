@@ -1,7 +1,7 @@
 package com.example.mert.stoktakip.fragments;
 
+import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.IntegerRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -97,6 +97,8 @@ public class IstatistiklerFragment extends Fragment {
         BarData karCiroBarData = new BarData(karCiroDataSets);
         // Barların kalınlığını ayarlar
         karCiroBarData.setBarWidth(0.35f);
+        // Barların üstünde çıkan değerlerin rengi
+        karCiroBarData.setValueTextColor(Color.WHITE);
         karCiroChart.setData(karCiroBarData);
 
         XAxis xEkseniMultipleBar = karCiroChart.getXAxis();
@@ -112,12 +114,16 @@ public class IstatistiklerFragment extends Fragment {
         xEkseniMultipleBar.setAxisMaximum(karCiroBarData.getXMax() + 0.5f);
         // Değer formatlayıcıyı ayarlar
         xEkseniMultipleBar.setValueFormatter(formatterKarCiro);
+        // X eksenindeki yazıların rengi
+        xEkseniMultipleBar.setTextColor(Color.WHITE);
 
         YAxis yEkseniSolMultipleBar = karCiroChart.getAxisLeft();
         // sol Y ekseninde gözükecek değer sayısını ayarlar
         yEkseniSolMultipleBar.setLabelCount(5, false);
         // sol Y ekseninin göstereceği minimum değeri ayarlar
         yEkseniSolMultipleBar.setAxisMinimum(0f);
+        // sol Y eksenindeki yazıların rengi
+        yEkseniSolMultipleBar.setTextColor(Color.WHITE);
 
         YAxis yEkseniSagMultipleBar = karCiroChart.getAxisRight();
         // sağ Y ekseninde gözükecek değer sayısını ayarlar
@@ -128,15 +134,19 @@ public class IstatistiklerFragment extends Fragment {
         yEkseniSagMultipleBar.setDrawGridLines(false);
         // sağ Y ekseninin çizgisini gizler
         yEkseniSagMultipleBar.setDrawAxisLine(false);
+        // sağ Y eksenindeki yazıların rengi
+        yEkseniSagMultipleBar.setTextColor(Color.WHITE);
 
+        // Dataset label'ının rengi
+        karCiroChart.getLegend().setTextColor(Color.WHITE);
         // X eksenindeki sadece 7 değerin gözükmesini sağlar
         karCiroChart.setVisibleXRangeMaximum(7);
         // Tablonun en sondaki değerlerin gözükmesini sağlar
         karCiroChart.moveViewToX(xIndeksleriKarCiro.length*1f);
         // Grafiğe çift tıkla yakınlaştırmayı kapatır
         karCiroChart.setDoubleTapToZoomEnabled(false);
-        // X eksenine animasyon uygulayarak grafiği 750 milisaniyede çizer
-        karCiroChart.animateX(750);
+        // Y eksenine animasyon uygulayarak grafiği 1000 milisaniyede çizer
+        karCiroChart.animateY(1000);
         // PinchZoom aktif edilir. false ayarlanırsa X ve Y ekseni için ayrı ayrı yakınlaştırılır
         karCiroChart.setPinchZoom(true);
         // Grafiğin sağ altındaki açıklamayı siler
@@ -189,6 +199,8 @@ public class IstatistiklerFragment extends Fragment {
         BarData urunGetirisiBarData = new BarData(barDataSet);
         // Bar kalınlığı
         urunGetirisiBarData.setBarWidth(0.5f);
+        // Barların üstünde çıkan değerlerin rengi
+        urunGetirisiBarData.setValueTextColor(Color.WHITE);
         urunGetirisiChart.setData(urunGetirisiBarData);
 
         XAxis xEkseniBar = urunGetirisiChart.getXAxis();
@@ -206,12 +218,16 @@ public class IstatistiklerFragment extends Fragment {
         xEkseniBar.setAxisMinimum(urunGetirisiBarData.getXMin() - 0.5f);
         // X ekseninin sonunda boşluk bırakır
         xEkseniBar.setAxisMaximum(urunGetirisiBarData.getXMax() + 0.5f);
+        // X eksenindeki yazıların rengi
+        xEkseniBar.setTextColor(Color.WHITE);
 
         YAxis yEkseniSolBar = urunGetirisiChart.getAxisLeft();
         // sol Y ekseninde gözükecek değer sayısını ayarlar
         yEkseniSolBar.setLabelCount(5, false);
         // sol Y ekseninin göstereceği minimum değeri ayarlar
         yEkseniSolBar.setAxisMinimum(0f);
+        // sol Y eksenindeki yazıların rengi
+        yEkseniSolBar.setTextColor(Color.WHITE);
 
         YAxis yEkseniSagBar = urunGetirisiChart.getAxisRight();
         // sağ Y ekseninde gözükecek değer sayısını ayarlar
@@ -222,7 +238,11 @@ public class IstatistiklerFragment extends Fragment {
         yEkseniSagBar.setDrawGridLines(false);
         // sağ Y ekseninin çizgisini gizler
         yEkseniSagBar.setDrawAxisLine(false);
+        // sağ Y eksenindeki yazıların rengi
+        yEkseniSagBar.setTextColor(Color.WHITE);
 
+        // Dataset label'ının rengi
+        urunGetirisiChart.getLegend().setTextColor(Color.WHITE);
         // X eksenindeki sadece 7 değerin gözükmesini sağlar
         urunGetirisiChart.setVisibleXRangeMaximum(7);
         // Çift tıklayınca yakınlaştırmayı kapatır
