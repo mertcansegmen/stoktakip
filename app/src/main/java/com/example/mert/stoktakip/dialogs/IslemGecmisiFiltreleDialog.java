@@ -16,6 +16,7 @@ import android.widget.DatePicker;
 import android.widget.Spinner;
 
 import com.example.mert.stoktakip.R;
+import com.jaredrummler.materialspinner.MaterialSpinner;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -30,7 +31,7 @@ public class IslemGecmisiFiltreleDialog extends AppCompatDialogFragment
     Button baslangicTarihiBtn;
     Button bitisTarihiBtn;
     Button filtreleBtn;
-    Spinner islemTuruSpinner;
+    MaterialSpinner islemTuruSpinner;
 
     IslemGecmisiFiltreleDialogListener listener;
 
@@ -67,17 +68,14 @@ public class IslemGecmisiFiltreleDialog extends AppCompatDialogFragment
         baslangicTarihiBtn.setText(dunString);
         bitisTarihiBtn.setText(bugunString);
 
-        ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(getContext(),
-                R.array.spinner_islem_turleri, R.layout.spinner_elemani_islem_turleri);
-        spinnerAdapter.setDropDownViewResource(R.layout.spinner_elemani_islem_turleri);
-        islemTuruSpinner.setAdapter(spinnerAdapter);
+        islemTuruSpinner.setItems("Tümü", "Alım", "Satım");
 
         filtreleBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String baslangicTarihi = tarihFormatiDegistir(baslangicTarihiBtn.getText().toString());
                 String bitisTarihi = tarihFormatiDegistir(bitisTarihiBtn.getText().toString());
-                String islemTuru = islemTuruSpinner.getSelectedItem().toString();
+                String islemTuru = islemTuruSpinner.getItems().get(islemTuruSpinner.getSelectedIndex()).toString();
                 listener.filtreParametreleriniGetir(baslangicTarihi, bitisTarihi, islemTuru);
                 dismiss();
             }

@@ -9,10 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.Spinner;
 
 import com.example.mert.stoktakip.R;
 import com.example.mert.stoktakip.adapters.IslemGecmisiAdapter;
@@ -20,6 +18,7 @@ import com.example.mert.stoktakip.dialogs.IslemGecmisiFiltreleDialog;
 import com.example.mert.stoktakip.dialogs.UrunIslemiBilgileriDialog;
 import com.example.mert.stoktakip.models.UrunIslemi;
 import com.example.mert.stoktakip.models.VeritabaniIslemleri;
+import com.jaredrummler.materialspinner.MaterialSpinner;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -29,7 +28,7 @@ import java.util.Locale;
 
 public class IslemGecmisiFragment extends Fragment implements IslemGecmisiFiltreleDialog.IslemGecmisiFiltreleDialogListener {
 
-    Spinner spinner;
+    MaterialSpinner spinner;
     ImageButton filtreleBtn;
     ListView liste;
 
@@ -46,10 +45,15 @@ public class IslemGecmisiFragment extends Fragment implements IslemGecmisiFiltre
         liste = v.findViewById(R.id.liste);
         spinner = v.findViewById(R.id.spinner_filtre_araligi);
         filtreleBtn = v.findViewById(R.id.btn_filtre);
-        ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(getContext(),
-                R.array.spinner_filtre_sureleri, R.layout.spinner_elemani_filtre_sureleri);
-        spinnerAdapter.setDropDownViewResource(R.layout.spinner_elemani_filtre_sureleri);
-        spinner.setAdapter(spinnerAdapter);
+
+        vti = new VeritabaniIslemleri(getContext());
+        adapter = new IslemGecmisiAdapter(getContext(), R.layout.liste_elemani_islem_gecmisi, islemler);
+        liste.setAdapter(adapter);
+
+        spinner.setItems("Son 1 Gün", "Son 1 Hafta", "Son 1 Ay", "Son 3 Ay", "Bütün Kayıtlar");
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(new Date());
+        islemGecmisiGetir(1, cal);
 
         filtreleBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,13 +64,9 @@ public class IslemGecmisiFragment extends Fragment implements IslemGecmisiFiltre
             }
         });
 
-        vti = new VeritabaniIslemleri(getContext());
-        adapter = new IslemGecmisiAdapter(getContext(), R.layout.liste_elemani_islem_gecmisi, islemler);
-        liste.setAdapter(adapter);
-
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
                 Calendar cal = Calendar.getInstance();
                 cal.setTime(new Date());
                 switch(position){
@@ -91,12 +91,8 @@ public class IslemGecmisiFragment extends Fragment implements IslemGecmisiFiltre
                         break;
                 }
             }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
         });
+
         liste.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
