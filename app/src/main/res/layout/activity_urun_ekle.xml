@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".activities.UrunEkleActivity">
 
-
     <TextView
         android:id="@+id/txt_urun_ekle"
         android:layout_width="wrap_content"

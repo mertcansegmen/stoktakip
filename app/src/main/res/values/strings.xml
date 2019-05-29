@@ -22,6 +22,8 @@
     <string name="kadi">Kullanıcı Adı</string>
     <string name="sifre">Şifre</string>
     <string name="sifretekrar">Şifre Tekrarı</string>
+    <string name="yeni_sifre">Yeni Şifre</string>
+    <string name="yeni_sifre_terkrar">Yeni Şifre Tekrarı</string>
     <string name="kaydol">Hesabınız yok mu? Kayıt olun.</string>
     <string name="hatirla">Giriş bilgilerini hatırla</string>
     <string name="uyeol">Kayıt Ol</string>
@@ -80,4 +82,7 @@
     <string name="ornek_adet">5</string>
     <string name="adet_text">\u0020adet |\u0020</string>
     <string name="ornek_kullanici">kullanici</string>
+    <string name="kadi_guncelle">Güncelle</string>
+    <string name="kullanici_ayarlari">Kullanıcı Ayarları</string>
+    <string name="sifre_degistir">Şifre Değiştir</string>
 </resources>

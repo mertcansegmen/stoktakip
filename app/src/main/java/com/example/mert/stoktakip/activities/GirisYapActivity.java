@@ -71,7 +71,7 @@ public class GirisYapActivity extends AppCompatActivity {
             return;
         }
         // Eğer kullanıcı adı ya da şifre yanlışsa hata ver
-        if(!vti.girisBilgileriniKontrolEt(kullanici.getKadi(), kullanici.getSifre())){
+        if(!vti.girisBilgileriniKontrolEt(kullanici)){
             new GlideToast.makeToast(GirisYapActivity.this, "Kullanıcı adı ya da şifre yanlış.",
                     GlideToast.LENGTHTOOLONG, GlideToast.FAILTOAST).show();
             sifreTxt.setText(null);

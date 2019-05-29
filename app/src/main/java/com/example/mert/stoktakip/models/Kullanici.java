@@ -6,6 +6,11 @@ public class Kullanici {
 
     public Kullanici() {}
 
+    public Kullanici(String kadi, String sifre) {
+        this.kadi = kadi;
+        this.sifre = sifre;
+    }
+
     public String getKadi() {
         return kadi;
     }

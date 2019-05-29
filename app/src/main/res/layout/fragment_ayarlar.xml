@@ -18,7 +18,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <me.himanshusoni.quantityview.QuantityView xmlns:app="http://schemas.android.com/apk/res-auto"
+    <me.himanshusoni.quantityview.QuantityView
         android:id="@+id/quantity_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -48,4 +48,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/esik" />
+
+    <Button
+        android:id="@+id/btn_kullanici_guncelle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:text="@string/sifre_degistir"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_kaydet" />
 </android.support.constraint.ConstraintLayout>

@@ -138,7 +138,9 @@ public class AnasayfaActivity extends AppCompatActivity
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new VeritabaniFragment()).commit();
         } else if (id == R.id.nav_ayarlar) {
             getSupportActionBar().setTitle(R.string.nav_ayarlar_title);
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new AyarlarFragment()).commit();
+            AyarlarFragment fragment = new AyarlarFragment();
+            fragment.setArguments(bundle);
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
         } else if (id == R.id.nav_cikis_yap) {
             finish();
             Intent intent = new Intent(this, GirisYapActivity.class);

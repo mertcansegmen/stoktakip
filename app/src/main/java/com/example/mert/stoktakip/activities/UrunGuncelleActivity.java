@@ -39,8 +39,6 @@ public class UrunGuncelleActivity extends AppCompatActivity {
         til = findViewById(R.id.interceptorLayout);
         mp = MediaPlayer.create(this, R.raw.scan_sound);
 
-        //alisFiyatiTxt.setText("");
-
         // Barkod numarası güncellenemeyeceği için TextView devre dışı bırakılıyor
         barkodNoTxt.setEnabled(false);
 
