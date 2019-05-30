@@ -557,7 +557,7 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
                        SUTUN_URUN_ISLEMI_ALIS_FIYATI + ")) AS getiri FROM " + TABLO_URUN_ISLEMI +
                        " WHERE " + SUTUN_URUN_ISLEMI_ISLEM_TURU + " = 'out' " +
                        "GROUP BY " + SUTUN_URUN_ISLEMI_URUN_ID +
-                       " ORDER BY getiri DESC";
+                       " ORDER BY getiri ASC";
         Cursor c = db.rawQuery(query, null);
         ArrayList<UrunGetirisi> urunGetirileri = new ArrayList<>();
         if(c.moveToFirst()){

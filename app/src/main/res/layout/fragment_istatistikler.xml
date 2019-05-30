@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:background="@color/grafikArkaplan"/>
 
-    <com.github.mikephil.charting.charts.BarChart
+    <com.github.mikephil.charting.charts.HorizontalBarChart
         android:id="@+id/urun_getiri_chart"
         android:layout_width="match_parent"
         android:layout_height="245dp"

@@ -14,13 +14,13 @@ import com.example.mert.stoktakip.models.KarCiroBilgisi;
 import com.example.mert.stoktakip.models.UrunGetirisi;
 import com.example.mert.stoktakip.models.VeritabaniIslemleri;
 import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.charts.HorizontalBarChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 
 import java.util.ArrayList;
@@ -31,7 +31,7 @@ public class IstatistiklerFragment extends Fragment {
     VeritabaniIslemleri vti;
 
     BarChart karCiroChart;
-    BarChart urunGetirisiChart;
+    HorizontalBarChart urunGetirisiChart;
 
     @Nullable
     @Override
@@ -56,14 +56,6 @@ public class IstatistiklerFragment extends Fragment {
         List<String> zamanlarListe = new ArrayList<>();
 
         ArrayList<KarCiroBilgisi> karCiroBilgileri = vti.gunlukKarCiroBilgileriniGetir();
-        ValueFormatter formatterKarCiro = new ValueFormatter() {
-            @Override
-            public String getAxisLabel(float value, AxisBase axis) {
-                if(zamanlarListe.size() > (int) value)
-                    return zamanlarListe.get((int) value);
-                else return "";
-            }
-        };
 
         for(int i = 0; i< karCiroBilgileri.size(); i++){
             cirolarListe.add(karCiroBilgileri.get(i).getCiro());
@@ -86,9 +78,13 @@ public class IstatistiklerFragment extends Fragment {
         BarDataSet karlarBarDataSet = new BarDataSet(karlarBarEntries, "Günlük Kar (₺)");
         // Bar rengi
         karlarBarDataSet.setColor(getResources().getColor(R.color.karRenk));
+        // Barların üstünde çıkan değerlerin yazı boyutu
+        karlarBarDataSet.setValueTextSize(8);
         BarDataSet cirolarBarDataSet = new BarDataSet(cirolarBarEntries, "Günlük Ciro (₺)");
         // Bar rengi
         cirolarBarDataSet.setColor(getResources().getColor(R.color.ciroRenk));
+        // Barların üstünde çıkan değerlerin yazı boyutu
+        cirolarBarDataSet.setValueTextSize(8);
 
         List<IBarDataSet> karCiroDataSets = new ArrayList<>();
         karCiroDataSets.add(cirolarBarDataSet);
@@ -113,7 +109,7 @@ public class IstatistiklerFragment extends Fragment {
         // X ekseninin sonunda boşluk bırakır
         xEkseniMultipleBar.setAxisMaximum(karCiroBarData.getXMax() + 0.5f);
         // Değer formatlayıcıyı ayarlar
-        xEkseniMultipleBar.setValueFormatter(formatterKarCiro);
+        xEkseniMultipleBar.setValueFormatter(new IndexAxisValueFormatter(zamanlarListe));
         // X eksenindeki yazıların rengi
         xEkseniMultipleBar.setTextColor(Color.WHITE);
 
@@ -142,7 +138,7 @@ public class IstatistiklerFragment extends Fragment {
         // X eksenindeki sadece 7 değerin gözükmesini sağlar
         karCiroChart.setVisibleXRangeMaximum(7);
         // Tablonun en sondaki değerlerin gözükmesini sağlar
-        karCiroChart.moveViewToX(xIndeksleriKarCiro.length*1f);
+        karCiroChart.moveViewToX(xIndeksleriKarCiro.length);
         // Grafiğe çift tıkla yakınlaştırmayı kapatır
         karCiroChart.setDoubleTapToZoomEnabled(false);
         // Y eksenine animasyon uygulayarak grafiği 1000 milisaniyede çizer
@@ -159,19 +155,11 @@ public class IstatistiklerFragment extends Fragment {
         karCiroChart.invalidate();
     }
 
-    private void urunGetiriGrafigiCiz(BarChart urunGetirisiChart){
+    private void urunGetiriGrafigiCiz(HorizontalBarChart urunGetirisiChart){
         List<String> urunAdlariListe = new ArrayList<>();
         List<Float> getirilerListe = new ArrayList<>();
 
         List<UrunGetirisi> urunGetirileri = vti.urunGetirileriniGetir();
-        ValueFormatter formatterUrunGetirileri = new ValueFormatter() {
-            @Override
-            public String getAxisLabel(float value, AxisBase axis) {
-                if(urunAdlariListe.size() > (int) value)
-                    return urunAdlariListe.get((int) value);
-                else return "";
-            }
-        };
 
         for(int i = 0; i < urunGetirileri.size(); i++){
             urunAdlariListe.add(urunGetirileri.get(i).getUrunAdi());
@@ -201,6 +189,8 @@ public class IstatistiklerFragment extends Fragment {
         urunGetirisiBarData.setBarWidth(0.5f);
         // Barların üstünde çıkan değerlerin rengi
         urunGetirisiBarData.setValueTextColor(Color.WHITE);
+        // Barların üstünde çıkan değerlerin yazı boyutu
+        urunGetirisiBarData.setValueTextSize(8);
         urunGetirisiChart.setData(urunGetirisiBarData);
 
         XAxis xEkseniBar = urunGetirisiChart.getXAxis();
@@ -209,11 +199,9 @@ public class IstatistiklerFragment extends Fragment {
         // X ekseni için ızgara çizgilerini gizler
         xEkseniBar.setDrawGridLines(false);
         // Değer formatlayıcıyı ayarlar
-        xEkseniBar.setValueFormatter(formatterUrunGetirileri);
+        xEkseniBar.setValueFormatter(new IndexAxisValueFormatter(urunAdlariListe));
         // Yakınlaştırılınca x ekseninde fazladan değer çıkmasını engeller
         xEkseniBar.setGranularity(1f);
-        // X eksenindeki yazıları 45 derece sağa yatırır
-        xEkseniBar.setLabelRotationAngle(-45);
         // X ekseninin başlangıcında boşluk bırakır
         xEkseniBar.setAxisMinimum(urunGetirisiBarData.getXMin() - 0.5f);
         // X ekseninin sonunda boşluk bırakır
@@ -222,22 +210,15 @@ public class IstatistiklerFragment extends Fragment {
         xEkseniBar.setTextColor(Color.WHITE);
 
         YAxis yEkseniSolBar = urunGetirisiChart.getAxisLeft();
-        // sol Y ekseninde gözükecek değer sayısını ayarlar
-        yEkseniSolBar.setLabelCount(5, false);
+        yEkseniSolBar.setEnabled(false);
         // sol Y ekseninin göstereceği minimum değeri ayarlar
         yEkseniSolBar.setAxisMinimum(0f);
-        // sol Y eksenindeki yazıların rengi
-        yEkseniSolBar.setTextColor(Color.WHITE);
 
         YAxis yEkseniSagBar = urunGetirisiChart.getAxisRight();
         // sağ Y ekseninde gözükecek değer sayısını ayarlar
         yEkseniSagBar.setLabelCount(5, false);
         // sağ Y ekseninin göstereceği minimum değeri ayarlar
         yEkseniSagBar.setAxisMinimum(0f);
-        // sağ Y ekseni için ızgara çizgilerini gizler çünkü sağ Y ekseni zaten gösteriyor
-        yEkseniSagBar.setDrawGridLines(false);
-        // sağ Y ekseninin çizgisini gizler
-        yEkseniSagBar.setDrawAxisLine(false);
         // sağ Y eksenindeki yazıların rengi
         yEkseniSagBar.setTextColor(Color.WHITE);
 
@@ -245,9 +226,11 @@ public class IstatistiklerFragment extends Fragment {
         urunGetirisiChart.getLegend().setTextColor(Color.WHITE);
         // X eksenindeki sadece 7 değerin gözükmesini sağlar
         urunGetirisiChart.setVisibleXRangeMaximum(7);
+        // Tablonun en üstteki değerlerin gözükmesini sağlar
+        urunGetirisiChart.moveViewTo(0f, 0f, YAxis.AxisDependency.LEFT);
         // Çift tıklayınca yakınlaştırmayı kapatır
         urunGetirisiChart.setDoubleTapToZoomEnabled(false);
-        // X eksenine animasyon uygulayarak grafiği 750 milisaniyede çizer
+        // X eksenine animasyon uygulayarak grafiği 1000 milisaniyede çizer
         urunGetirisiChart.animateY(1000);
         // PinchZoom aktif edilir. false ayarlanırsa X ve Y ekseni için ayrı ayrı yakınlaştırılır
         urunGetirisiChart.setPinchZoom(true);
