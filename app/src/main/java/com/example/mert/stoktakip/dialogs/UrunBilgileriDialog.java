@@ -19,8 +19,6 @@ import com.example.mert.stoktakip.fragments.StokListesiFragment;
 import com.example.mert.stoktakip.models.VeritabaniIslemleri;
 import com.jeevandeshmukh.glidetoastlib.GlideToast;
 
-import org.w3c.dom.Text;
-
 import java.util.Locale;
 
 public class UrunBilgileriDialog extends AppCompatDialogFragment {
