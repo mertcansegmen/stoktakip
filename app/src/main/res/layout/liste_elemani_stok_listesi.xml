@@ -1,138 +1,139 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
     <!--android:background="@drawable/listview_border"-->
 
-    <LinearLayout
-        android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/txt_urun_adi"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
 
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
+        android:layout_marginStart="23dp"
+        android:layout_marginLeft="23dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginRight="15dp"
+
+        android:text="@string/urunadi"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/linearLayout3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
 
         android:layout_marginStart="19dp"
         android:layout_marginLeft="19dp"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="16dp"
 
-        android:orientation="vertical">
+        android:orientation="horizontal"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_urun_adi"
+        app:layout_constraintVertical_bias="0.0">
+
+        <ImageView
+            android:id="@+id/img_barkod"
+            android:layout_width="22dp"
+            android:layout_height="match_parent"
+
+            android:layout_marginTop="1dp"
+            android:layout_weight="1"
+
+            app:srcCompat="@drawable/brwhitered" />
 
         <TextView
-            android:id="@+id/txt_urun_adi"
+            android:id="@+id/txt_barkod_no"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            android:layout_marginStart="4dp"
-            android:layout_marginLeft="0dp"
+            android:text="@string/ornekbarkod"
+            android:textSize="12sp" />
+    </LinearLayout>
 
-            android:text="@string/urunadi"
-            android:textSize="18sp" />
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="wrap_content"
 
-        <LinearLayout
-            android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="23dp"
+
+        android:layout_marginRight="23dp"
+
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@+id/txt_urun_adi"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/txt_urun_adi">
+
+        <TextView
+            android:id="@+id/txt_urun_adeti"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
-            android:orientation="horizontal">
+            android:gravity="end"
 
-            <ImageView
-                android:id="@+id/img_barkod"
-                android:layout_width="22dp"
-                android:layout_height="match_parent"
+            android:text="@string/ornekstokadet"
+            android:textSize="16sp" />
 
-                android:layout_marginTop="1dp"
-                android:layout_weight="1"
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
 
-                app:srcCompat="@drawable/brwhitered" />
-
-            <TextView
-                android:id="@+id/txt_barkod_no"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:text="@string/ornekbarkod"
-                android:textSize="10sp" />
-        </LinearLayout>
-
+            android:layout_weight="1"
+            android:text=" adet" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-
-        android:layout_marginTop="10dp"
         android:layout_marginEnd="23dp"
         android:layout_marginRight="23dp"
-        android:layout_marginBottom="10dp"
 
-        android:gravity="right|end"
-        android:orientation="vertical">
+        android:orientation="horizontal"
 
-        <LinearLayout
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/linearLayout2">
+
+        <TextView
+            android:id="@+id/txt_alis_fiyati"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="1.25"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/textView10"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text=" ₺ / "
+            android:textSize="13sp" />
 
-            <TextView
-                android:id="@+id/txt_urun_adeti"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-
-                android:gravity="end"
-
-                android:text="@string/ornekstokadet"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/textView14"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text=" adet" />
-        </LinearLayout>
-
-        <LinearLayout
+        <TextView
+            android:id="@+id/txt_satis_fiyati"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="1.75"
+            android:textSize="13sp" />
 
-            <TextView
-                android:id="@+id/txt_alis_fiyati"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="1.25"
-                android:textSize="13sp" />
-
-            <TextView
-                android:id="@+id/textView10"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text=" ₺ / "
-                android:textSize="13sp" />
-
-            <TextView
-                android:id="@+id/txt_satis_fiyati"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="1.75"
-                android:textSize="13sp" />
-
-            <TextView
-                android:id="@+id/textView11"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text=" ₺" />
-        </LinearLayout>
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text=" ₺" />
     </LinearLayout>
-</RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>
