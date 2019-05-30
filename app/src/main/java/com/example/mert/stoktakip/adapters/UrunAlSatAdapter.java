@@ -13,7 +13,6 @@ import com.example.mert.stoktakip.R;
 import com.example.mert.stoktakip.models.Urun;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 import me.himanshusoni.quantityview.QuantityView;
 

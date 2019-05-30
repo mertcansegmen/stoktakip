@@ -1,26 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:id="@+id/linearLayout4"
+        android:layout_width="0dp"
+
         android:layout_height="wrap_content"
-
         android:layout_alignParentStart="true"
+
         android:layout_alignParentLeft="true"
+        android:layout_marginStart="20dp"
 
-        android:layout_marginStart="19dp"
-        android:layout_marginLeft="19dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
         android:layout_marginBottom="10dp"
-
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/quantity_view"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
         <TextView
             android:id="@+id/txt_urun_adi"
@@ -37,6 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
+            android:layout_marginTop="5dp"
             android:orientation="horizontal">
 
             <ImageView
@@ -54,36 +61,25 @@
                 android:layout_height="wrap_content"
 
                 android:text="@string/ornekbarkod"
-                android:textSize="10sp" />
+                android:textSize="12sp" />
         </LinearLayout>
 
     </LinearLayout>
 
-    <LinearLayout
+    <me.himanshusoni.quantityview.QuantityView
+        android:id="@+id/quantity_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-
-        android:layout_marginTop="10dp"
         android:layout_marginEnd="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginBottom="10dp"
-
-        android:orientation="vertical">
-
-
-        <me.himanshusoni.quantityview.QuantityView xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/quantity_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:qv_addButtonBackground="@color/ekleButon"
-            app:qv_addButtonTextColor="@color/common_google_signin_btn_text_dark_default"
-            app:qv_minQuantity="1"
-            app:qv_quantity="1"
-            app:qv_quantityDialog="true"
-            app:qv_removeButtonBackground="@color/silButon"
-            app:qv_removeButtonTextColor="@color/common_google_signin_btn_text_dark_default" />
-    </LinearLayout>
-</RelativeLayout>
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/linearLayout4"
+        app:qv_addButtonBackground="@color/ekleButon"
+        app:qv_addButtonTextColor="@color/common_google_signin_btn_text_dark_default"
+        app:qv_minQuantity="1"
+        app:qv_quantity="1"
+        app:qv_quantityDialog="true"
+        app:qv_removeButtonBackground="@color/silButon"
+        app:qv_removeButtonTextColor="@color/common_google_signin_btn_text_dark_default" />
+</android.support.constraint.ConstraintLayout>
