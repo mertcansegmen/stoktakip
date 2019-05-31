@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.example.mert.stoktakip.utils.ZamanFormatlayici;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -531,6 +533,7 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
 
         Cursor c = db.rawQuery(query, null);
         ArrayList<KarCiroBilgisi> karCiroBilgileri = new ArrayList<>();
+        ZamanFormatlayici zf = new ZamanFormatlayici();
         if(c.moveToFirst()){
             do{
                 int ciro = c.getInt(c.getColumnIndex("SUM(" + SUTUN_URUN_ISLEMI_ADET + " * " +
@@ -539,7 +542,8 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
                         SUTUN_URUN_ISLEMI_SATIS_FIYATI + " - " + SUTUN_URUN_ISLEMI_ALIS_FIYATI + "))"));
                 String zaman = c.getString(c.getColumnIndex("date(" +
                         SUTUN_URUN_ISLEMI_ISLEM_TARIHI + ", 'localtime')"));
-                KarCiroBilgisi karCiroBilgisi = new KarCiroBilgisi((float)ciro/100, (float)kar/100, tarihFormatiDegistir(zaman));
+                KarCiroBilgisi karCiroBilgisi = new KarCiroBilgisi((float)ciro/100, (float)kar/100,
+                                        zf.zamanFormatla(zaman, "yyyy-MM-dd", "dd MMM"));
                 karCiroBilgileri.add(karCiroBilgisi);
             }while (c.moveToNext());
         }
@@ -571,24 +575,5 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
         c.close();
         db.close();
         return urunGetirileri;
-    }
-
-    private String tarihFormatiDegistir(String tarih) {
-        String inputPattern = "yyyy-MM-dd";
-
-        String outputPattern = "dd MMM";
-
-        String formatliTarih = "";
-
-        SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern, Locale.getDefault());
-        SimpleDateFormat outputFormatAy = new SimpleDateFormat(outputPattern, Locale.getDefault());
-
-        try {
-            Date date = inputFormat.parse(tarih);
-            formatliTarih = outputFormatAy.format(date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return formatliTarih;
     }
 }

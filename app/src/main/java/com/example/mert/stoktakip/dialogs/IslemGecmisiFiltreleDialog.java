@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDialogFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -16,6 +17,7 @@ import android.widget.DatePicker;
 import android.widget.Spinner;
 
 import com.example.mert.stoktakip.R;
+import com.example.mert.stoktakip.utils.ZamanFormatlayici;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 
 import java.text.DateFormat;
@@ -33,6 +35,7 @@ public class IslemGecmisiFiltreleDialog extends AppCompatDialogFragment
     Button filtreleBtn;
     MaterialSpinner islemTuruSpinner;
 
+    ZamanFormatlayici zf = new ZamanFormatlayici();
     IslemGecmisiFiltreleDialogListener listener;
 
     String tur;
@@ -73,9 +76,10 @@ public class IslemGecmisiFiltreleDialog extends AppCompatDialogFragment
         filtreleBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String baslangicTarihi = tarihFormatiDegistir(baslangicTarihiBtn.getText().toString());
-                String bitisTarihi = tarihFormatiDegistir(bitisTarihiBtn.getText().toString());
+                String baslangicTarihi = zf.zamanFormatla(baslangicTarihiBtn.getText().toString(), "d MMM yyyy", "yyyy-MM-dd");
+                String bitisTarihi = zf.zamanFormatla(bitisTarihiBtn.getText().toString(), "d MMM yyyy", "yyyy-MM-dd");
                 String islemTuru = islemTuruSpinner.getItems().get(islemTuruSpinner.getSelectedIndex()).toString();
+                Log.i("mert", baslangicTarihi + " " + bitisTarihi + " " + islemTuru);
                 listener.filtreParametreleriniGetir(baslangicTarihi, bitisTarihi, islemTuru);
                 dismiss();
             }
@@ -124,24 +128,6 @@ public class IslemGecmisiFiltreleDialog extends AppCompatDialogFragment
         } else {
             bitisTarihiBtn.setText(tarih);
         }
-    }
-
-    private String tarihFormatiDegistir(String tarih) {
-        String inputPattern = "d MMM yyyy";
-        String outputPattern = "yyyy-MM-dd";
-
-        SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern, Locale.getDefault());
-        SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern, Locale.getDefault());
-
-        String formatlanmisTarih = null;
-
-        try {
-            Date date = inputFormat.parse(tarih);
-            formatlanmisTarih = outputFormat.format(date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return formatlanmisTarih;
     }
 
     @Override

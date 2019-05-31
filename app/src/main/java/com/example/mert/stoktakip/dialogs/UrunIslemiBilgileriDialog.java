@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.example.mert.stoktakip.R;
 import com.example.mert.stoktakip.models.UrunIslemi;
 import com.example.mert.stoktakip.models.VeritabaniIslemleri;
+import com.example.mert.stoktakip.utils.ZamanFormatlayici;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -46,6 +47,7 @@ public class UrunIslemiBilgileriDialog extends AppCompatDialogFragment {
         int urunIslemiId = degerler.getInt("urun_islemi_id");
 
         VeritabaniIslemleri vti = new VeritabaniIslemleri(getContext());
+        ZamanFormatlayici zf = new ZamanFormatlayici();
 
         UrunIslemi urunIslemi = vti.urunIslemiGetir(urunIslemiId);
 
@@ -66,9 +68,9 @@ public class UrunIslemiBilgileriDialog extends AppCompatDialogFragment {
         kullaniciTxt.setText(urunIslemi.getKadi());
         if(urunIslemi.getAciklama() != null && !urunIslemi.getAciklama().equals(""))
             aciklamaTxt.setText(urunIslemi.getAciklama());
-        gunTxt.setText(tarihFormatiDegistir(urunIslemi.getIslemTarihi())[1]);
-        ayTxt.setText(tarihFormatiDegistir(urunIslemi.getIslemTarihi())[0]);
-        saatTxt.setText(tarihFormatiDegistir(urunIslemi.getIslemTarihi())[2]);
+        gunTxt.setText(zf.zamanFormatla(urunIslemi.getIslemTarihi(), "yyyy-MM-dd HH:mm:ss", "dd"));
+        ayTxt.setText(zf.zamanFormatla(urunIslemi.getIslemTarihi(), "yyyy-MM-dd HH:mm:ss", "MMM"));
+        saatTxt.setText(zf.zamanFormatla(urunIslemi.getIslemTarihi(), "yyyy-MM-dd HH:mm:ss", "HH:mm"));
 
         iptalBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,30 +80,5 @@ public class UrunIslemiBilgileriDialog extends AppCompatDialogFragment {
         });
 
         return dialog.create();
-    }
-
-    private String[] tarihFormatiDegistir(String tarih) {
-        String inputPattern = "yyyy-MM-dd HH:mm:ss";
-
-        String outputPatternAy = "MMM";
-        String outputPatternGun = "dd";
-        String outputPatternSaat = "HH:mm";
-
-        String[] parcalanmisTarihler = new String[3];
-
-        SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern, Locale.getDefault());
-        SimpleDateFormat outputFormatAy = new SimpleDateFormat(outputPatternAy, Locale.getDefault());
-        SimpleDateFormat outputFormatGun = new SimpleDateFormat(outputPatternGun, Locale.getDefault());
-        SimpleDateFormat outputFormatSaat = new SimpleDateFormat(outputPatternSaat, Locale.getDefault());
-
-        try {
-            Date date = inputFormat.parse(tarih);
-            parcalanmisTarihler[0] = outputFormatAy.format(date);
-            parcalanmisTarihler[1] = outputFormatGun.format(date);
-            parcalanmisTarihler[2] = outputFormatSaat.format(date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return parcalanmisTarihler;
     }
 }
