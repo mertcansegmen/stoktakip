@@ -13,15 +13,21 @@ import com.example.mert.stoktakip.R;
 import com.example.mert.stoktakip.models.KarCiroBilgisi;
 import com.example.mert.stoktakip.models.UrunGetirisi;
 import com.example.mert.stoktakip.models.VeritabaniIslemleri;
+import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.HorizontalBarChart;
+import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
+import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +38,7 @@ public class IstatistiklerFragment extends Fragment {
 
     BarChart karCiroChart;
     HorizontalBarChart urunGetirisiChart;
+    PieChart kullaniciGetirisiChart;
 
     @Nullable
     @Override
@@ -40,13 +47,48 @@ public class IstatistiklerFragment extends Fragment {
 
         karCiroChart = v.findViewById(R.id.kar_ciro_chart);
         urunGetirisiChart = v.findViewById(R.id.urun_getiri_chart);
+        kullaniciGetirisiChart = v.findViewById(R.id.kullanici_satisi_chart);
 
         vti = new VeritabaniIslemleri(getContext());
 
         karCiroGrafigiCiz(karCiroChart);
         urunGetiriGrafigiCiz(urunGetirisiChart);
+        kullaniciGetirisiGrafigiCiz(kullaniciGetirisiChart);
 
         return v;
+    }
+
+    private void kullaniciGetirisiGrafigiCiz(PieChart kullaniciGetirisiChart) {
+        List<PieEntry> kullaniciGetirileriListe = vti.kullaniciGetirileriniGetir();
+
+        PieDataSet kullaniciGetirileriDataSet = new PieDataSet(kullaniciGetirileriListe, "  -    Kullanıcının sağladığı Getiri (₺)");
+        // Dilim renkleri
+        kullaniciGetirileriDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
+        // Dilimlerin arasındaki boşluğu ayarlar
+        kullaniciGetirileriDataSet.setSliceSpace(1f);
+        // Dilim seçilince ne kadar dışarı çıkacağını ayarlar
+        kullaniciGetirileriDataSet.setSelectionShift(4f);
+
+        PieData data = new PieData(kullaniciGetirileriDataSet);
+        // Değerlerin yazı büyüklüğü
+        data.setValueTextSize(10f);
+        // Değerlerin yazı rengi
+        data.setValueTextColor(Color.WHITE);
+        kullaniciGetirisiChart.setData(data);
+
+        // Dataset label'ının rengi
+        kullaniciGetirisiChart.getLegend().setTextColor(Color.WHITE);
+        // Etiketlerin yazı rengi
+        kullaniciGetirisiChart.setEntryLabelColor(Color.WHITE);
+        // Grafiğin sağ altındaki açıklamayı gizler
+        kullaniciGetirisiChart.getDescription().setEnabled(false);
+        // Grafiğin iç tarafının boş olmasını engeller
+        kullaniciGetirisiChart.setDrawHoleEnabled(false);
+        // Dönme animasyonu
+        kullaniciGetirisiChart.spin(1000, 0f, 360f, Easing.EaseInOutQuad);
+        // Grafiği yeniler
+        kullaniciGetirisiChart.invalidate();
+
     }
 
     private void karCiroGrafigiCiz(BarChart karCiroChart){
@@ -176,7 +218,7 @@ public class IstatistiklerFragment extends Fragment {
             getirilerBarEntries.add(new BarEntry(xIndeksleriUrunGetirileri[i], getirilerListe.get(i)));
         }
 
-        BarDataSet barDataSet = new BarDataSet(getirilerBarEntries, "Ürün Getirisi (₺)");
+        BarDataSet barDataSet = new BarDataSet(getirilerBarEntries, "Ürün Getirileri (₺)");
         // Bar rengi
         barDataSet.setColor(getResources().getColor(R.color.urunGetirisi));
         // Barların üzerinde değerlerin çıkmasını sağlar

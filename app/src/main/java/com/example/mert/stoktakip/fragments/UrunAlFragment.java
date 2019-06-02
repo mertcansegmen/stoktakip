@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,6 +48,7 @@ public class UrunAlFragment extends Fragment implements UrunListesiDialog.UrunLi
     MediaPlayer mp;
 
     ArrayList<Urun> urunler = new ArrayList<>();
+    //ArrayList<Integer> urunAdetleri = new ArrayList<>();
     String kadi;
 
     @Nullable
@@ -141,7 +143,9 @@ public class UrunAlFragment extends Fragment implements UrunListesiDialog.UrunLi
                         new GlideToast.makeToast(getActivity(), "Hata.", GlideToast.LENGTHTOOLONG, GlideToast.FAILTOAST).show();
                     }
                     else {
+                        //urunAdetleriniKaydet();
                         urunler.add(urun);
+                        //urunAdetleriniGetir();
                         sepetiBosaltBtn.setVisibility(View.VISIBLE);
                         sepetBosTxt.setVisibility(View.GONE);
                         adapter.notifyDataSetChanged();
@@ -172,7 +176,9 @@ public class UrunAlFragment extends Fragment implements UrunListesiDialog.UrunLi
             new GlideToast.makeToast(getActivity(), "Ürün zaten sepette ekli.", GlideToast.LENGTHTOOLONG, GlideToast.FAILTOAST).show();
             return;
         }
+        //urunAdetleriniKaydet();
         urunler.add(urun);
+        //urunAdetleriniGetir();
         sepetiBosaltBtn.setVisibility(View.VISIBLE);
         sepetBosTxt.setVisibility(View.GONE);
         adapter.notifyDataSetChanged();

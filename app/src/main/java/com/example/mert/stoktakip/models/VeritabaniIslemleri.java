@@ -8,12 +8,14 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.example.mert.stoktakip.utils.ZamanFormatlayici;
+import com.github.mikephil.charting.data.PieEntry;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 public class VeritabaniIslemleri extends SQLiteOpenHelper {
@@ -575,5 +577,27 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
         c.close();
         db.close();
         return urunGetirileri;
+    }
+
+    public List<PieEntry> kullaniciGetirileriniGetir() {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = "SELECT " + SUTUN_URUN_ISLEMI_KULLANICI_ID +
+                       ", SUM(" + SUTUN_URUN_ISLEMI_ADET + " * (" + SUTUN_URUN_ISLEMI_SATIS_FIYATI + " - " +
+                       SUTUN_URUN_ISLEMI_ALIS_FIYATI + ")) AS getiri FROM " + TABLO_URUN_ISLEMI +
+                       " WHERE " + SUTUN_URUN_ISLEMI_ISLEM_TURU + " = 'out' GROUP BY " + SUTUN_URUN_ISLEMI_KULLANICI_ID;
+        Cursor c = db.rawQuery(query, null);
+        List<PieEntry> getirilerPieEntry = new ArrayList<>();
+        if(c.moveToFirst()){
+            do{
+                String kadi = c.getString(c.getColumnIndex(SUTUN_URUN_ISLEMI_KULLANICI_ID));
+                int getiri = c.getInt(c.getColumnIndex("getiri"));
+                PieEntry pieEntry = new PieEntry((float)getiri / 100, kadi);
+                getirilerPieEntry.add(pieEntry);
+            }while (c.moveToNext());
+        }
+        c.close();
+        db.close();
+        return getirilerPieEntry;
     }
 }
