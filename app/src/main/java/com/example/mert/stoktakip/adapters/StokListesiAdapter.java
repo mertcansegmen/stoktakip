@@ -87,6 +87,8 @@ public class StokListesiAdapter extends ArrayAdapter<Urun> {
         holder.urunAdiTxt.setText(urun.getAd());
         holder.barkodNoTxt.setText(urun.getBarkodNo());
         holder.urunAdetiTxt.setText(String.valueOf(urun.getAdet()));
+        // Alış ve satış fiyatlarının noktadan sonraki iki basamağı gösterilmesi için (13.20 tl gibi)
+        // formatlama işlemi yapılıyor
         holder.alisFiyatiTxt.setText(String.format(Locale.getDefault(), "%.2f", urun.getAlis()));
         holder.satisFiyatiTxt.setText(String.format(Locale.getDefault(), "%.2f", urun.getSatis()));
 

@@ -60,30 +60,36 @@ public class KullaniciGuncelleActivity extends AppCompatActivity {
     private void kullaniciGuncelle() {
         Kullanici kullanici = new Kullanici(kadi, sifreTxt.getText().toString());
         Kullanici yeniKullanici = new Kullanici(kadi, yeniSifreTxt.getText().toString());
+        // Eğer herhangi bir alan boş bırakıldıysa hata ver
         if(sifreTxt.getText().toString().equals("") || yeniSifreTxt.getText().toString().equals("") || yeniSifreTekrarTxt.getText().toString().equals("")){
             new GlideToast.makeToast(KullaniciGuncelleActivity.this, "Lütfen bütün alanları doldurun.",
                     GlideToast.LENGTHTOOLONG, GlideToast.INFOTOAST).show();
             return;
         }
+        // Eğer kullanıcı şifresi yanlışsa hata ver
         if(!vti.girisBilgileriniKontrolEt(kullanici)){
             new GlideToast.makeToast(KullaniciGuncelleActivity.this, "Girdiğiniz şifre yanlış.",
                     GlideToast.LENGTHTOOLONG, GlideToast.FAILTOAST).show();
             sifreTxt.setText(null);
             return;
         }
+        // Güncellenecek şifre, şifre tekrarıyla uyuşmuyorsa hata ver
         if(!yeniSifreTxt.getText().toString().equals(yeniSifreTekrarTxt.getText().toString())){
             new GlideToast.makeToast(KullaniciGuncelleActivity.this, "Girdiğiniz şifreler birbiriyle uyuşmuyor.",
                     GlideToast.LENGTHTOOLONG, GlideToast.FAILTOAST).show();
             return;
         }
+        // Güncelleme sonrasında veritabanında değişen satır sayısı 1den azsa hata ver
         if(vti.kullaniciGuncelle(yeniKullanici) < 1){
             new GlideToast.makeToast(KullaniciGuncelleActivity.this, "Hata oluştu.",
                     GlideToast.LENGTHTOOLONG, GlideToast.FAILTOAST).show();
             return;
         }
+        // Hata oluşmadıysa şifrenin güncellendiğini kullanıcıya bildir
         new GlideToast.makeToast(KullaniciGuncelleActivity.this, "Bilgileriniz güncellendi.",
                 GlideToast.LENGTHTOOLONG, GlideToast.SUCCESSTOAST).show();
         alanlariBosalt();
+        // GlideToast'ın ekrandan gitmesini bekleyip activity'yi sonlandır
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override

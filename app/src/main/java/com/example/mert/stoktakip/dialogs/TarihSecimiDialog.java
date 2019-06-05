@@ -17,6 +17,7 @@ public class TarihSecimiDialog extends DialogFragment {
 
     TarihSecimiDialogListener listener;
 
+    // Dialog kapanınca tür bilgisini geri gönderir
     public interface TarihSecimiDialogListener{
         void turGetir(String tur);
     }
@@ -26,6 +27,7 @@ public class TarihSecimiDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Bundle bundle = getArguments();
 
+        assert bundle != null;
         String tur = bundle.getString("tur");
         String tarih = bundle.getString("tarih");
 

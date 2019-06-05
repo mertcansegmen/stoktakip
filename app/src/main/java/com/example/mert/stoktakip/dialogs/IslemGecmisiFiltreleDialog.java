@@ -59,7 +59,9 @@ public class IslemGecmisiFiltreleDialog extends AppCompatDialogFragment
         filtreleBtn = view.findViewById(R.id.btn_filtrele);
 
         Calendar cal = Calendar.getInstance();
+        // Bugünün tarihini içeren Calender nesnesi
         cal.setTime(new Date());
+        // add metoduyla bugüne -1 gün eklenerek dünün tarihi oluşturuluyor
         cal.add(Calendar.DATE, -1);
 
         Date dun = cal.getTime();
@@ -89,6 +91,9 @@ public class IslemGecmisiFiltreleDialog extends AppCompatDialogFragment
             @Override
             public void onClick(View v) {
                 Bundle degerler = new Bundle();
+                // Başlangıç tarihi butonuna basılınca açılan tarih seçim dialoguna tur değişkeni
+                // olarak "baslangicTarihi" stringi gönderiliyor. Daha sonra dialogdan değer döndürürken
+                // bu değişkene bakılarak başlangıç tarihi mi yoksa bitiş tarihi mi olduğu anlaşılacak
                 degerler.putString("tur", "baslangicTarihi");
                 degerler.putString("tarih", baslangicTarihiBtn.getText().toString());
                 DialogFragment dialog = new TarihSecimiDialog();
@@ -102,6 +107,9 @@ public class IslemGecmisiFiltreleDialog extends AppCompatDialogFragment
             @Override
             public void onClick(View v) {
                 Bundle degerler = new Bundle();
+                // Başlangıç tarihi butonuna basılınca açılan tarih seçim dialoguna tur değişkeni
+                // olarak "bitisTarihi" stringi gönderiliyor. Daha sonra dialogdan değer döndürürken
+                // bu değişkene bakılarak başlangıç tarihi mi yoksa bitiş tarihi mi olduğu anlaşılacak
                 degerler.putString("tur", "bitisTarihi");
                 degerler.putString("tarih", bitisTarihiBtn.getText().toString());
                 DialogFragment dialog = new TarihSecimiDialog();
@@ -114,6 +122,7 @@ public class IslemGecmisiFiltreleDialog extends AppCompatDialogFragment
         return dialog.create();
     }
 
+    // Tarih seçiminin yapıldığı dialogdan dönen tarih değerleri buraya geliyor
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         Calendar c = Calendar.getInstance();
@@ -123,6 +132,8 @@ public class IslemGecmisiFiltreleDialog extends AppCompatDialogFragment
 
         String tarih = DateFormat.getDateInstance(DateFormat.MEDIUM).format(c.getTime());
 
+        // Eğer başlangıç tarihi seçildiyse başlangıç tarihi butonu değişiyor, başlangıç
+        // tarihi seçilmemişse bitiş tarihi seçilmiştir
         if(tur.equals("baslangicTarihi")){
             baslangicTarihiBtn.setText(tarih);
         } else {
@@ -141,6 +152,7 @@ public class IslemGecmisiFiltreleDialog extends AppCompatDialogFragment
         }
     }
 
+    // Tarih seçimi dialogundan türü çekiyor
     @Override
     public void turGetir(String tur) {
         this.tur = tur;

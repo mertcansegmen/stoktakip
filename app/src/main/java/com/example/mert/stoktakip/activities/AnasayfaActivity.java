@@ -64,7 +64,9 @@ public class AnasayfaActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else {
+        }
+        // Eğer uygulamada geri tuşuna basılırsa çıkışı onaylayan AlertDialog açılır
+        else {
             new AlertDialog.Builder(AnasayfaActivity.this)
                     .setTitle("Uygulamayı Kapat")
                     .setMessage("Çıkmak istediğinizden emin misiniz?")
@@ -106,7 +108,8 @@ public class AnasayfaActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
+        // GirişYapActivity'den gelen kullanici adı burada bundle objesine aktarılıyor.
+        // Bu bundle UrunSatFragment, UrunAlFragment ve AyarlarFragment'ta kullanılacak.
         int id = item.getItemId();
         Bundle bundle = new Bundle();
         bundle.putString("kadi", kadi);

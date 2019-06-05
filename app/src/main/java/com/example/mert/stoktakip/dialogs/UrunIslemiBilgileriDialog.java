@@ -52,16 +52,21 @@ public class UrunIslemiBilgileriDialog extends AppCompatDialogFragment {
         UrunIslemi urunIslemi = vti.urunIslemiGetir(urunIslemiId);
 
         String urunAdi = (vti.barkodaGoreUrunGetir(urunIslemi.getBarkodNo())).getAd();
+        // Eğer veritabanında barkod no'dan ürün adı bulunmadıysa ürün silinmiş demektir
         if(urunAdi == null || urunAdi.equals(""))
             urunAdi = "Silinmiş Ürün";
         urunAdiTxt.setText(urunAdi);
         barkodNoTxt.setText(urunIslemi.getBarkodNo());
         if(urunIslemi.getIslemTuru().equals("in")) {
             islemTuruTxt.setText("Alım");
+            // Alış ve satış fiyatlarının noktadan sonraki iki basamağı gösterilmesi için (13.20 tl gibi)
+            // formatlama işlemi yapılıyor
             urunFiyatiTxt.setText(String.format(Locale.getDefault(), "%.2f", urunIslemi.getAlisFiyati()));
         }
         else {
             islemTuruTxt.setText("Satım");
+            // Alış ve satış fiyatlarının noktadan sonraki iki basamağı gösterilmesi için (13.20 tl gibi)
+            // formatlama işlemi yapılıyor
             urunFiyatiTxt.setText(String.format(Locale.getDefault(), "%.2f", urunIslemi.getSatisFiyati()));
         }
         urunAdetiTxt.setText(String.valueOf(urunIslemi.getAdet()));

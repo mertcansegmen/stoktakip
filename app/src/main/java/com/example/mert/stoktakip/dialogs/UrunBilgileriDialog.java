@@ -50,6 +50,8 @@ public class UrunBilgileriDialog extends AppCompatDialogFragment {
         urunAdiTxt.setText(urunAdi);
         barkodNoTxt.setText(barkodNo);
         urunAdetiTxt.setText(String.valueOf(urunAdeti));
+        // Alış ve satış fiyatlarının noktadan sonraki iki basamağı gösterilmesi için (13.20 tl gibi)
+        // formatlama işlemi yapılıyor
         alisFiyatiTxt.setText(String.format(Locale.getDefault(), "%.2f", alisFiyati));
         satisFiyatiTxt.setText(String.format(Locale.getDefault(), "%.2f", satisFiyati));
 

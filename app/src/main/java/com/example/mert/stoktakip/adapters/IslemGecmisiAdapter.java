@@ -56,9 +56,12 @@ public class IslemGecmisiAdapter extends ArrayAdapter<UrunIslemi> {
         String kadi = getItem(position).getKadi();
         int urunAdeti = getItem(position).getAdet();
         String urunAdi = (vti.barkodaGoreUrunGetir(barkod)).getAd();
+        // Eğer veritabanında barkod no'dan ürün adı bulunmadıysa ürün silinmiş demektir
         if(urunAdi == null || urunAdi.equals("")){
             urunAdi = "Silinmiş ürün";
         }
+        // Veritabanından tarih "yyyy-MM-dd HH:mm:ss" formatında geliyor
+        // ZamanFormatlayici classını kullanarak tarih; ay, gün, saat ve dakika olarak parçalanıyor
         String islemTarihi = getItem(position).getIslemTarihi();
         String ay = zf.zamanFormatla(islemTarihi, "yyyy-MM-dd HH:mm:ss", "MMM");
         String gun = zf.zamanFormatla(islemTarihi, "yyyy-MM-dd HH:mm:ss", "dd");

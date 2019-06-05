@@ -36,8 +36,9 @@ public class UrunAlSatAdapter extends ArrayAdapter<Urun> {
 
         TextView urunAdiTxt = convertView.findViewById(R.id.txt_urun_adi);
         TextView barkodNoTxt = convertView.findViewById(R.id.txt_barkod_no);
-        QuantityView quantityView = convertView.findViewById(R.id.quantity_view);
         /*
+        QuantityView quantityView = convertView.findViewById(R.id.quantity_view);
+
         quantityView.setOnQuantityChangeListener(new QuantityView.OnQuantityChangeListener() {
             @Override
             public void onQuantityChanged(int oldQuantity, int newQuantity, boolean programmatically) {

@@ -90,7 +90,7 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
     // urun_islemi tablosunun silme sorgusu
     private static final String URUN_ISLEMI_TABLOSU_SIL = "DROP TABLE IF EXISTS " + TABLO_URUN_ISLEMI;
 
-    //Yapıcı Metot
+    // Yapıcı Metot
     public VeritabaniIslemleri(Context context) {
         super(context, VERITABANI_ADI, null, VERITABANI_VERSION);
     }
@@ -116,6 +116,7 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
      *
      */
 
+    // Yeni kullanıcı ekler
     public long kullaniciEkle(Kullanici kullanici){
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -129,6 +130,7 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
         return hataKontrolu;
     }
 
+    // Gelen kullanıcıyı siler
     public void kullaniciSil(Kullanici kullanici){
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -136,6 +138,7 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
         db.close();
     }
 
+    // Gelen kullanıcıyı günceller
     public int kullaniciGuncelle(Kullanici kullanici){
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -149,7 +152,7 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
         return degisenSatir;
     }
 
-    // Kullanıcı adının var olup olmadığını kontrol eden metot
+    // Kullanıcı adının var olup olmadığını kontrol eder
     public boolean kullaniciAdiniKontrolEt(String kadi){
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -172,7 +175,7 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
         return cursorSayisi > 0;
     }
 
-    // Kullanıcı adı ve şifrenin doğruluğunu kontrol eden metot
+    // Kullanıcı adı ve şifrenin doğruluğunu kontrol eder
     public boolean girisBilgileriniKontrolEt(Kullanici kullanici) {
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -201,6 +204,7 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
      *
      */
 
+    // Yeni ürün ekler
     public long urunEkle(Urun urun){
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -218,6 +222,7 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
         return degisenSatir;
     }
 
+    // Gelen ürünü siler
     public void urunSil(String barkod){
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -225,6 +230,7 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
         db.close();
     }
 
+    // Gelen ürünü günceller
     public int urunGuncelle(Urun urun){
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -239,7 +245,7 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
         return degisenSatir;
     }
 
-    // Gelen barkoda sahip ürünün adetini günceller, artan parametresi true ise adeti arttırır, false ise azaltır
+    // Gelen barkoda sahip ürünün adetini günceller
     public boolean urunAdetiGuncelle(String barkod, int adet) {
         SQLiteDatabase db = this.getWritableDatabase();
         try{
@@ -255,6 +261,7 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
         return true;
     }
 
+    // Bütün ürünleri getirir
     public ArrayList<Urun> butunUrunleriGetir(){
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -281,7 +288,7 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
         return urunler;
     }
 
-    // Gelen barkodun veritabanında ekli olup olmadığını kontrol eden metot
+    // Gelen barkodun veritabanında ekli olup olmadığını kontrol eder
     public boolean urunTekrariKontrolEt(String barkod){
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -308,7 +315,7 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
         return cursorSayisi > 0;
     }
 
-    // Gelen barkoda göre ürün getiren metot
+    // Gelen barkoda göre ürün bilgilerini getirir
     public Urun barkodaGoreUrunGetir(String barkod){
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -339,7 +346,7 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
         return urun;
     }
 
-    // Gelen isime göre ürün getiren metot
+    // Gelen isime göre ürün bilgilerini getirir
     public Urun isimeGoreUrunGetir(String isim){
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -403,6 +410,7 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
      *
      */
 
+    // Yeni ürün işlemi ekler
     public long urunIslemiEkle(UrunIslemi urunIslemi){
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -422,25 +430,33 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
         return degisenSatir;
     }
 
+    // Filtre olmadan bütün işlemleri getirir
     public ArrayList<UrunIslemi> urunIslemiGecmisiFiltrele() {
+        // Başlangıç tarihi verilmediği için 1 Ocak 2019 olarak kabul edilir
         String baslangicTarihi = "2019-01-01";
+        // Bitiş tarihi verilmediği için o günkü tarih olarak kabul edilir
         String bitisTarihi = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Calendar.getInstance().getTime());
         return urunIslemleriniGetir(baslangicTarihi, bitisTarihi, "%");
     }
 
+    // Sadece başlangıç tarihi bilinmesi durumunda, verilen tarihle şuanki tarih arasda yapılan işlemleri getirir
     public ArrayList<UrunIslemi> urunIslemiGecmisiFiltrele(String baslangicTarihi){
+        // Bitiş tarihi verilmediği için o günkü tarih olarak kabul edilir
         String bitisTarihi = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Calendar.getInstance().getTime());
         return urunIslemleriniGetir(baslangicTarihi, bitisTarihi, "%");
     }
 
+    // Başlangıç ve bitiş tarihleri arasındaki işlemleri getirir
     public ArrayList<UrunIslemi> urunIslemiGecmisiFiltrele(String baslangicTarihi, String bitisTarihi){
         return urunIslemleriniGetir(baslangicTarihi, bitisTarihi, "%");
     }
 
+    // Başlangıç ve bitiş tarihleri arasında yapılmış sadece alım ya da satım işlemlerini getirir
     public ArrayList<UrunIslemi> urunIslemiGecmisiFiltrele(String baslangicTarihi, String bitisTarihi, String islemTuru){
         return urunIslemleriniGetir(baslangicTarihi, bitisTarihi, islemTuru);
     }
 
+    // Başlangıç tarihi, bitiş tarihi ve işlem türüne göre ürün işlemlerini getirir.
     private ArrayList<UrunIslemi> urunIslemleriniGetir(String baslangicTarihi, String bitisTarihi, String islemTuru){
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -485,6 +501,7 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
         return islemler;
     }
 
+    // id'si verilen ürün işlemi bilgilerini getirir
     public UrunIslemi urunIslemiGetir(int id){
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -523,6 +540,7 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
         return urunIslemi;
     }
 
+    // En az 1 satış yapılan günler için ciro ve kar bilgilerini getirir
     public ArrayList<KarCiroBilgisi> gunlukKarCiroBilgileriniGetir(){
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -554,6 +572,8 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
         return karCiroBilgileri;
     }
 
+    // Her ürünün sağladığı toplam getiriyi hesaplar. Ürün ile yapılan her işlem için
+    // ürün adeti * ( satış fiyatı - alış fiyatı ) formülüyle bulunan sonuçlar toplanıyor
     public ArrayList<UrunGetirisi> urunGetirileriniGetir(){
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -579,6 +599,9 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
         return urunGetirileri;
     }
 
+    // Her kullanıcının sağladığı toplam getiriyi hesaplar. Kullanıcının yaptığı her işlem için
+    // ürün adeti * ( satış fiyatı - alış fiyatı ) formülüyle bulunan sonuçlar toplanıyor
+    // Metot PieChart'ta kullanılacağı için PieEntry listesi olarak değer döndürüyor.
     public List<PieEntry> kullaniciGetirileriniGetir() {
         SQLiteDatabase db = this.getReadableDatabase();
 
