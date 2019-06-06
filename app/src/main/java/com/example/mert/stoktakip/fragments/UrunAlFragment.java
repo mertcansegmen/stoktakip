@@ -167,6 +167,7 @@ public class UrunAlFragment extends Fragment implements UrunListesiDialog.UrunLi
         return false;
     }
 
+    // UrunListesiDialog'dan barkod bilgisini çekip sepete ekler
     @Override
     public void barkodGetir(String barkod) {
         VeritabaniIslemleri vti = new VeritabaniIslemleri(getContext());

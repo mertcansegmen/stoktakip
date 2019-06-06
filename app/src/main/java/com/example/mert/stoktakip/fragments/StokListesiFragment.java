@@ -55,13 +55,10 @@ public class StokListesiFragment extends Fragment {
         mp = MediaPlayer.create(v.getContext(), R.raw.scan_sound);
 
         vti = new VeritabaniIslemleri(getContext());
-        // Veritabanında bulunan bütün ürünleri çekip urunler listesine ekliyor.
-        // Bu 3 satır kod çalışınca bütün ürünler ekrandaki listview'e ekleniyor.
         urunler = vti.butunUrunleriGetir();
         adapter = new StokListesiAdapter(getContext(), R.layout.liste_elemani_stok_listesi, urunler);
         liste.setAdapter(adapter);
 
-        // SearchView'da yazılan değer her değiştiğinde liste filtreleniyor
         search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -119,7 +116,7 @@ public class StokListesiFragment extends Fragment {
                     Barcode barcode = data.getParcelableExtra("barcode");
                     Urun urun = vti.barkodaGoreUrunGetir(barcode.displayValue);
                     if(!vti.urunTekrariKontrolEt(urun.getBarkodNo())){
-                        new GlideToast.makeToast(getActivity(), "Ürün bulunamadı.", GlideToast.LENGTHTOOLONG, GlideToast.FAILTOAST).show();
+                        new GlideToast.makeToast(getActivity(), "Barkod okutulmadı.", GlideToast.LENGTHTOOLONG, GlideToast.FAILTOAST).show();
                     }
                     else {
                         adapter.getFilter().filter(barcode.displayValue);

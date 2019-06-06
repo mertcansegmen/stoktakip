@@ -1,5 +1,10 @@
 package com.example.mert.stoktakip.models;
 
+/**
+ * {@code UrunGetirisi} sınıfı bir ürünün şuana kadar kazandırdığı getiriyi tutuyor.
+ *
+ */
+
 public class UrunGetirisi {
     private String urunAdi;
     private float getiri;

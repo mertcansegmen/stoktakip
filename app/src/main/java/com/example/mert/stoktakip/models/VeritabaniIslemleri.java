@@ -563,7 +563,7 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
                 String zaman = c.getString(c.getColumnIndex("date(" +
                         SUTUN_URUN_ISLEMI_ISLEM_TARIHI + ", 'localtime')"));
                 KarCiroBilgisi karCiroBilgisi = new KarCiroBilgisi((float)ciro/100, (float)kar/100,
-                                        zf.zamanFormatla(zaman, "yyyy-MM-dd", "dd MMM"));
+                                        zf.zamanFormatla(zaman, "yyyy-MM-dd", "d MMM"));
                 karCiroBilgileri.add(karCiroBilgisi);
             }while (c.moveToNext());
         }
@@ -572,7 +572,7 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
         return karCiroBilgileri;
     }
 
-    // Her ürünün sağladığı toplam getiriyi hesaplar. Ürün ile yapılan her işlem için
+    // Her bir ürünün sağladığı toplam getiriyi hesaplar. Ürün ile yapılan her işlem için
     // ürün adeti * ( satış fiyatı - alış fiyatı ) formülüyle bulunan sonuçlar toplanıyor
     public ArrayList<UrunGetirisi> urunGetirileriniGetir(){
         SQLiteDatabase db = this.getReadableDatabase();

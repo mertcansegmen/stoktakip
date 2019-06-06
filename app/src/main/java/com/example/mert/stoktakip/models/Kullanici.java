@@ -1,5 +1,7 @@
 package com.example.mert.stoktakip.models;
 
+/** {@code Kullanici} sınıfı StokTakip veritabanının kullanici tablosunu temsil ediyor */
+
 public class Kullanici {
     private String kadi;
     private String sifre;

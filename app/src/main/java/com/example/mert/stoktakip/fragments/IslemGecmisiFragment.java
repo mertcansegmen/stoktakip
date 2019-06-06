@@ -108,6 +108,8 @@ public class IslemGecmisiFragment extends Fragment implements IslemGecmisiFiltre
         return v;
     }
 
+    // Gelen Calender objesini gelen gün kadar geriye götürür, sonra bugün ile o Calender
+    // objesinin tuttuğu tarih arasında yapılmış işlem geçmişini getirir
     private void islemGecmisiGetir(int gunFiltre, Calendar cal){
         cal.add(Calendar.DATE, (-1)*gunFiltre);
         islemler.clear();
@@ -117,6 +119,7 @@ public class IslemGecmisiFragment extends Fragment implements IslemGecmisiFiltre
         adapter.notifyDataSetChanged();
     }
 
+    // IslemGecmisiFiltreleDialog'dan gelen değerleri çekip bu değerlere göre listeyi filtreler
     @Override
     public void filtreParametreleriniGetir(String baslangicTarihi, String bitisTarihi, String islemTuru) {
         islemler.clear();

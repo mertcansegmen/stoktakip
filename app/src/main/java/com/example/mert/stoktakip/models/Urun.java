@@ -1,6 +1,6 @@
 package com.example.mert.stoktakip.models;
 
-import java.text.DecimalFormat;
+/** {@code Urun} sınıfı StokTakip veritabanının urun tablosunu temsil ediyor */
 
 public class Urun {
     private String barkodNo;

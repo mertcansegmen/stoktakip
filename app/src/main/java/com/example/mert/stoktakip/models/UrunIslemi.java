@@ -1,5 +1,7 @@
 package com.example.mert.stoktakip.models;
 
+/** {@code UrunIslemi} sınıfı StokTakip veritabanının urun_islemi tablosunu temsil ediyor */
+
 public class UrunIslemi {
     private int id;
     private String islemTuru;
@@ -7,7 +9,6 @@ public class UrunIslemi {
     private String kadi;
     private int adet;
     private float alisFiyati;
-
     private float satisFiyati;
     private String islemTarihi;
     private String aciklama;

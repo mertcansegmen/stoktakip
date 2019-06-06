@@ -15,9 +15,6 @@ import com.example.mert.stoktakip.models.UrunIslemi;
 import com.example.mert.stoktakip.models.VeritabaniIslemleri;
 import com.example.mert.stoktakip.utils.ZamanFormatlayici;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Locale;
 
 public class UrunIslemiBilgileriDialog extends AppCompatDialogFragment {
@@ -71,8 +68,7 @@ public class UrunIslemiBilgileriDialog extends AppCompatDialogFragment {
         }
         urunAdetiTxt.setText(String.valueOf(urunIslemi.getAdet()));
         kullaniciTxt.setText(urunIslemi.getKadi());
-        if(urunIslemi.getAciklama() != null && !urunIslemi.getAciklama().equals(""))
-            aciklamaTxt.setText(urunIslemi.getAciklama());
+        aciklamaTxt.setText(urunIslemi.getAciklama());
         gunTxt.setText(zf.zamanFormatla(urunIslemi.getIslemTarihi(), "yyyy-MM-dd HH:mm:ss", "dd"));
         ayTxt.setText(zf.zamanFormatla(urunIslemi.getIslemTarihi(), "yyyy-MM-dd HH:mm:ss", "MMM"));
         saatTxt.setText(zf.zamanFormatla(urunIslemi.getIslemTarihi(), "yyyy-MM-dd HH:mm:ss", "HH:mm"));
