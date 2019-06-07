@@ -18,13 +18,12 @@ import com.example.mert.stoktakip.dialogs.IslemGecmisiFiltreleDialog;
 import com.example.mert.stoktakip.dialogs.UrunIslemiBilgileriDialog;
 import com.example.mert.stoktakip.models.UrunIslemi;
 import com.example.mert.stoktakip.models.VeritabaniIslemleri;
+import com.example.mert.stoktakip.utils.ZamanFormatlayici;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 
 public class IslemGecmisiFragment extends Fragment implements IslemGecmisiFiltreleDialog.IslemGecmisiFiltreleDialogListener {
 
@@ -51,9 +50,9 @@ public class IslemGecmisiFragment extends Fragment implements IslemGecmisiFiltre
         liste.setAdapter(adapter);
 
         spinner.setItems("Son 1 Gün", "Son 1 Hafta", "Son 1 Ay", "Son 3 Ay", "Bütün Kayıtlar");
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(new Date());
-        islemGecmisiGetir(1, cal);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        islemGecmisiGetir(1, calendar);
 
         filtreleBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,7 +68,7 @@ public class IslemGecmisiFragment extends Fragment implements IslemGecmisiFiltre
             public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
                 Calendar cal = Calendar.getInstance();
                 cal.setTime(new Date());
-                switch(position){
+                switch (position) {
                     case 0:
                         islemGecmisiGetir(1, cal);
                         break;
@@ -108,12 +107,12 @@ public class IslemGecmisiFragment extends Fragment implements IslemGecmisiFiltre
         return v;
     }
 
-    // Gelen Calender objesini gelen gün kadar geriye götürür, sonra bugün ile o Calender
+    // Gelen Calender objesini istenilen gün kadar geriye götürür, sonra bugün ile o Calender
     // objesinin tuttuğu tarih arasında yapılmış işlem geçmişini getirir
-    private void islemGecmisiGetir(int gunFiltre, Calendar cal){
-        cal.add(Calendar.DATE, (-1)*gunFiltre);
+    private void islemGecmisiGetir(int gunFiltre, Calendar calendar) {
+        calendar.add(Calendar.DATE, (-1) * gunFiltre);
         islemler.clear();
-        islemler = vti.urunIslemiGecmisiFiltrele(new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(cal.getTime()));
+        islemler = vti.urunIslemiGecmisiFiltrele((new ZamanFormatlayici()).zamanFormatla(calendar, "yyyy-MM-dd"));
         adapter = new IslemGecmisiAdapter(getContext(), R.layout.liste_elemani_islem_gecmisi, islemler);
         liste.setAdapter(adapter);
         adapter.notifyDataSetChanged();
@@ -123,9 +122,9 @@ public class IslemGecmisiFragment extends Fragment implements IslemGecmisiFiltre
     @Override
     public void filtreParametreleriniGetir(String baslangicTarihi, String bitisTarihi, String islemTuru) {
         islemler.clear();
-        if(islemTuru.equals("Tümü"))
+        if (islemTuru.equals("Tümü"))
             islemler = vti.urunIslemiGecmisiFiltrele(baslangicTarihi, bitisTarihi);
-        else if(islemTuru.equals("Alım"))
+        else if (islemTuru.equals("Alım"))
             islemler = vti.urunIslemiGecmisiFiltrele(baslangicTarihi, bitisTarihi, "in");
         else
             islemler = vti.urunIslemiGecmisiFiltrele(baslangicTarihi, bitisTarihi, "out");

@@ -1,6 +1,8 @@
 package com.example.mert.stoktakip.models;
 
-/** {@code Urun} sınıfı StokTakip veritabanının urun tablosunu temsil ediyor */
+/**
+ * {@code Urun} sınıfı StokTakip veritabanının urun tablosunu temsil ediyor
+ */
 
 public class Urun {
     private String barkodNo;
@@ -9,9 +11,10 @@ public class Urun {
     private float alis;
     private float satis;
 
-    public Urun(){}
+    public Urun() {
+    }
 
-    public Urun(String barkodNo, String ad){
+    public Urun(String barkodNo, String ad) {
         this.barkodNo = barkodNo;
         this.ad = ad;
     }

@@ -7,18 +7,16 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import com.example.mert.stoktakip.utils.ZamanFormatlayici;
+
 import java.util.Date;
-import java.util.Locale;
 
 public class TarihSecimiDialog extends DialogFragment {
 
     TarihSecimiDialogListener listener;
 
     // Dialog kapanınca tür bilgisini geri gönderir
-    public interface TarihSecimiDialogListener{
+    public interface TarihSecimiDialogListener {
         void turGetir(String tur);
     }
 
@@ -27,30 +25,20 @@ public class TarihSecimiDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Bundle bundle = getArguments();
 
-        assert bundle != null;
         String tur = bundle.getString("tur");
         String tarih = bundle.getString("tarih");
 
-        Date date = new Date();
+        ZamanFormatlayici zf = new ZamanFormatlayici();
 
-        try {
-            date = new SimpleDateFormat("d MMM yyyy", Locale.getDefault()).parse(tarih);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        Calendar c = Calendar.getInstance();
-
-        c.setTime(date);
-        int yil = c.get(Calendar.YEAR);
-        int ay = c.get(Calendar.MONTH);
-        int gun = c.get(Calendar.DAY_OF_MONTH);
+        int yil = Integer.parseInt(zf.zamanFormatla(tarih, "d MMM yyyy", "yyyy"));
+        int ay = Integer.parseInt(zf.zamanFormatla(tarih, "d MMM yyyy", "M"));
+        int gun = Integer.parseInt(zf.zamanFormatla(tarih, "d MMM yyyy", "d"));
 
         listener.turGetir(tur);
 
         DatePickerDialog dialog = new DatePickerDialog(getTargetFragment().getContext(),
                 (DatePickerDialog.OnDateSetListener) getTargetFragment(), yil, ay, gun);
-        dialog.getDatePicker().setMaxDate((new Date()).getTime());
+        //dialog.getDatePicker().setMaxDate((new Date()).getTime());
         return dialog;
     }
 
@@ -60,7 +48,7 @@ public class TarihSecimiDialog extends DialogFragment {
 
         try {
             listener = (TarihSecimiDialogListener) getTargetFragment();
-        }catch (ClassCastException e){
+        } catch (ClassCastException e) {
             throw new ClassCastException(context.toString() + "TarihSecimiDialogListener implement etmek gerekiyor");
         }
     }

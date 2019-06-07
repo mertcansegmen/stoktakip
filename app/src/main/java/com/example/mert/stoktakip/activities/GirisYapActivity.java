@@ -65,13 +65,13 @@ public class GirisYapActivity extends AppCompatActivity {
         VeritabaniIslemleri vti = new VeritabaniIslemleri(GirisYapActivity.this);
 
         // Alanlardan herhangi biri boşsa hata ver
-        if(kullanici.getKadi().equals("") || kullanici.getSifre().equals("")){
+        if (kullanici.getKadi().equals("") || kullanici.getSifre().equals("")) {
             new GlideToast.makeToast(GirisYapActivity.this, "Lütfen bütün alanları doldurun.",
                     GlideToast.LENGTHTOOLONG, GlideToast.INFOTOAST).show();
             return;
         }
         // Eğer kullanıcı adı ya da şifre yanlışsa hata ver
-        if(!vti.girisBilgileriniKontrolEt(kullanici)){
+        if (!vti.girisBilgileriniKontrolEt(kullanici)) {
             new GlideToast.makeToast(GirisYapActivity.this, "Kullanıcı adı ya da şifre yanlış.",
                     GlideToast.LENGTHTOOLONG, GlideToast.FAILTOAST).show();
             sifreTxt.setText(null);
@@ -87,7 +87,7 @@ public class GirisYapActivity extends AppCompatActivity {
 
     // Beni hatırla checkbox'ının click listener'ı
     private void bilgileriHatirla() {
-        if(bilgileriHatirlaCheckBox.isChecked()){
+        if (bilgileriHatirlaCheckBox.isChecked()) {
             editor.putString("checkbox", "True");
             editor.commit();
 
@@ -98,8 +98,7 @@ public class GirisYapActivity extends AppCompatActivity {
             String sifre = sifreTxt.getText().toString();
             editor.putString("sifre", sifre);
             editor.commit();
-        }
-        else{
+        } else {
             editor.putString("checkbox", "False");
             editor.commit();
 
@@ -113,7 +112,7 @@ public class GirisYapActivity extends AppCompatActivity {
 
     // Uygulama ilk çalıştığında bu metot çalışıyor, eğer shared preferences'da kayıtlı kullanıcı adı, şifre veya
     // checkbox durumu varsa onları kontrol edip gerekli alanlara çekiyor
-    private void sharedPreferencesKontrol(){
+    private void sharedPreferencesKontrol() {
         String checkBox = preferences.getString("checkbox", "False");
         String kadi = preferences.getString("kadi", "");
         String sifre = preferences.getString("sifre", "");
@@ -121,13 +120,13 @@ public class GirisYapActivity extends AppCompatActivity {
         kadiTxt.setText(kadi);
         sifreTxt.setText(sifre);
 
-        if(checkBox.equals("True"))
+        if (checkBox.equals("True"))
             bilgileriHatirlaCheckBox.setChecked(true);
         else
             bilgileriHatirlaCheckBox.setChecked(false);
     }
 
-    private void alanlariBosalt(){
+    private void alanlariBosalt() {
         sifreTxt.setText(null);
         kadiTxt.setText(null);
     }

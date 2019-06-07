@@ -55,11 +55,11 @@ public class UrunEkleActivity extends AppCompatActivity {
         String barkod = barkodNoTxt.getText().toString();
         String ad = urunAdiTxt.getText().toString();
         // Alış ve satış fiyatları kuruş şeklinde long değer olarak geliyor. Floata çevrilmesi gerekiyor
-        float alis = alisFiyatiTxt.getRawValue() / (float)100;
-        float satis = satisFiyatiTxt.getRawValue() / (float)100;
+        float alis = alisFiyatiTxt.getRawValue() / (float) 100;
+        float satis = satisFiyatiTxt.getRawValue() / (float) 100;
 
         // Alanlardan herhangi biri boşsa hata ver
-        if(barkod.equals("") || ad.equals("")){
+        if (barkod.equals("") || ad.equals("")) {
             new GlideToast.makeToast(UrunEkleActivity.this, "Lütfen bütün alanları doldurun.",
                     GlideToast.LENGTHTOOLONG, GlideToast.INFOTOAST).show();
             return;
@@ -70,13 +70,13 @@ public class UrunEkleActivity extends AppCompatActivity {
         VeritabaniIslemleri vti = new VeritabaniIslemleri(this);
 
         // Eğer ürün barkodu veritabanında bulunuyorsa hata ver
-        if(vti.urunTekrariKontrolEt(urun.getBarkodNo())){
+        if (vti.urunTekrariKontrolEt(urun.getBarkodNo())) {
             new GlideToast.makeToast(UrunEkleActivity.this, "Ürün zaten ekli.",
                     GlideToast.LENGTHTOOLONG, GlideToast.FAILTOAST).show();
             return;
         }
         // Ürün eklenemediyse hata ver
-        if(vti.urunEkle(urun) == -1){
+        if (vti.urunEkle(urun) == -1) {
             new GlideToast.makeToast(UrunEkleActivity.this, "Ürün eklenemedi.",
                     GlideToast.LENGTHTOOLONG, GlideToast.FAILTOAST).show();
             return;
@@ -90,22 +90,20 @@ public class UrunEkleActivity extends AppCompatActivity {
     // Barkod tarayıcı kapanınca gelen değeri barkodno edittext'ine geçiriyor ve düzenlemeyi kapatıyor
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == 0){
-            if(resultCode == CommonStatusCodes.SUCCESS){
-                if(data != null){
+        if (requestCode == 0) {
+            if (resultCode == CommonStatusCodes.SUCCESS) {
+                if (data != null) {
                     Barcode barcode = data.getParcelableExtra("barcode");
                     mp.start();
                     barkodNoTxt.setText(barcode.displayValue);
                     barkodNoTxt.setEnabled(false);
                     urunAdiTxt.requestFocus();
-                }
-                else{
+                } else {
                     new GlideToast.makeToast(UrunEkleActivity.this, "Barkod eklenemedi.",
                             GlideToast.LENGTHTOOLONG, GlideToast.INFOTOAST).show();
                 }
             }
-        }
-        else{
+        } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
     }

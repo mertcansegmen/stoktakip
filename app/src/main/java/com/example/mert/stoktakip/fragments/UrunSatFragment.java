@@ -73,7 +73,7 @@ public class UrunSatFragment extends Fragment implements UrunListesiDialog.UrunL
         liste.setExpanded(true);
 
         urunSatBtn.setOnClickListener(e -> urunSat());
-        sepetiBosaltBtn.setOnClickListener( e -> sepetiBosalt());
+        sepetiBosaltBtn.setOnClickListener(e -> sepetiBosalt());
         barkodBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -105,12 +105,12 @@ public class UrunSatFragment extends Fragment implements UrunListesiDialog.UrunL
         boolean yetersizUrunBulundu = false;
 
         // Stokta yeterli miktar olmayan ürünler olup olmadığı kontrol ediliyor
-        for(int i = 0; i < urunler.size(); i++){
+        for (int i = 0; i < urunler.size(); i++) {
             View view = liste.getChildAt(i);
             QuantityView quantityView = view.findViewById(R.id.quantity_view);
             int satilmakIstenenAdet = quantityView.getQuantity();
             int stoktakiAdet = vti.barkodaGoreUrunGetir(urunler.get(i).getBarkodNo()).getAdet();
-            if(stoktakiAdet < satilmakIstenenAdet) {
+            if (stoktakiAdet < satilmakIstenenAdet) {
                 yetersizStoklarAd.add(urunler.get(i).getAd());
                 yetersizStoklarAdet.add(satilmakIstenenAdet);
                 yetersizStoklarStoktakiAdet.add(stoktakiAdet);
@@ -119,11 +119,11 @@ public class UrunSatFragment extends Fragment implements UrunListesiDialog.UrunL
         }
         // Eğer yeterli sayıya sahip olmayan bir ürün bulunduysa ürün adları, stoktaki adetleri ve satılmak istenen
         // adetleri AlertDialog ile kullanıcıya gösteriliyor ve ürünlerin veritabanında güncellendiği döngüye girmiyor
-        if(yetersizUrunBulundu) {
+        if (yetersizUrunBulundu) {
             String mesaj = "";
-            for(int i = 0; i < yetersizStoklarAd.size(); i++){
+            for (int i = 0; i < yetersizStoklarAd.size(); i++) {
                 mesaj = mesaj.concat(yetersizStoklarAd.get(i) + "\n    Stoktaki ürün sayısı: " + yetersizStoklarStoktakiAdet.get(i) +
-                                    "\n    Satılmak istenilen sayı: " + yetersizStoklarAdet.get(i) + "\n");
+                        "\n    Satılmak istenilen sayı: " + yetersizStoklarAdet.get(i) + "\n");
             }
             new AlertDialog.Builder(getActivity())
                     .setTitle("Yeterli sayıda ürün yok")
@@ -137,12 +137,12 @@ public class UrunSatFragment extends Fragment implements UrunListesiDialog.UrunL
                     .show();
             return;
         }
-        for(int i = 0; i < urunler.size(); i++){
+        for (int i = 0; i < urunler.size(); i++) {
             View view = liste.getChildAt(i);
             QuantityView quantityView = view.findViewById(R.id.quantity_view);
             int adet = quantityView.getQuantity();
             // Ürünün stoktaki adeti satılmak istenen adetten azsa hata ver
-            if(!vti.urunAdetiGuncelle(urunler.get(i).getBarkodNo(), adet*(-1))) {
+            if (!vti.urunAdetiGuncelle(urunler.get(i).getBarkodNo(), adet * (-1))) {
                 new GlideToast.makeToast(getActivity(), "Hata.", GlideToast.LENGTHTOOLONG, GlideToast.FAILTOAST).show();
                 return;
             }
@@ -154,7 +154,7 @@ public class UrunSatFragment extends Fragment implements UrunListesiDialog.UrunL
             urunIslemi.setAlisFiyati(urunler.get(i).getAlis());
             urunIslemi.setSatisFiyati(urunler.get(i).getSatis());
             urunIslemi.setAciklama(aciklamaTxt.getText().toString());
-            if(vti.urunIslemiEkle(urunIslemi) == -1){
+            if (vti.urunIslemiEkle(urunIslemi) == -1) {
                 new GlideToast.makeToast(getActivity(), "Ürün satışı ekleme hatası.", GlideToast.LENGTHTOOLONG, GlideToast.FAILTOAST).show();
                 return;
             }
@@ -166,25 +166,24 @@ public class UrunSatFragment extends Fragment implements UrunListesiDialog.UrunL
     // Barkod tarayıcı kapanınca gelen barkoda sahip ürünü sepete ekliyor
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == 0){
-            if(resultCode == CommonStatusCodes.SUCCESS){
-                if(data != null){
+        if (requestCode == 0) {
+            if (resultCode == CommonStatusCodes.SUCCESS) {
+                if (data != null) {
                     Barcode barcode = data.getParcelableExtra("barcode");
                     VeritabaniIslemleri vti = new VeritabaniIslemleri(getContext());
                     Urun urun = vti.barkodaGoreUrunGetir(barcode.displayValue);
                     // Eğer barkodu okutulan ürün veritabanında yoksa hata ver
-                    if(!vti.urunTekrariKontrolEt(urun.getBarkodNo())){
+                    if (!vti.urunTekrariKontrolEt(urun.getBarkodNo())) {
                         new GlideToast.makeToast(getActivity(), "Ürün bulunamadı.", GlideToast.LENGTHTOOLONG, GlideToast.FAILTOAST).show();
                     }
                     // Eğer seçilen ürün zaten sepette varsa hata ver
-                    else if(urunSepetteEkliMi(urun)){
+                    else if (urunSepetteEkliMi(urun)) {
                         new GlideToast.makeToast(getActivity(), "Ürün zaten sepette ekli.", GlideToast.LENGTHTOOLONG, GlideToast.FAILTOAST).show();
                     }
                     // Eğer ürünün barkodu çekilemediyse hata ver
-                    else if(urun.getBarkodNo() == null){
+                    else if (urun.getBarkodNo() == null) {
                         new GlideToast.makeToast(getActivity(), "Hata.", GlideToast.LENGTHTOOLONG, GlideToast.FAILTOAST).show();
-                    }
-                    else {
+                    } else {
                         urunler.add(urun);
                         sepetiBosaltBtn.setVisibility(View.VISIBLE);
                         sepetBosTxt.setVisibility(View.GONE);
@@ -193,15 +192,14 @@ public class UrunSatFragment extends Fragment implements UrunListesiDialog.UrunL
                     }
                 }
             }
-        }
-        else{
+        } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
 
     private boolean urunSepetteEkliMi(Urun urun) {
-        for(int i=0; i<urunler.size(); i++){
-            if(urunler.get(i).getBarkodNo().equals(urun.getBarkodNo()))
+        for (int i = 0; i < urunler.size(); i++) {
+            if (urunler.get(i).getBarkodNo().equals(urun.getBarkodNo()))
                 return true;
         }
         return false;
@@ -212,7 +210,7 @@ public class UrunSatFragment extends Fragment implements UrunListesiDialog.UrunL
         VeritabaniIslemleri vti = new VeritabaniIslemleri(getContext());
         Urun urun = vti.barkodaGoreUrunGetir(barkod);
         // Eğer seçilen ürün zaten sepette varsa hata veriyor
-        if(urunSepetteEkliMi(urun)){
+        if (urunSepetteEkliMi(urun)) {
             new GlideToast.makeToast(getActivity(), "Ürün zaten sepette ekli.", GlideToast.LENGTHTOOLONG, GlideToast.FAILTOAST).show();
             return;
         }

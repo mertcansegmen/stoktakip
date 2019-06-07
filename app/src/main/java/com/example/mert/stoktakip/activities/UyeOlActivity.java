@@ -44,25 +44,25 @@ public class UyeOlActivity extends AppCompatActivity {
         VeritabaniIslemleri vti = new VeritabaniIslemleri(UyeOlActivity.this);
 
         // Alanlardan herhangi biri boşsa hata ver
-        if(kadi.equals("") || sifre.equals("") || sifreTekrar.equals("")){
+        if (kadi.equals("") || sifre.equals("") || sifreTekrar.equals("")) {
             new GlideToast.makeToast(UyeOlActivity.this, "Lütfen bütün alanları doldurun.",
                     GlideToast.LENGTHTOOLONG, GlideToast.INFOTOAST).show();
             return;
         }
         // Şifre ile şifre tekrarı aynı değilse hata ver
-        else if(!sifre.equals(sifreTekrar)){
+        else if (!sifre.equals(sifreTekrar)) {
             new GlideToast.makeToast(UyeOlActivity.this, "Girdiğiniz şifreler birbiriyle uyuşmuyor.",
                     GlideToast.LENGTHTOOLONG, GlideToast.FAILTOAST).show();
             return;
         }
         // Kullanıcı adı daha önceden alınmışsa hata ver
-        else if(vti.kullaniciAdiniKontrolEt(kadi)){
+        else if (vti.kullaniciAdiniKontrolEt(kadi)) {
             new GlideToast.makeToast(UyeOlActivity.this, "Böyle bir kullanıcı zaten mevcut.",
                     GlideToast.LENGTHTOOLONG, GlideToast.FAILTOAST).show();
             return;
         }
         // Kullanıcıyı ekle. Bir hata oluştuysa kullanıcıya bildir
-        if(vti.kullaniciEkle(kullanici) == -1){
+        if (vti.kullaniciEkle(kullanici) == -1) {
             new GlideToast.makeToast(UyeOlActivity.this, "Kayıt olurken bir hata oluştu.",
                     GlideToast.LENGTHTOOLONG, GlideToast.FAILTOAST).show();
             return;
@@ -82,7 +82,7 @@ public class UyeOlActivity extends AppCompatActivity {
 
     }
 
-    private void alanlariBosalt(){
+    private void alanlariBosalt() {
         kadiTxt.setText(null);
         sifreTxt.setText(null);
         sifreTekrarTxt.setText(null);

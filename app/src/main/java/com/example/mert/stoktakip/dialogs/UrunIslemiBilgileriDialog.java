@@ -40,7 +40,6 @@ public class UrunIslemiBilgileriDialog extends AppCompatDialogFragment {
         Button iptalBtn = view.findViewById(R.id.btn_iptal);
 
         Bundle degerler = getArguments();
-        assert degerler != null;
         int urunIslemiId = degerler.getInt("urun_islemi_id");
 
         VeritabaniIslemleri vti = new VeritabaniIslemleri(getContext());
@@ -50,17 +49,16 @@ public class UrunIslemiBilgileriDialog extends AppCompatDialogFragment {
 
         String urunAdi = (vti.barkodaGoreUrunGetir(urunIslemi.getBarkodNo())).getAd();
         // Eğer veritabanında barkod no'dan ürün adı bulunmadıysa ürün silinmiş demektir
-        if(urunAdi == null || urunAdi.equals(""))
+        if (urunAdi == null || urunAdi.equals(""))
             urunAdi = "Silinmiş Ürün";
         urunAdiTxt.setText(urunAdi);
         barkodNoTxt.setText(urunIslemi.getBarkodNo());
-        if(urunIslemi.getIslemTuru().equals("in")) {
+        if (urunIslemi.getIslemTuru().equals("in")) {
             islemTuruTxt.setText("Alım");
             // Alış ve satış fiyatlarının noktadan sonraki iki basamağı gösterilmesi için (13.20 tl gibi)
             // formatlama işlemi yapılıyor
             urunFiyatiTxt.setText(String.format(Locale.getDefault(), "%.2f", urunIslemi.getAlisFiyati()));
-        }
-        else {
+        } else {
             islemTuruTxt.setText("Satım");
             // Alış ve satış fiyatlarının noktadan sonraki iki basamağı gösterilmesi için (13.20 tl gibi)
             // formatlama işlemi yapılıyor

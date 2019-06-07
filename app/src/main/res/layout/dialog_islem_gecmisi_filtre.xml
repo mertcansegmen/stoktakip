@@ -43,7 +43,8 @@
         android:text="@string/ornek_baslangic_tarihi"
         android:textSize="13sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        app:layout_constraintTop_toBottomOf="@+id/textView5"
+        android:textAllCaps="false"/>
 
     <TextView
         android:id="@+id/textView6"
@@ -76,7 +77,8 @@
         android:text="@string/ornek_bitis_tarihi"
         android:textSize="13sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        app:layout_constraintTop_toBottomOf="@+id/textView5"
+        android:textAllCaps="false" />
 
     <TextView
         android:id="@+id/textView7"

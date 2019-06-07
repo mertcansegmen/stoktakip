@@ -59,7 +59,7 @@ public class StokListesiAdapter extends ArrayAdapter<Urun> {
         final View result;
         ViewHolder holder;
 
-        if(convertView == null){
+        if (convertView == null) {
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.liste_elemani_stok_listesi, parent, false);
 
@@ -73,9 +73,8 @@ public class StokListesiAdapter extends ArrayAdapter<Urun> {
 
             result = convertView;
             convertView.setTag(holder);
-        }
-        else{
-            holder = (ViewHolder)convertView.getTag();
+        } else {
+            holder = (ViewHolder) convertView.getTag();
             result = convertView;
         }
 
@@ -97,42 +96,34 @@ public class StokListesiAdapter extends ArrayAdapter<Urun> {
 
     @NonNull
     @Override
-    public Filter getFilter()
-    {
+    public Filter getFilter() {
         if (filter == null)
             filter = new StokFilter();
 
         return filter;
     }
 
-    private class StokFilter extends Filter
-    {
+    private class StokFilter extends Filter {
         @Override
-        protected FilterResults performFiltering(CharSequence constraint)
-        {
+        protected FilterResults performFiltering(CharSequence constraint) {
             FilterResults results = new FilterResults();
             String kelime = constraint.toString().toLowerCase();
 
-            if (kelime.equals("") || kelime.length() == 0)
-            {
+            if (kelime.equals("") || kelime.length() == 0) {
                 ArrayList<Urun> list = new ArrayList<>(original);
                 results.values = list;
                 results.count = list.size();
-            }
-            else
-            {
+            } else {
                 final ArrayList<Urun> list = new ArrayList<>(original);
                 final ArrayList<Urun> nlist = new ArrayList<>();
                 int count = list.size();
 
-                for (int i=0; i<count; i++)
-                {
+                for (int i = 0; i < count; i++) {
                     final Urun urun = list.get(i);
                     final String valueAd = urun.getAd().toLowerCase();
                     final String valueBarkod = urun.getBarkodNo().toLowerCase();
 
-                    if (valueAd.contains(kelime) || valueBarkod.contains(kelime))
-                    {
+                    if (valueAd.contains(kelime) || valueBarkod.contains(kelime)) {
                         nlist.add(urun);
                     }
                 }
@@ -145,12 +136,11 @@ public class StokListesiAdapter extends ArrayAdapter<Urun> {
         @SuppressWarnings("unchecked")
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
-            fitems = (ArrayList<Urun>)results.values;
+            fitems = (ArrayList<Urun>) results.values;
 
             clear();
             int count = fitems.size();
-            for (int i=0; i<count; i++)
-            {
+            for (int i = 0; i < count; i++) {
                 Urun urun = fitems.get(i);
                 add(urun);
             }

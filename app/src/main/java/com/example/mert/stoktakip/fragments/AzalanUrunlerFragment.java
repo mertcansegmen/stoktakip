@@ -40,13 +40,13 @@ public class AzalanUrunlerFragment extends Fragment {
 
         vti = new VeritabaniIslemleri(getContext());
         urunler = vti.azalanUrunGetir(esik);
-        adapter = new StokListesiAdapter(getContext(),R.layout.liste_elemani_stok_listesi, urunler);
+        adapter = new StokListesiAdapter(getContext(), R.layout.liste_elemani_stok_listesi, urunler);
         liste.setAdapter(adapter);
 
         return v;
     }
 
-    public void preferencesKontrol(){
+    public void preferencesKontrol() {
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getContext());
         esik = pref.getInt("esik", varsayilanEsik);
     }

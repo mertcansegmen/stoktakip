@@ -57,7 +57,7 @@ public class IslemGecmisiAdapter extends ArrayAdapter<UrunIslemi> {
         int urunAdeti = getItem(position).getAdet();
         String urunAdi = (vti.barkodaGoreUrunGetir(barkod)).getAd();
         // Eğer veritabanında barkod no'dan ürün adı bulunmadıysa ürün silinmiş demektir
-        if(urunAdi == null || urunAdi.equals("")){
+        if (urunAdi == null || urunAdi.equals("")) {
             urunAdi = "Silinmiş ürün";
         }
         // Veritabanından tarih "yyyy-MM-dd HH:mm:ss" formatında geliyor
@@ -70,7 +70,7 @@ public class IslemGecmisiAdapter extends ArrayAdapter<UrunIslemi> {
         final View result;
         ViewHolder holder;
 
-        if(convertView == null){
+        if (convertView == null) {
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.liste_elemani_islem_gecmisi, parent, false);
 
@@ -86,8 +86,8 @@ public class IslemGecmisiAdapter extends ArrayAdapter<UrunIslemi> {
 
             result = convertView;
             convertView.setTag(holder);
-        }else{
-            holder = (ViewHolder)convertView.getTag();
+        } else {
+            holder = (ViewHolder) convertView.getTag();
             result = convertView;
         }
         Animation animation = AnimationUtils.loadAnimation(context,
@@ -95,7 +95,7 @@ public class IslemGecmisiAdapter extends ArrayAdapter<UrunIslemi> {
         result.startAnimation(animation);
         lastPosition = position;
 
-        if(islemTuru.equals("in"))
+        if (islemTuru.equals("in"))
             holder.islemTuruTxt.setImageResource(R.drawable.ic_urunal_yesil);
         else
             holder.islemTuruTxt.setImageResource(R.drawable.ic_urunsat_kirmizi);

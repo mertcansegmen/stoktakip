@@ -63,11 +63,11 @@ public class UrunGuncelleActivity extends AppCompatActivity {
         String barkod = barkodNoTxt.getText().toString();
         String ad = urunAdiTxt.getText().toString();
         // Alış ve satış fiyatları kuruş şeklinde long değer olarak geliyor. Floata çevrilmesi gerekiyor
-        float alis = alisFiyatiTxt.getRawValue() / (float)100;
-        float satis = satisFiyatiTxt.getRawValue() / (float)100;
+        float alis = alisFiyatiTxt.getRawValue() / (float) 100;
+        float satis = satisFiyatiTxt.getRawValue() / (float) 100;
 
         // Alanlardan herhangi biri boşsa hata ver
-        if(ad.equals("")){
+        if (ad.equals("")) {
             new GlideToast.makeToast(UrunGuncelleActivity.this, "Lütfen bütün alanları doldurun.",
                     GlideToast.LENGTHTOOLONG, GlideToast.INFOTOAST).show();
             return;
@@ -78,7 +78,7 @@ public class UrunGuncelleActivity extends AppCompatActivity {
         VeritabaniIslemleri vti = new VeritabaniIslemleri(this);
 
         // Ürün eklenemediyse hata ver
-        if(vti.urunGuncelle(urun) != 1){
+        if (vti.urunGuncelle(urun) != 1) {
             new GlideToast.makeToast(UrunGuncelleActivity.this, "Ürün güncellenemedi.",
                     GlideToast.LENGTHTOOLONG, GlideToast.FAILTOAST).show();
             return;

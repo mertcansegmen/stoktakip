@@ -3,10 +3,10 @@ package com.example.mert.stoktakip.models;
 /**
  * {@code KarCiroBilgisi} sınıfı bir zaman aralığı içinde yapılan ciro ve kar miktarını tutuyor.
  * Örneğin:
- *          Zaman - Kar(TL) - Ciro(TL)
- *          15 Haz - 728.30 - 140.95
- *          Aralık - 12573.15 - 1128.00
- *          2019 - 95833.45 - 7985.20
+ * Zaman - Kar(TL) - Ciro(TL)
+ * 15 Haz - 728.30 - 140.95
+ * Aralık - 12573.15 - 1128.00
+ * 2019 - 95833.45 - 7985.20
  */
 public class KarCiroBilgisi {
     private float ciro;

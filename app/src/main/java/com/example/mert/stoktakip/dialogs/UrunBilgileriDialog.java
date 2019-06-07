@@ -59,21 +59,21 @@ public class UrunBilgileriDialog extends AppCompatDialogFragment {
             @Override
             public void onClick(View v) {
                 new AlertDialog.Builder(getActivity())
-                    .setTitle("Ürün Sil")
-                    .setMessage("Bu ürünü silmek istediğinizden emin misiniz?")
-                    .setPositiveButton("Evet", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            VeritabaniIslemleri vti = new VeritabaniIslemleri(getActivity());
-                            vti.urunSil(barkodNo);
-                            dismiss();
-                            fragmentYenile();
-                            new GlideToast.makeToast(getActivity(), "Ürün silindi.", GlideToast.LENGTHTOOLONG,
-                                                    GlideToast.SUCCESSTOAST).show();
-                        }
-                    })
-                    .setNegativeButton("Hayır", null)
-                    .show();
+                        .setTitle("Ürün Sil")
+                        .setMessage("Bu ürünü silmek istediğinizden emin misiniz?")
+                        .setPositiveButton("Evet", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                VeritabaniIslemleri vti = new VeritabaniIslemleri(getActivity());
+                                vti.urunSil(barkodNo);
+                                dismiss();
+                                fragmentYenile();
+                                new GlideToast.makeToast(getActivity(), "Ürün silindi.", GlideToast.LENGTHTOOLONG,
+                                        GlideToast.SUCCESSTOAST).show();
+                            }
+                        })
+                        .setNegativeButton("Hayır", null)
+                        .show();
             }
         });
         guncelleBtn.setOnClickListener(new View.OnClickListener() {
@@ -100,7 +100,7 @@ public class UrunBilgileriDialog extends AppCompatDialogFragment {
     private void fragmentYenile() {
         Fragment currentFragment = getActivity().getSupportFragmentManager().findFragmentById(R.id.fragment_container);
         if (currentFragment instanceof StokListesiFragment) {
-            FragmentTransaction fragTransaction =   (getActivity()).getSupportFragmentManager().beginTransaction();
+            FragmentTransaction fragTransaction = (getActivity()).getSupportFragmentManager().beginTransaction();
             fragTransaction.detach(currentFragment);
             fragTransaction.attach(currentFragment);
             fragTransaction.commit();

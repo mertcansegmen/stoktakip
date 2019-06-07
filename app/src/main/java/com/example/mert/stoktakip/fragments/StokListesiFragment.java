@@ -110,27 +110,24 @@ public class StokListesiFragment extends Fragment {
     // Barkod tarayıcı kapanınca okunan barkoda sahip ürünü filtreliyor
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == 0){
-            if(resultCode == CommonStatusCodes.SUCCESS){
-                if(data != null){
+        if (requestCode == 0) {
+            if (resultCode == CommonStatusCodes.SUCCESS) {
+                if (data != null) {
                     Barcode barcode = data.getParcelableExtra("barcode");
                     Urun urun = vti.barkodaGoreUrunGetir(barcode.displayValue);
-                    if(!vti.urunTekrariKontrolEt(urun.getBarkodNo())){
+                    if (!vti.urunTekrariKontrolEt(urun.getBarkodNo())) {
                         new GlideToast.makeToast(getActivity(), "Barkod okutulmadı.", GlideToast.LENGTHTOOLONG, GlideToast.FAILTOAST).show();
-                    }
-                    else {
+                    } else {
                         adapter.getFilter().filter(barcode.displayValue);
                         barkodAramasiYapildi = true;
                         mp.start();
                     }
-                }
-                else{
+                } else {
                     new GlideToast.makeToast(getActivity(), "Barkod okunmadı.",
                             GlideToast.LENGTHTOOLONG, GlideToast.INFOTOAST).show();
                 }
             }
-        }
-        else{
+        } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
     }

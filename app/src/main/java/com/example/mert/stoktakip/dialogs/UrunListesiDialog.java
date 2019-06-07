@@ -24,7 +24,7 @@ public class UrunListesiDialog extends AppCompatDialogFragment {
     UrunListesiDialogListener listener;
 
     // Dialog kapanınca seçilen ürünün barkod bilgisini geri gönderir
-    public interface UrunListesiDialogListener{
+    public interface UrunListesiDialogListener {
         void barkodGetir(String barkod);
     }
 
@@ -77,7 +77,7 @@ public class UrunListesiDialog extends AppCompatDialogFragment {
 
         try {
             listener = (UrunListesiDialogListener) getTargetFragment();
-        }catch (ClassCastException e){
+        } catch (ClassCastException e) {
             throw new ClassCastException(context.toString() + "UrunListesiDialogListener implement etmek gerekiyor");
         }
     }

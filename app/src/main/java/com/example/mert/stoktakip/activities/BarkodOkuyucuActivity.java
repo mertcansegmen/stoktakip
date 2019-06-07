@@ -76,7 +76,7 @@ public class BarkodOkuyucuActivity extends AppCompatActivity {
             @Override
             public void receiveDetections(Detector.Detections<Barcode> detections) {
                 final SparseArray<Barcode> barcodes = detections.getDetectedItems();
-                if(barcodes.size() > 0){
+                if (barcodes.size() > 0) {
                     Intent intent = new Intent();
                     intent.putExtra("barcode", barcodes.valueAt(0));
                     setResult(CommonStatusCodes.SUCCESS, intent);

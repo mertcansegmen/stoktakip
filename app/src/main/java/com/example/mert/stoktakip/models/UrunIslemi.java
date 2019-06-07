@@ -1,6 +1,8 @@
 package com.example.mert.stoktakip.models;
 
-/** {@code UrunIslemi} sınıfı StokTakip veritabanının urun_islemi tablosunu temsil ediyor */
+/**
+ * {@code UrunIslemi} sınıfı StokTakip veritabanının urun_islemi tablosunu temsil ediyor
+ */
 
 public class UrunIslemi {
     private int id;
@@ -14,7 +16,8 @@ public class UrunIslemi {
     private String aciklama;
     private String urunAdi;
 
-    public UrunIslemi(){}
+    public UrunIslemi() {
+    }
 
     public UrunIslemi(int id, String islemTuru, String barkodNo, String kadi, int adet, float alisFiyati, float satisFiyati, String islemTarihi, String urunAdi) {
         this.id = id;

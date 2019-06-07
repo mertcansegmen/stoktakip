@@ -42,7 +42,8 @@ public class IstatistiklerFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_istatistikler, container, false);
 
         karCiroChart = v.findViewById(R.id.kar_ciro_chart);
@@ -61,7 +62,8 @@ public class IstatistiklerFragment extends Fragment {
     private void kullaniciGetirisiGrafigiCiz(PieChart kullaniciGetirisiChart) {
         List<PieEntry> kullaniciGetirileriListe = vti.kullaniciGetirileriniGetir();
 
-        PieDataSet kullaniciGetirileriDataSet = new PieDataSet(kullaniciGetirileriListe, "  -    Kullanıcının sağladığı Getiri (₺)");
+        PieDataSet kullaniciGetirileriDataSet = new PieDataSet(kullaniciGetirileriListe,
+                "  -    Kullanıcının sağladığı Getiri (₺)");
         // Dilim renkleri
         kullaniciGetirileriDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
         // Dilimlerin arasındaki boşluğu ayarlar
@@ -91,7 +93,7 @@ public class IstatistiklerFragment extends Fragment {
 
     }
 
-    private void karCiroGrafigiCiz(BarChart karCiroChart){
+    private void karCiroGrafigiCiz(BarChart karCiroChart) {
 
         List<Float> cirolarListe = new ArrayList<>();
         List<Float> karlarListe = new ArrayList<>();
@@ -99,20 +101,20 @@ public class IstatistiklerFragment extends Fragment {
 
         ArrayList<KarCiroBilgisi> karCiroBilgileri = vti.gunlukKarCiroBilgileriniGetir();
 
-        for(int i = 0; i< karCiroBilgileri.size(); i++){
+        for (int i = 0; i < karCiroBilgileri.size(); i++) {
             cirolarListe.add(karCiroBilgileri.get(i).getCiro());
             karlarListe.add(karCiroBilgileri.get(i).getKar());
             zamanlarListe.add(karCiroBilgileri.get(i).getZaman());
         }
 
         int[] xIndeksleriKarCiro = new int[karCiroBilgileri.size()];
-        for(int i = 0; i< karCiroBilgileri.size(); i++){
+        for (int i = 0; i < karCiroBilgileri.size(); i++) {
             xIndeksleriKarCiro[i] = i;
         }
         List<BarEntry> cirolarBarEntries = new ArrayList<>();
         List<BarEntry> karlarBarEntries = new ArrayList<>();
 
-        for(int i = 0; i< karCiroBilgileri.size(); i++){
+        for (int i = 0; i < karCiroBilgileri.size(); i++) {
             cirolarBarEntries.add(new BarEntry(xIndeksleriKarCiro[i], cirolarListe.get(i)));
             karlarBarEntries.add(new BarEntry(xIndeksleriKarCiro[i], karlarListe.get(i)));
         }
@@ -189,7 +191,8 @@ public class IstatistiklerFragment extends Fragment {
         karCiroChart.setPinchZoom(true);
         // Grafiğin sağ altındaki açıklamayı siler
         karCiroChart.getDescription().setEnabled(false);
-        // Birden fazla bar varsa başlangıç noktasını, barlar arası uzaklığı ve bar grupları arası uzaklığı belirler
+        // Birden fazla bar varsa başlangıç noktasını, barlar arası uzaklığı
+        // ve bar grupları arası uzaklığı belirler
         karCiroChart.groupBars(-0.5f, 0.14f, 0.08f);
         // Barlara odaklanma özelliğini kapatır
         karCiroBarData.setHighlightEnabled(false);
@@ -197,25 +200,26 @@ public class IstatistiklerFragment extends Fragment {
         karCiroChart.invalidate();
     }
 
-    private void urunGetiriGrafigiCiz(HorizontalBarChart urunGetirisiChart){
+    private void urunGetiriGrafigiCiz(HorizontalBarChart urunGetirisiChart) {
         List<String> urunAdlariListe = new ArrayList<>();
         List<Float> getirilerListe = new ArrayList<>();
 
         List<UrunGetirisi> urunGetirileri = vti.urunGetirileriniGetir();
 
-        for(int i = 0; i < urunGetirileri.size(); i++){
+        for (int i = 0; i < urunGetirileri.size(); i++) {
             urunAdlariListe.add(urunGetirileri.get(i).getUrunAdi());
             getirilerListe.add(urunGetirileri.get(i).getGetiri());
         }
 
         int[] xIndeksleriUrunGetirileri = new int[urunGetirileri.size()];
-        for(int i = 0; i < urunGetirileri.size(); i++){
+        for (int i = 0; i < urunGetirileri.size(); i++) {
             xIndeksleriUrunGetirileri[i] = i;
         }
         List<BarEntry> getirilerBarEntries = new ArrayList<>();
 
-        for(int i = 0; i< urunGetirileri.size(); i++){
-            getirilerBarEntries.add(new BarEntry(xIndeksleriUrunGetirileri[i], getirilerListe.get(i)));
+        for (int i = 0; i < urunGetirileri.size(); i++) {
+            getirilerBarEntries
+                    .add(new BarEntry(xIndeksleriUrunGetirileri[i], getirilerListe.get(i)));
         }
 
         BarDataSet barDataSet = new BarDataSet(getirilerBarEntries, "Ürün Getirileri (₺)");

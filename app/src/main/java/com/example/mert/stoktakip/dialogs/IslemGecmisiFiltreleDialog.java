@@ -11,21 +11,15 @@ import android.support.v7.app.AppCompatDialogFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.Spinner;
 
 import com.example.mert.stoktakip.R;
 import com.example.mert.stoktakip.utils.ZamanFormatlayici;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 
 public class IslemGecmisiFiltreleDialog extends AppCompatDialogFragment
         implements DatePickerDialog.OnDateSetListener, TarihSecimiDialog.TarihSecimiDialogListener {
@@ -40,7 +34,7 @@ public class IslemGecmisiFiltreleDialog extends AppCompatDialogFragment
 
     String tur;
 
-    public interface IslemGecmisiFiltreleDialogListener{
+    public interface IslemGecmisiFiltreleDialogListener {
         void filtreParametreleriniGetir(String baslangicTarihi, String bitisTarihi, String islemTuru);
     }
 
@@ -58,17 +52,11 @@ public class IslemGecmisiFiltreleDialog extends AppCompatDialogFragment
         islemTuruSpinner = view.findViewById(R.id.spinner_islem_turu);
         filtreleBtn = view.findViewById(R.id.btn_filtrele);
 
-        Calendar cal = Calendar.getInstance();
-        // Bugünün tarihini içeren Calender nesnesi
-        cal.setTime(new Date());
-        // add metoduyla bugüne -1 gün eklenerek dünün tarihi oluşturuluyor
-        cal.add(Calendar.DATE, -1);
-
-        Date dun = cal.getTime();
-        Date bugun = new Date();
-
-        String dunString = new SimpleDateFormat("d MMM yyyy", Locale.getDefault()).format(dun);
-        String bugunString = new SimpleDateFormat("d MMM yyyy", Locale.getDefault()).format(bugun);
+        String bugunString = zf.zamanFormatla(new Date(), "d MMM yyyy");
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        calendar.add(Calendar.DATE, -1);
+        String dunString = zf.zamanFormatla(calendar, "d MMM yyyy");
 
         baslangicTarihiBtn.setText(dunString);
         bitisTarihiBtn.setText(bugunString);
@@ -125,16 +113,14 @@ public class IslemGecmisiFiltreleDialog extends AppCompatDialogFragment
     // Tarih seçiminin yapıldığı dialogdan dönen tarih değerleri buraya geliyor
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        Calendar c = Calendar.getInstance();
-        c.set(Calendar.YEAR, year);
-        c.set(Calendar.MONTH, month);
-        c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year, month, dayOfMonth);
 
-        String tarih = DateFormat.getDateInstance(DateFormat.MEDIUM).format(c.getTime());
+        String tarih = zf.zamanFormatla(calendar, "d MMM yyyy");
 
         // Eğer başlangıç tarihi seçildiyse başlangıç tarihi butonu değişiyor, başlangıç
         // tarihi seçilmemişse bitiş tarihi seçilmiştir
-        if(tur.equals("baslangicTarihi")){
+        if (tur.equals("baslangicTarihi")) {
             baslangicTarihiBtn.setText(tarih);
         } else {
             bitisTarihiBtn.setText(tarih);
@@ -147,7 +133,7 @@ public class IslemGecmisiFiltreleDialog extends AppCompatDialogFragment
 
         try {
             listener = (IslemGecmisiFiltreleDialogListener) getTargetFragment();
-        }catch (ClassCastException e){
+        } catch (ClassCastException e) {
             throw new ClassCastException(context.toString() + "TarihSecimiDialogListener implement etmek gerekiyor");
         }
     }

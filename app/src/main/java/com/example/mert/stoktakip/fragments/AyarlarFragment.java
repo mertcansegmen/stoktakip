@@ -51,7 +51,7 @@ public class AyarlarFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 int esik = quantityView.getQuantity();
-                if (esik != preferences.getInt("esik", varsayilanEsik)){
+                if (esik != preferences.getInt("esik", varsayilanEsik)) {
                     editor.putInt("esik", esik);
                     editor.apply();
                 }
