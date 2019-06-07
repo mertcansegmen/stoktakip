@@ -123,7 +123,9 @@ public class StokListesiAdapter extends ArrayAdapter<Urun> {
                     final String valueAd = urun.getAd().toLowerCase();
                     final String valueBarkod = urun.getBarkodNo().toLowerCase();
 
-                    if (valueAd.contains(kelime) || valueBarkod.contains(kelime)) {
+                    if (valueAd.toLowerCase().
+                            contains(kelime.toLowerCase()) ||
+                            valueBarkod.contains(kelime)) {
                         nlist.add(urun);
                     }
                 }

@@ -9,8 +9,6 @@ import android.support.v4.app.DialogFragment;
 
 import com.example.mert.stoktakip.utils.ZamanFormatlayici;
 
-import java.util.Date;
-
 public class TarihSecimiDialog extends DialogFragment {
 
     TarihSecimiDialogListener listener;
@@ -37,7 +35,7 @@ public class TarihSecimiDialog extends DialogFragment {
         listener.turGetir(tur);
 
         DatePickerDialog dialog = new DatePickerDialog(getTargetFragment().getContext(),
-                (DatePickerDialog.OnDateSetListener) getTargetFragment(), yil, ay, gun);
+                (DatePickerDialog.OnDateSetListener) getTargetFragment(), yil, ay - 1, gun);
         //dialog.getDatePicker().setMaxDate((new Date()).getTime());
         return dialog;
     }
