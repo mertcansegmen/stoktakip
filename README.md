@@ -3,12 +3,33 @@ Barkod okuyucu destekli Android stok takip uygulaması.
 
 <br>
 
-![girisPNG](https://user-images.githubusercontent.com/36744634/58672889-aed07f00-8351-11e9-9f64-2fd85b217ce1.png)
-![anasayfaPNG](https://user-images.githubusercontent.com/36744634/58672888-aed07f00-8351-11e9-891f-c2d7181b8c4e.png)
-![stoklistesiPNG](https://user-images.githubusercontent.com/36744634/58672886-ae37e880-8351-11e9-9b15-828ad77441af.png)
+## Ekran Görüntüleri
 
 <br>
 
-![urunsatPNG](https://user-images.githubusercontent.com/36744634/58672887-aed07f00-8351-11e9-9b6c-cc72ca1233a4.png)
-![islemgecmisiPNG](https://user-images.githubusercontent.com/36744634/58672890-aed07f00-8351-11e9-9375-c512c3c47a31.png)
-![istatistiklerPNG](https://user-images.githubusercontent.com/36744634/58672891-af691580-8351-11e9-8e0d-6b8d7cdd38ac.png)
+![girisPNG](https://user-images.githubusercontent.com/36744634/59139254-9b00ca80-899a-11e9-9a67-e27bf82435e9.png)
+![anasayfaPNG](https://user-images.githubusercontent.com/36744634/59139259-9c31f780-899a-11e9-8e6a-b6094c7b4a64.png)
+![stoklistesiPNG](https://user-images.githubusercontent.com/36744634/59139257-9b996100-899a-11e9-8456-2e00a050b4b2.png)
+
+<br>
+
+![urunsatPNG](https://user-images.githubusercontent.com/36744634/59139258-9b996100-899a-11e9-9895-37d5880be126.png)
+![islemgecmisiPNG](https://user-images.githubusercontent.com/36744634/59139255-9b00ca80-899a-11e9-95c4-1e47b84d0d0f.png)
+![istatistiklerPNG](https://user-images.githubusercontent.com/36744634/59139256-9b00ca80-899a-11e9-9bb3-be5f9066e1e3.png)
+
+<br>
+
+## Veritabanı Diyagramı
+
+<br>
+
+![StokTakip veritabanı diagramı](https://user-images.githubusercontent.com/36744634/59139577-88879080-899c-11e9-8f95-83caef3ce5ce.png)
+
+<br>
+
+## License
+
+Bu yazılım MIT lisansı altında yayınlanmıştır.
+
+  https://startuphukuku.com/mit-lisansi-nedir/
+
