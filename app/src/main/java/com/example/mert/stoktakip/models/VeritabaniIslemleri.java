@@ -570,15 +570,27 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
         return karCiroBilgileri;
     }
 
-    // Her bir ürünün sağladığı toplam getiriyi hesaplar. Ürün ile yapılan her işlem için
+    // Her bir ürünün sağladığı toplam getiriyi hesaplar. Ürün ile yapılan her satış işlemi için
     // ürün adeti * ( satış fiyatı - alış fiyatı ) formülüyle bulunan sonuçlar toplanıyor
     public ArrayList<UrunGetirisi> urunGetirileriniGetir(){
         SQLiteDatabase db = this.getReadableDatabase();
 
-        String query = "SELECT (SELECT " + SUTUN_URUN_AD + " FROM " + TABLO_URUN +
-                       " WHERE " + SUTUN_URUN_ID + " = " + SUTUN_URUN_ISLEMI_URUN_ID + ") AS urun_adi, " +
-                       " SUM(" + SUTUN_URUN_ISLEMI_ADET + " * (" + SUTUN_URUN_ISLEMI_SATIS_FIYATI + " - " +
-                       SUTUN_URUN_ISLEMI_ALIS_FIYATI + ")) AS getiri FROM " + TABLO_URUN_ISLEMI +
+        // Eğer daha önceden satış işlemi yapılmış ve sonrasında urun tablosundan silinmiş bir ürün varsa,
+        // urun_islemi tablosundaki barkod numarasıyla urun tablosunda bulunmayan bir ürünün
+        // adı çekilmeye çalışıldığı için hata alınıyor. Bunu engellemek için önce ürün tablosunda
+        // o barkoda uyan bir ürün var mı diye kontrol ediliyor, yoksa ürün adı olarak
+        // "Silinmiş Ürün" stringi döndürülüyor.
+        String query = "SELECT " +
+                       "CASE WHEN "  +
+                       "EXISTS(SELECT " + SUTUN_URUN_AD + " FROM " + TABLO_URUN +
+                       " WHERE " + SUTUN_URUN_ID + " = " + SUTUN_URUN_ISLEMI_URUN_ID + ")" +
+                       " THEN (SELECT " + SUTUN_URUN_AD + " FROM " + TABLO_URUN +
+                       " WHERE " + SUTUN_URUN_ID + " = " + SUTUN_URUN_ISLEMI_URUN_ID + ")" +
+                       "ELSE 'Silinmiş Ürün' " +
+                       "END AS urun_adi, " +
+                       "SUM(" + SUTUN_URUN_ISLEMI_ADET + " * (" + SUTUN_URUN_ISLEMI_SATIS_FIYATI + " - " +
+                       SUTUN_URUN_ISLEMI_ALIS_FIYATI + ")) AS getiri " +
+                       "FROM " + TABLO_URUN_ISLEMI +
                        " WHERE " + SUTUN_URUN_ISLEMI_ISLEM_TURU + " = 'out' " +
                        "GROUP BY " + SUTUN_URUN_ISLEMI_URUN_ID +
                        " ORDER BY getiri ASC";
@@ -589,7 +601,7 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
                 String ad = c.getString(c.getColumnIndex("urun_adi"));
                 int getiri = c.getInt(c.getColumnIndex("getiri"));
                 UrunGetirisi urunGetirisi = new UrunGetirisi(ad, (float) getiri / 100);
-                urunGetirileri.add(urunGetirisi);
+                urunGetirileri.add(urunGetirisi);//8691058141948
             }while (c.moveToNext());
         }
         c.close();
@@ -597,7 +609,7 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
         return urunGetirileri;
     }
 
-    // Her kullanıcının sağladığı toplam getiriyi hesaplar. Kullanıcının yaptığı her işlem için
+    // Her kullanıcının sağladığı toplam getiriyi hesaplar. Kullanıcının yaptığı her satış işlemi için
     // ürün adeti * ( satış fiyatı - alış fiyatı ) formülüyle bulunan sonuçlar toplanıyor
     // Metot PieChart'ta kullanılacağı için PieEntry listesi olarak değer döndürüyor.
     public List<PieEntry> kullaniciGetirileriniGetir() {

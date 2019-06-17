@@ -18,7 +18,7 @@
             <com.github.mikephil.charting.charts.BarChart
                 android:id="@+id/kar_ciro_chart"
                 android:layout_width="match_parent"
-                android:layout_height="245dp"
+                android:layout_height="229dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="8dp"
@@ -31,7 +31,7 @@
             <com.github.mikephil.charting.charts.HorizontalBarChart
                 android:id="@+id/urun_getiri_chart"
                 android:layout_width="match_parent"
-                android:layout_height="245dp"
+                android:layout_height="229dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="8dp"
@@ -44,7 +44,7 @@
             <com.github.mikephil.charting.charts.PieChart
                 android:id="@+id/kullanici_satisi_chart"
                 android:layout_width="match_parent"
-                android:layout_height="245dp"
+                android:layout_height="229dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="8dp"
