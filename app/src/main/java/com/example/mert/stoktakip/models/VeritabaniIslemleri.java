@@ -601,7 +601,7 @@ public class VeritabaniIslemleri extends SQLiteOpenHelper {
                 String ad = c.getString(c.getColumnIndex("urun_adi"));
                 int getiri = c.getInt(c.getColumnIndex("getiri"));
                 UrunGetirisi urunGetirisi = new UrunGetirisi(ad, (float) getiri / 100);
-                urunGetirileri.add(urunGetirisi);//8691058141948
+                urunGetirileri.add(urunGetirisi);
             }while (c.moveToNext());
         }
         c.close();
