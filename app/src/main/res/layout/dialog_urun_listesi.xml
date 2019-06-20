@@ -11,18 +11,17 @@
         android:id="@+id/search_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="7dp"
-        android:layout_marginLeft="7dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="22dp"
-        android:layout_marginRight="22dp"
         android:iconifiedByDefault="false"
         android:queryHint="Ürün adı ya da barkod no"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:focusable="false"
-        android:focusableInTouchMode="false" />
+        android:focusableInTouchMode="false"
+        app:theme="@style/AppSearchView"
+        android:queryBackground="@android:color/transparent"
+        android:background="@drawable/cerceve_search_view"/>
 
     <ListView
         android:id="@+id/liste"

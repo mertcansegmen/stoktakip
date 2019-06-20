@@ -21,9 +21,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
-                android:layout_marginRight="14dp"
-                android:layout_marginEnd="14dp"
-
                 android:layout_alignParentStart="true"
                 android:layout_alignParentLeft="true"
 
@@ -38,7 +35,10 @@
 
                     android:iconifiedByDefault="false"
 
-                    android:queryHint="Ürün adı ya da barkod no">
+                    android:queryHint="Ürün adı ya da barkod no"
+                    app:theme="@style/AppSearchView"
+                    android:queryBackground="@android:color/transparent"
+                    android:background="@drawable/cerceve_search_view">
 
                 </SearchView>
             </com.example.mert.stoktakip.utils.TouchInterceptorLayout>
@@ -66,7 +66,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
 
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="8dp"
 
             android:background="@color/dividerArkaplan" />
 

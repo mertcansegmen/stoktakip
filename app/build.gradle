@@ -4,7 +4,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.example.mert.stoktakip"
-        minSdkVersion 15 // GlideToast'ı kullanabilmek için 14'ten 15e yükseltildi
+        minSdkVersion 21 // GlideToast'ı kullanabilmek için 14'ten 15e yükseltildi
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -40,6 +40,7 @@ dependencies {
     implementation 'com.github.BlacKCaT27:CurrencyEditText:2.0.2'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
     implementation 'com.jaredrummler:material-spinner:1.3.1'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
 }
 repositories {
     jcenter()

@@ -10,10 +10,6 @@
         android:id="@+id/linearLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="13dp"
-        android:layout_marginLeft="13dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,15 +22,15 @@
             android:layout_margin="8dp"
             android:layout_weight="12"
             app:ms_background_color="@color/listeArkaplan"
-            app:ms_text_color="@color/beyaz"/>
+            app:ms_text_color="@color/beyaz" />
 
         <ImageButton
             android:id="@+id/btn_filtre"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:layout_marginRight="15dp"
             android:layout_marginEnd="15dp"
+            android:layout_marginRight="15dp"
             android:layout_weight="1"
             android:background="@null"
             app:srcCompat="@drawable/ic_filtre"
@@ -53,8 +49,9 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
 
-        android:divider="@null"
+        android:layout_marginTop="8dp"
 
+        android:divider="@null"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

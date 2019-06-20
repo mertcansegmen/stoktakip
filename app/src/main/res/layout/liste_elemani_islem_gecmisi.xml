@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/liste_elemani_cerceve">
+    android:background="@drawable/cerceve_liste_elemani">
 
     <LinearLayout
         android:id="@+id/linearLayout5"

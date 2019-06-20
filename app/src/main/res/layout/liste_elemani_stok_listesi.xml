@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/liste_elemani_cerceve">
-    <!--android:background="@drawable/listview_border"-->
+    android:background="@drawable/cerceve_liste_elemani">
 
     <TextView
         android:id="@+id/txt_urun_adi"
