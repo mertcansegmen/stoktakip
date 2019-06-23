@@ -13,7 +13,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
 
+        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
         android:background="@drawable/cerceve_search_view"
         android:iconifiedByDefault="false"
         android:queryBackground="@android:color/transparent"
@@ -41,11 +43,9 @@
         android:id="@+id/btn_barkod"
         android:layout_width="0dp"
         android:layout_height="0dp"
-
-
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="4dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
         android:background="@android:color/transparent"
         android:scaleType="centerInside"
         app:layout_constraintBottom_toBottomOf="@+id/search_view"
@@ -54,19 +54,29 @@
         app:layout_constraintTop_toTopOf="@+id/search_view"
         app:srcCompat="@drawable/brwhitered" />
 
+    <View
+        android:id="@+id/cizgi"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="-8dp"
+        android:layout_marginStart="-8dp"
+        android:background="@android:drawable/dialog_holo_dark_frame"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/search_view" />
 
     <ListView
         android:id="@+id/liste"
         android:layout_width="0dp"
         android:layout_height="0dp"
 
-        android:layout_marginTop="16dp"
         android:divider="@null"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search_view" />
+        app:layout_constraintTop_toBottomOf="@+id/cizgi" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/btn_urun_ekle"
