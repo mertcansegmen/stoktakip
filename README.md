@@ -16,20 +16,3 @@ Barkod okuyucu destekli Android stok takip uygulaması.
 ![urunsatPNG](https://user-images.githubusercontent.com/36744634/59139258-9b996100-899a-11e9-9895-37d5880be126.png)
 ![islemgecmisiPNG](https://user-images.githubusercontent.com/36744634/59139255-9b00ca80-899a-11e9-95c4-1e47b84d0d0f.png)
 ![istatistiklerPNG](https://user-images.githubusercontent.com/36744634/59139256-9b00ca80-899a-11e9-9bb3-be5f9066e1e3.png)
-
-<br>
-
-## Veritabanı Diyagramı
-
-<br>
-
-![StokTakip veritabanı diagramı](https://user-images.githubusercontent.com/36744634/59139577-88879080-899c-11e9-8f95-83caef3ce5ce.png)
-
-<br>
-
-## License
-
-Bu yazılım MIT lisansı altında yayınlanmıştır.
-
-  https://startuphukuku.com/mit-lisansi-nedir/
-
